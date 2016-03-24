@@ -15,7 +15,8 @@ namespace Model
     public partial class Goods
     {
         public System.Guid ID { get; set; }
-        public Nullable<System.Guid> CaseID { get; set; }
+        public string MasterType { get; set; }
+        public Nullable<System.Guid> MasterID { get; set; }
         public string CaseName { get; set; }
         public string CaseCode { get; set; }
         public string GoodsCode { get; set; }
@@ -43,6 +44,7 @@ namespace Model
         public Nullable<System.DateTime> HandleReveiver { get; set; }
         public string Note { get; set; }
         public Nullable<System.Guid> Affix { get; set; }
+        public bool IsEditable { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<System.DateTime> Timestamp { get; set; }
     }

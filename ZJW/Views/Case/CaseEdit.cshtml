@@ -53,7 +53,7 @@
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">暂扣视频：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Movie}else{@Html.TextBoxFor(i => item.Movie, new { size = 135 })}}</td>
+                <td class="detail_td2" colspan="7"><a href="/Case/Movie" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" >查看</a>@Html.HiddenFor(i => item.Movie)</td>
             </tr>
             @RenderPage("~/Views/Shared/FileUpload.cshtml")
             

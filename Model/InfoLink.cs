@@ -15,14 +15,13 @@ namespace Model
     public partial class InfoLink
     {
         public System.Guid ID { get; set; }
-        public Nullable<System.Guid> CreateDate { get; set; }
-        public Nullable<System.Guid> CreateStaff { get; set; }
-        public string CaseType { get; set; }
-        public Nullable<System.Guid> MasterID { get; set; }
-        public Nullable<System.Guid> DetailID { get; set; }
-        public Nullable<System.Guid> WithholdID { get; set; }
-        public Nullable<System.Guid> KeepID { get; set; }
-        public Nullable<System.Guid> TrailID { get; set; }
+        public Nullable<System.Guid> Prev { get; set; }
+        public Nullable<System.Guid> Next { get; set; }
+        public string PropertyType { get; set; }
+        public Nullable<System.Guid> PropertyID { get; set; }
+        public Nullable<System.Guid> UserID { get; set; }
+        public bool Active { get; set; }
         public Nullable<System.Guid> IsDeleted { get; set; }
+        public System.DateTime Timestamp { get; set; }
     }
 }

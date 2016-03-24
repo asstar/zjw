@@ -78,6 +78,30 @@ namespace zjw.Controllers
                 return View();
             }
         }
+
+        public ActionResult CaseUserEdit()
+        {
+            var masterID = new Guid(Request["MasterID"]);
+            Users find = userService.FindByMasterID(masterID);
+            if(find==null)
+            {
+                Session["UserEditType"] = "Create";
+                Users user = new Users();
+                user.ID = Guid.NewGuid();
+                user.MasterID = masterID;
+                ViewBag.user = user;
+                return View();
+            }
+            else
+            {
+                Session["UserEditType"] = "Edit";
+                Users user = userService.Find(find.ID);
+                ViewBag.user = user;
+                return View();
+            }
+        }
+
+        
         [HttpPost]
         public ActionResult UsersDelete(Guid ID)
         {
@@ -95,7 +119,7 @@ namespace zjw.Controllers
             }
             return Content("true");
         }
-
+        public ActionResult test() { return Content("true"); }
         public ActionResult SaveOrUpdate(Users item)
         {
 
@@ -119,6 +143,19 @@ namespace zjw.Controllers
                 return Content("true");
             }
             return Content("false");
+        }
+
+        public JsonResult GetBindUserList()
+        {
+            IEnumerable<Users> temp = null;
+            string sql = null;
+
+            sql = "SELECT * FROM Users where IsKeyNode=1";
+
+
+            temp = userService.SqlQuery(sql);
+
+            return Json(temp.ToList(), JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetUsersList()
         {
@@ -182,7 +219,7 @@ namespace zjw.Controllers
 
             return Json(temp.ToList(), JsonRequestBehavior.AllowGet);
         }
-        
+
         public ActionResult DeptList()
         {
             return View();
@@ -191,7 +228,7 @@ namespace zjw.Controllers
         {
             string type = Request["type"];
             Session["DeptEditType"] = type;
-         
+
             Guid id = new Guid();
             if (Request["type"] != "CreateLevelOne")
             {
@@ -244,7 +281,7 @@ namespace zjw.Controllers
 
             return Content(deptGridTree.GetJson());
         }
-        
+
         public ActionResult RoleList()
         {
             return View();
@@ -271,13 +308,13 @@ namespace zjw.Controllers
         }
         public ActionResult GetMenuComboTree(Guid ID)
         {
-            return Content(ComboTree.GetJson(ID)); 
+            return Content(ComboTree.GetJson(ID));
         }
         public ActionResult RoleSaveOrUpdate(Role item)
         {
 
             string editType = (string)Session["RoleEditType"];
-            string menuTree =Request["menutree"];
+            string menuTree = Request["menutree"];
             Guid id;
             if (editType != "Edit")
             {

@@ -1,0 +1,135 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Users item= ViewBag.user;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/edit.js"></script>
+
+
+</head>
+<body>
+    <div class="easyui-panel" style="padding: 20px 20px;">
+        @{Html.BeginForm(Session["Flag"] == "Create" ? "CaseUserSaveOrUpdate" : "CaseUserSaveOrUpdate", "Admin", FormMethod.Post, new { name = "frm_edit", id = "frm_edit" });}
+        <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">
+                    专案组用户信息表<br />
+                    @Html.HiddenFor(i => item.ID)
+                    @Html.HiddenFor(i => item.MasterID)
+                    @Html.HiddenFor(i => item.MasterType)
+
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1">姓名</td>
+                <td class="detail_td2">
+                    @Html.TextBoxFor(i => item.RealName, new { size = 30 })
+                </td>
+                <td class="detail_td1">帐号</td>
+                <td class="detail_td2">
+                    @Html.TextBoxFor(i => item.UserName, new { size = 30 })
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1">密码</td>
+                <td class="detail_td2">
+                    @Html.PasswordFor(i => item.Password, new { size = 30, value = item.Password })
+                </td>
+                <td class="detail_td1">再次输入密码</td>
+                <td class="detail_td2">
+                    <input class="easyui-validatebox" size="30"  type="password" name="repeatpass" maxlength="30" validtype="equalTo['#item_Password']" value='@item.Password' />
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1">部门：</td>
+                <td class="detail_td2" colspan="3">
+                    @Html.TextBoxFor(i => item.DeptID, new { size = 60, @class = "easyui-combotree" })
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1">角色</td>
+                <td class="detail_td2" colspan="3">
+                    @Html.TextBoxFor(i => item.RoleID, new { size = 60, @class = "easyui-combobox" })
+                </td>
+            </tr>
+
+
+        </table>
+        <p align="center">
+
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">确认</a>
+            
+            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+        @{Html.EndForm();}
+
+
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $("#item_DeptID").combotree({
+            url: '/Admin/GetShowDeptList',
+            valueField: 'ID',
+            textField: 'DeptName',
+            required: true,
+            width: 250
+        });
+
+        $("#item_RoleID").combobox({
+            url: '/Admin/GetShowRoleList',
+            valueField: 'ID',
+            textField: 'RoleName',
+            width: 250,
+            required: true
+        });
+
+    });
+    function SubmitData() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () { $('#frm_edit').submit() }, 0);
+            });
+        }
+    }
+
+    function beforeSubmit() {
+        if ($("#frm_win_add").form('validate')) {
+            $.ajax({
+                type: "POST",
+                url: '/Admin/CheckName',
+                data: 'UserName=' + $('#item_UserName').val(),
+                complete: function (msg) {
+                    if (msg.responseText == "false") {
+                        var old_login_name = $('#old_login_name').val();
+                        if (old_login_name == "") {//新增
+                            $.messager.alert('提示信息', '该登录名已存在！', 'info');
+                        } else {
+                            if ($("#item_UserName").val() == old_login_name) {
+                                saveOrUploadForm("frm_win_add", '/Admin/SaveOrUpdate', 'funAfterSubmit');
+                            } else {
+                                $.messager.alert('提示信息', '该登录名已存在！', 'info');
+                            }
+                        }
+                    } else {
+                        saveOrUploadForm("frm_win_add", '/Admin/SaveOrUpdate', 'funAfterSubmit');
+                    }
+                }
+            });
+        }
+    }
+</script>

@@ -15,7 +15,8 @@ namespace Model
     public partial class Money
     {
         public System.Guid ID { get; set; }
-        public Nullable<System.Guid> CaseID { get; set; }
+        public string MasterType { get; set; }
+        public Nullable<System.Guid> MasterID { get; set; }
         public string CaseName { get; set; }
         public string CaseCode { get; set; }
         public string MoneyCode { get; set; }
@@ -36,6 +37,7 @@ namespace Model
         public string HandleReveiver { get; set; }
         public string Note { get; set; }
         public Nullable<System.Guid> Affix { get; set; }
+        public bool IsEditable { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<System.DateTime> Timestamp { get; set; }
     }

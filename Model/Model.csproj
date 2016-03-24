@@ -80,7 +80,11 @@
     <Compile Include="RoleMenu.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
+    <Compile Include="Serializable.cs" />
     <Compile Include="Tree.cs" />
+    <Compile Include="UserPermission.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>

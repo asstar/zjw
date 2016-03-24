@@ -21,7 +21,10 @@ namespace Model
         public string RealName { get; set; }
         public Nullable<System.Guid> RoleID { get; set; }
         public string Rank { get; set; }
+        public string MasterType { get; set; }
+        public Nullable<System.Guid> MasterID { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<System.DateTime> Timestamp { get; set; }
+        public bool IsKeyNode { get; set; }
     }
 }

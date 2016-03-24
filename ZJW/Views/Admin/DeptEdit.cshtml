@@ -22,13 +22,19 @@
                             @Html.TextBoxFor(i => item.DeptName, new { size = 30 })
                         </td>
                     </tr>
+
                     <tr class="detail_tr">
                         <td class="detail_td1">上级级别名称:</td>
                         <td class="detail_td2">
                             <input class="easyui-validatebox" type="text" id="ParentName" readonly="readonly" size=30 />
                         </td>
                     </tr>
-
+                    <tr class="detail_tr">
+                        <td class="detail_td1">绑定用户</td>
+                        <td class="detail_td2" colspan="3">
+                            @Html.TextBoxFor(i => item.UserID, new { size = 60, @class = "easyui-combobox" })
+                        </td>
+                    </tr>
                     <tr class="detail_tr">
                         <td class="detail_td1"><span style="color: red">*&nbsp;&nbsp;</span>排序:</td>
                         <td class="detail_td2">
@@ -69,6 +75,13 @@
                 $('#ParentName').val(pNode.DeptName);
             }
         }
+        $("#item_UserID").combobox({
+            url: '/Admin/GetBindUserList',
+            valueField: 'ID',
+            textField: 'RealName',
+            width: 250,
+            required: true
+        });
     });
 
     function beforeSubmit() {

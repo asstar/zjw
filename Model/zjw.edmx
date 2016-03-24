@@ -45,6 +45,7 @@
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="DeptName" Type="text" />
+          <Property Name="UserID" Type="guid" />
           <Property Name="ParentID" Type="guid" />
           <Property Name="Sequence" Type="text" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -72,7 +73,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
-          <Property Name="CaseID" Type="guid" />
+          <Property Name="MasterType" Type="text" />
+          <Property Name="MasterID" Type="guid" />
           <Property Name="CaseName" Type="text" />
           <Property Name="CaseCode" Type="text" />
           <Property Name="GoodsCode" Type="text" />
@@ -100,6 +102,7 @@
           <Property Name="HandleReveiver" Type="timestamp" Precision="0" />
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="guid" />
+          <Property Name="IsEditable" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
@@ -108,15 +111,14 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
-          <Property Name="CreateDate" Type="guid" />
-          <Property Name="CreateStaff" Type="guid" />
-          <Property Name="CaseType" Type="text" />
-          <Property Name="MasterID" Type="guid" />
-          <Property Name="DetailID" Type="guid" />
-          <Property Name="WithholdID" Type="guid" />
-          <Property Name="KeepID" Type="guid" />
-          <Property Name="TrailID" Type="guid" />
+          <Property Name="Prev" Type="guid" />
+          <Property Name="Next" Type="guid" />
+          <Property Name="PropertyType" Type="text" />
+          <Property Name="PropertyID" Type="guid" />
+          <Property Name="UserID" Type="guid" />
+          <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="guid" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -135,7 +137,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
-          <Property Name="CaseID" Type="guid" />
+          <Property Name="MasterType" Type="text" />
+          <Property Name="MasterID" Type="guid" />
           <Property Name="CaseName" Type="text" />
           <Property Name="CaseCode" Type="text" />
           <Property Name="MoneyCode" Type="text" />
@@ -156,6 +159,7 @@
           <Property Name="HandleReveiver" Type="text" />
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="guid" />
+          <Property Name="IsEditable" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
@@ -176,6 +180,17 @@
           <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="RoleID" Type="guid" />
           <Property Name="MenuID" Type="guid" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
+        </EntityType>
+        <EntityType Name="UserPermission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="UserID" Type="guid" />
+          <Property Name="DeptID" Type="guid" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Users">
@@ -189,8 +204,11 @@
           <Property Name="RealName" Type="text" />
           <Property Name="RoleID" Type="guid" />
           <Property Name="Rank" Type="text" />
+          <Property Name="MasterType" Type="text" />
+          <Property Name="MasterID" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
+          <Property Name="IsKeyNode" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Affix" EntityType="Self.Affix" Schema="zjw" store:Type="Tables" />
@@ -203,6 +221,7 @@
           <EntitySet Name="Money" EntityType="Self.Money" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" Schema="zjw" store:Type="Tables" />
+          <EntitySet Name="UserPermission" EntityType="Self.UserPermission" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="zjw" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -250,6 +269,7 @@
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="DeptName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Guid" />
           <Property Name="ParentID" Type="Guid" />
           <Property Name="Sequence" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
@@ -277,7 +297,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="CaseID" Type="Guid" />
+          <Property Name="MasterType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterID" Type="Guid" />
           <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="GoodsCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -305,6 +326,7 @@
           <Property Name="HandleReveiver" Type="DateTime" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="Guid" />
+          <Property Name="IsEditable" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
@@ -313,15 +335,14 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="CreateDate" Type="Guid" />
-          <Property Name="CreateStaff" Type="Guid" />
-          <Property Name="CaseType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="MasterID" Type="Guid" />
-          <Property Name="DetailID" Type="Guid" />
-          <Property Name="WithholdID" Type="Guid" />
-          <Property Name="KeepID" Type="Guid" />
-          <Property Name="TrailID" Type="Guid" />
+          <Property Name="Prev" Type="Guid" />
+          <Property Name="Next" Type="Guid" />
+          <Property Name="PropertyType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="PropertyID" Type="Guid" />
+          <Property Name="UserID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Guid" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -340,7 +361,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="CaseID" Type="Guid" />
+          <Property Name="MasterType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterID" Type="Guid" />
           <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="MoneyCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -361,6 +383,7 @@
           <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="Guid" />
+          <Property Name="IsEditable" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
@@ -381,6 +404,17 @@
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="RoleID" Type="Guid" />
           <Property Name="MenuID" Type="Guid" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="UserPermission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Guid" />
+          <Property Name="DeptID" Type="Guid" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Users">
@@ -394,8 +428,11 @@
           <Property Name="RealName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="RoleID" Type="Guid" />
           <Property Name="Rank" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterID" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" />
+          <Property Name="IsKeyNode" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Affix" EntityType="Self.Affix" />
@@ -408,6 +445,7 @@
           <EntitySet Name="Money" EntityType="Self.Money" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" />
+          <EntitySet Name="UserPermission" EntityType="Self.UserPermission" />
           <EntitySet Name="Users" EntityType="Self.Users" />
         </EntityContainer>
       </Schema>
@@ -457,6 +495,7 @@
               <MappingFragment StoreEntitySet="Dept">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="Sequence" ColumnName="Sequence" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -486,7 +525,8 @@
             <EntityTypeMapping TypeName="Model.Goods">
               <MappingFragment StoreEntitySet="Goods">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="CaseName" ColumnName="CaseName" />
                 <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
                 <ScalarProperty Name="GoodsCode" ColumnName="GoodsCode" />
@@ -514,6 +554,7 @@
                 <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
@@ -523,15 +564,14 @@
             <EntityTypeMapping TypeName="Model.InfoLink">
               <MappingFragment StoreEntitySet="InfoLink">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateStaff" ColumnName="CreateStaff" />
-                <ScalarProperty Name="CaseType" ColumnName="CaseType" />
-                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
-                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
-                <ScalarProperty Name="WithholdID" ColumnName="WithholdID" />
-                <ScalarProperty Name="KeepID" ColumnName="KeepID" />
-                <ScalarProperty Name="TrailID" ColumnName="TrailID" />
+                <ScalarProperty Name="Prev" ColumnName="Prev" />
+                <ScalarProperty Name="Next" ColumnName="Next" />
+                <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -552,7 +592,8 @@
             <EntityTypeMapping TypeName="Model.Money">
               <MappingFragment StoreEntitySet="Money">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="CaseName" ColumnName="CaseName" />
                 <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
                 <ScalarProperty Name="MoneyCode" ColumnName="MoneyCode" />
@@ -573,6 +614,7 @@
                 <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
@@ -595,6 +637,18 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPermission">
+            <EntityTypeMapping TypeName="Model.UserPermission">
+              <MappingFragment StoreEntitySet="UserPermission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -609,8 +663,11 @@
                 <ScalarProperty Name="RealName" ColumnName="RealName" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="IsKeyNode" ColumnName="IsKeyNode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

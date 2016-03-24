@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <link href="./Resource/movie/css/video-js.min.css" rel="stylesheet" />
+    <script src="./Resource/movie/js/video.min.js"></script>
+
+    <script>
+        videojs.options.flash.swf = "video-js.swf";
+    </script>
+</head>
+<body>
+
+
+        <p align="center">
+            <video id="example_video1" class="video-js vjs-default-skin" controls=controls preload="none" width="640" height="480"
+                   data-setup="{}">
+                <source src="../../demo.mp4" type='video/mp4' />
+            </video><br/>
+            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+
+</body>
+</html>

@@ -14,7 +14,7 @@ namespace zjw.Controllers
         IGiftService giftService = new GiftService();
         //
         // GET: /Case/
-        public ActionResult Index()
+        public ActionResult Movie()
         {
             return View();
         }

@@ -16,6 +16,7 @@ namespace Model
     {
         public System.Guid ID { get; set; }
         public string DeptName { get; set; }
+        public Nullable<System.Guid> UserID { get; set; }
         public Nullable<System.Guid> ParentID { get; set; }
         public string Sequence { get; set; }
         public bool IsDeleted { get; set; }

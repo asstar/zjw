@@ -23,7 +23,7 @@
                 <td class="table_title" colspan="8">
                     涉案物品信息表<br />
                     @Html.HiddenFor(i => item.ID)
-                    @Html.HiddenFor(i => item.CaseID)
+                    @Html.HiddenFor(i => item.MasterID)
                     <input type="hidden" name="current" id="current" value="" />
                 </td>
             </tr>
@@ -317,7 +317,7 @@
         $.getJSON("/Property/GetGoodsLastData",
             function (jsonData) {
 
-                $("#item_CaseID").val(jsonData.CaseID);
+                $("#item_MasterID").val(jsonData.MasterID);
                 $("#item_CaseName").val(jsonData.CaseName);
                 $("#item_CaseCode").val(jsonData.CaseCode);
                 $("#item_OriginalHolder").val(jsonData.OriginalHolder);

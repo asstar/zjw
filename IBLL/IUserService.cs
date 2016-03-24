@@ -10,5 +10,6 @@ namespace IBLL
     {
         Users FindByUserName(string userName);
         IEnumerable<UsersMore> SqlQueryMore(string sql);
+        Users FindByMasterID(Guid masterID);
     }
 }

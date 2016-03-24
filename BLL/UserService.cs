@@ -17,6 +17,14 @@ namespace BLL
                 return temp.FirstOrDefault();
             }
         }
+        public Users FindByMasterID(Guid masterID)
+        {
+            using (var db = new DBEntities())
+            {
+                var temp = from a in db.Users where a.MasterID == masterID select a;
+                return temp.FirstOrDefault();
+            }
+        }
         public IEnumerable<UsersMore> SqlQueryMore(string sql)
         {
             using (var db = new DBEntities())
