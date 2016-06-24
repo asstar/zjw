@@ -1,0 +1,105 @@
+﻿@using BLL;
+@using System.Diagnostics;
+@using Model;
+@{
+    
+    Layout = null;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>中共中央纪委涉案物品管理信息系统</title>
+    <link href="../../Resource/default.css" rel="stylesheet" />
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/outlook2.js"> </script>
+
+    <script type="text/javascript">
+
+        var _menus = "@Session["Menus"]";
+        _menus = _menus.replace(/&quot;/g, "\"");
+        var _menus = eval('(' + _menus + ')');
+
+     
+
+        function confirm() {
+            $.messager.confirm('确认', '确认退出系统吗？', function (r) {
+                if (r) {
+                    location.href = '/Login/LogOut/';
+                }
+            });
+        }
+        function changePassword() {
+            addTab("修改密码", "/Admin/ChangePassword", 'icon-house');
+            var ieset = navigator.userAgent;
+            if (ieset.indexOf("MSIE 6.0") > -1) {
+                var currTab1 = $('#tabs').tabs('getSelected');
+                setTimeout(function () { refreshTab(currTab1) }, 0);
+                function refreshTab(refresh_tab) {
+                    if (refresh_tab && refresh_tab.find('iframe').length > 0) {
+                        var _refresh_ifram = refresh_tab.find('iframe')[0];
+                        var refresh_url = _refresh_ifram.src;
+                        _refresh_ifram.contentWindow.location.href = refresh_url;
+                    }
+                }
+            }
+        }
+    </script>
+    }
+</head>
+<body class="easyui-layout" data-options="fit:true,scroll:'no'">
+    <div data-options="region:'north',border:false" style="height: 80px; background: rgb(224,236,255); padding: 0px" position:relative=position:relative>
+        <div style="float:left"><img src="../../Resource/head.png" /></div>
+        <div style="position: fixed !important; top: 20px; right: 5px; ">
+            <table>
+                <tr>
+                    <td colspan="2" style="color:blue;">中纪委专用</td>
+                </tr>
+                <tr>
+                    <td style="color:blue;">用户：</td>
+                    <td style="color:blue;"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><a class="blue small" href="javascript:void(0)" onclick="changePassword();">修改密码</a>  <a class="blue small" onclick="confirm()" href="javascript:void(0)">退出系统</a></tdclass>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+    <div region="west" hide="true" split="true" title="导航菜单" style="width:180px;" id="west">
+        <div id="nav" class="easyui-accordion" fit="true" border="false">
+            <!--  导航内容 -->
+
+        </div>
+
+    </div>
+    <div data-options="region:'south',border:false" style="height: 23px;">
+        <div class="footer"></div>
+    </div>
+    <div data-options="region:'center'">
+        <div id="tabs" class="easyui-tabs" data-options="tools:'#tab-tools',fit:true,border:false">
+            <div title="主页" data-options="iconCls:'icon-house'" style="padding: 10px;">
+                
+                <iframe scrolling="auto" frameborder="0" src="@Url.Content("/Home/Home/")" style="width:100%;height:100%;"></iframe>
+            </div>
+        </div>
+
+    </div>
+    <div id="mm" class="easyui-menu" style="width: 150px;">
+        <div id="refresh" data-options="iconCls:'icon-arrow_refresh'">刷新</div>
+        <div class="menu-sep"></div>
+        <div id="close">关闭</div>
+        <div id="closeall">全部关闭</div>
+        <div id="closeother">除此之外全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="closeright">当前页右侧全部关闭</div>
+        <div id="closeleft">当前页左侧全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="exit">退出</div>
+    </div>
+</body>
+</html>
+

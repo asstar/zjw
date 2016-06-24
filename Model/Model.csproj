@@ -65,6 +65,12 @@
     <Compile Include="Property.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoleMenu.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
@@ -85,14 +91,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="zjw.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>zjw.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
     <None Include="zjw.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>zjw.edmx</DependentUpon>

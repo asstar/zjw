@@ -12,6 +12,7 @@ namespace zjw.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
+            Session["Menus"] = MenuBar.GetJson(new Guid("266e2696-bf31-4a32-865e-442e315e5f00"));
             return View();
         }
 	}

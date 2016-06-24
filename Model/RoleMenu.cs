@@ -12,13 +12,10 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Menu
+    public partial class RoleMenu
     {
         public System.Guid ID { get; set; }
-        public string Name { get; set; }
-        public string Icon { get; set; }
-        public Nullable<System.Guid> ParentID { get; set; }
-        public string Url { get; set; }
-        public Nullable<int> Sequence { get; set; }
+        public Nullable<System.Guid> RoleID { get; set; }
+        public Nullable<System.Guid> MenuID { get; set; }
     }
 }
