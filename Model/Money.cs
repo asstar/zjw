@@ -20,19 +20,20 @@ namespace Model
         public string CaseCode { get; set; }
         public string MoneyCode { get; set; }
         public string OriginalHolder { get; set; }
-        public string MoneyProperty { get; set; }
         public string MoneyType { get; set; }
+        public string Currency { get; set; }
         public string Sum { get; set; }
         public string OriginAccount { get; set; }
         public string KeepAccount { get; set; }
         public string Content { get; set; }
         public Nullable<System.DateTime> WithholdDate { get; set; }
-        public string UnderTakenStaff { get; set; }
+        public string Undertaker { get; set; }
         public Nullable<System.DateTime> HandOverDate { get; set; }
-        public string ReceiveStaff { get; set; }
+        public string Receicer { get; set; }
         public string HandleMethod { get; set; }
+        public string MoneyProperty { get; set; }
         public Nullable<System.DateTime> HandleDate { get; set; }
-        public string HandleReveiveStaff { get; set; }
+        public string HandleReveiver { get; set; }
         public string Note { get; set; }
         public string Affix { get; set; }
     }

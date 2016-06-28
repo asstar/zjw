@@ -43,6 +43,7 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -100,10 +101,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Code\MenuBar.cs" />
-    <Compile Include="Code\MenuBarDB.cs" />
+    <Compile Include="Code\UserInfo.cs" />
+    <Compile Include="Code\BaseInfo.cs" />
+    <Compile Include="Code\Admin\Role\ComboTreeDB.cs" />
+    <Compile Include="Code\Admin\Dept\DeptGridTree.cs" />
+    <Compile Include="Code\Admin\Dept\DeptGridTreeDB.cs" />
+    <Compile Include="Code\JsonHelper.cs" />
+    <Compile Include="Code\Home\MenuBar.cs" />
+    <Compile Include="Code\Home\MenuBarDB.cs" />
+    <Compile Include="Code\Admin\Role\ComboTree.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -114,6 +126,19 @@
     <Content Include="packages.config" />
     <Content Include="Views\Shared\Include.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\DeptEdit.cshtml" />
+    <Content Include="Views\Admin\DeptList.cshtml" />
+    <Content Include="Views\Admin\RoleEdit.cshtml" />
+    <Content Include="Views\Admin\RoleList.cshtml" />
+    <Content Include="Views\Admin\UsersEdit.cshtml" />
+    <Content Include="Views\Admin\UsersList.cshtml" />
+    <Content Include="Views\Login\TimeOut.cshtml" />
+    <Content Include="Views\Case\CaseEdit.cshtml" />
+    <Content Include="Views\Case\CaseList.cshtml" />
+    <Content Include="Views\Case\GiftEdit.cshtml" />
+    <Content Include="Views\Property\MoneyEdit.cshtml" />
+    <Content Include="Views\Property\GoodsEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

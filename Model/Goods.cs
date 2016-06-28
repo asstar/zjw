@@ -12,13 +12,13 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Property
+    public partial class Goods
     {
         public System.Guid ID { get; set; }
         public Nullable<System.Guid> CaseID { get; set; }
         public string CaseName { get; set; }
         public string CaseCode { get; set; }
-        public string PropertyCode { get; set; }
+        public string GoodsCode { get; set; }
         public string OriginalHolder { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
@@ -29,17 +29,18 @@ namespace Model
         public string Description { get; set; }
         public string Photo { get; set; }
         public string WithholdMethod { get; set; }
-        public string UndertakenStaff { get; set; }
+        public string Undertaker { get; set; }
         public Nullable<System.DateTime> WithholdDate { get; set; }
         public string WithholdAddr { get; set; }
         public string KeepMethod { get; set; }
         public string TurnInDate { get; set; }
-        public string ReceiveStaff { get; set; }
+        public string Receiver { get; set; }
         public string Keeper { get; set; }
         public string KeepAddr { get; set; }
-        public string Handle { get; set; }
+        public string HandleMethod { get; set; }
+        public string GoodsProperty { get; set; }
         public string HandleDate { get; set; }
-        public string HandleReceiveStaff { get; set; }
+        public string HandleReveiver { get; set; }
         public string Note { get; set; }
         public string Affix { get; set; }
     }

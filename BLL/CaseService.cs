@@ -7,7 +7,7 @@ using Model;
 using IBLL;
 namespace BLL
 {
-    class CaseService: BaseService<Case>, ICaseService
+    public class CaseService: BaseService<Case>, ICaseService
     {
     }
 }

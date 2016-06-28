@@ -1,0 +1,115 @@
+﻿
+@using Model;
+@{
+    
+    Layout = null;
+    Users item= ViewBag.user;
+}
+<!-- 不使用EasyUI LayOut样式，防止GariGrid悬浮 -->
+<div id="win_panel" class="mng_panel">
+    <div style="margin-top:8px;margin-bottom:8px">
+        <div>
+            <form id="frm_win_add" name="frm_win_add" method="post">
+                @Html.HiddenFor(i=>item.ID)
+                @Html.Hidden("item.IsDeleted", "false")
+                <input name="old_login_name" id="old_login_name" type="hidden" value="@item.UserName" />
+                <!-- 显示域 -->
+                <table class="detail_table" border="0" cellspacing="1" cellpadding="0">
+                    <tr class="detail_tr">
+                        <td class="detail_td1">姓名</td>
+                        <td class="detail_td2">
+                            @Html.TextBoxFor(i => item.RealName, new { size = 30 })
+                        </td>
+                        <td class="detail_td1">帐号</td>
+                        <td class="detail_td2">
+                            @Html.TextBoxFor(i => item.UserName, new { size = 30 })
+                        </td>
+                    </tr>
+                    <tr class="detail_tr">
+                        <td class="detail_td1">密码</td>
+                        <td class="detail_td2">
+                            @Html.PasswordFor(i => item.Password, new { size = 30, value = item.Password })
+                        </td>
+                        <td class="detail_td1">再次输入密码</td>
+                        <td class="detail_td2">
+                            <input class="easyui-validatebox" type="password" name="repeatpass" maxlength="20" validtype="equalTo['#item_Password']" value='@item.Password' />
+                        </td>
+                    </tr>
+                    <tr class="detail_tr">
+                        <td class="detail_td1">部门：</td>
+                        <td class="detail_td2" colspan="3">
+                            @Html.TextBoxFor(i => item.DeptID, new { size = 60, @class = "easyui-combotree" })
+                        </td>
+                    </tr>
+                    <tr class="detail_tr">
+                        <td class="detail_td1">角色</td>
+                        <td class="detail_td2" colspan="3">
+                            @Html.TextBoxFor(i => item.RoleID, new { size = 60, @class="easyui-combobox" })
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="text-align:center;height:35px;line-height:35px;margin-top:5px;">
+    <a class="easyui-linkbutton" icon="icon-ok" plain="true" href="javascript:void(0)" onclick="beforeSubmit();">保存</a>
+    <a class="easyui-linkbutton" icon="icon-cancel" plain="true" href="javascript:void(0)" onclick="closeMyWindow()">取消</a>
+</div>
+
+<script type="text/javascript">
+    $.extend($.fn.validatebox.defaults.rules, {
+        /*必须和某个字段相等*/
+        equalTo: { validator: function (value, param) { return $(param[0]).val() == value; }, message: '两次输入的密码不一样' }
+    });
+    $(document).ready(function () {
+        var panel = document.getElementById("win_panel");
+        //Form高度为弹出窗高度减去按钮和其他高度
+        panel.style.height = $('#mywindow').window('options').height - 98 + 'px';
+        panel.style.overflowY = 'scroll';
+        panel.style.overflowX = 'hidden';
+
+        $("#item_DeptID").combotree({
+            url: '/Admin/GetShowDeptList',
+            valueField: 'ID',
+            textField: 'DeptName',
+            required: true,
+            width: 250
+        });
+
+        $("#item_RoleID").combobox({
+            url: '/Admin/GetShowRoleList',
+            valueField: 'ID',
+            textField: 'RoleName',
+            width: 250,
+            required: true
+        });
+
+    });
+    function beforeSubmit() {
+        if ($("#frm_win_add").form('validate')) {
+            $.ajax({
+                type: "POST",
+                url: '/Admin/CheckName',
+                data: 'UserName=' + $('#item_UserName').val(),
+                complete: function (msg) {
+                    if (msg.responseText == "false") {
+                        var old_login_name = $('#old_login_name').val();
+                        if (old_login_name == "") {//新增
+                            $.messager.alert('提示信息', '该登录名已存在！', 'info');
+                        } else {
+                            if ($("#item_UserName").val() == old_login_name) {
+                                saveOrUploadForm("frm_win_add", '/Admin/SaveOrUpdate', 'funAfterSubmit');
+                            } else {
+                                $.messager.alert('提示信息', '该登录名已存在！', 'info');
+                            }
+                        }
+                    } else {
+                        saveOrUploadForm("frm_win_add", '/Admin/SaveOrUpdate', 'funAfterSubmit');
+                    }
+                }
+            });
+        }
+    }
+</script>
+

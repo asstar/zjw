@@ -7,7 +7,7 @@ using Model;
 using IBLL;
 namespace BLL
 {
-    class MoneyService : BaseService<Money>, IMoneyService
+    public class MoneyService : BaseService<Money>, IMoneyService
     {
     }
 }

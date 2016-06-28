@@ -26,13 +26,14 @@ namespace Model
         }
     
         public DbSet<Case> Case { get; set; }
+        public DbSet<Dept> Dept { get; set; }
         public DbSet<Gift> Gift { get; set; }
+        public DbSet<Goods> Goods { get; set; }
+        public DbSet<InfoLink> InfoLink { get; set; }
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Money> Money { get; set; }
-        public DbSet<Property> Property { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<RoleMenu> RoleMenu { get; set; }
         public DbSet<Users> Users { get; set; }
-        public DbSet<Dept> Dept { get; set; }
     }
 }

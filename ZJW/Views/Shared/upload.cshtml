@@ -1,0 +1,31 @@
+﻿
+@using Model;
+@{
+    
+    Layout = null;
+}
+
+
+<div class="login_overlay_bg" id="upload_background_DIV" style="z-index: 888888;display: none;"></div>
+<div id="ajax_upload_main" style=" display:none; width:300px;position:absolute;top:0px;left:0px;height:70px;background-color:white;border:2px solid rgb(33,124,177);z-index: 9999999;">
+    <div id="ajax_upload_title" style="width:auto;margin-left:auto;margin-right:auto; background-color:rgb(44,144,203); text-align: right;">
+        <span onclick="ajax_upload_close()" style="cursor:pointer;color:white;">关闭 </span>
+    </div>
+    <div id="ajax_upload_context" style="width:auto;margin-left:auto;margin-right:auto; margin-top:10px; text-align: center;">
+        <input id="fileToUpload" type="file" name="fileToUpload">
+        <input type="button" id="ajaxUploadEvent" onclick="ajaxFileUpload2();" value="上传">
+    </div>
+</div>
+<div id="ajax_loading_div" style="display: none;z-index: 9999999;position:absolute;top:0px;left:0px;">
+    <img id="ajax_loading_img" src="/images/loading3.gif">
+</div>
+<script type="text/javascript">
+    function ajaxFileUpload2() {
+        var fileToUpload = $('#fileToUpload').val();
+        if (fileToUpload == "") {
+            alert("请先选择上传文件！");
+        } else {
+            ajaxFileUpload();
+        }
+    }
+</script>

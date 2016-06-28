@@ -53,7 +53,9 @@
     <Compile Include="CaseService.cs" />
     <Compile Include="GiftService.cs" />
     <Compile Include="MoneyService.cs" />
-    <Compile Include="PropertyService.cs" />
+    <Compile Include="GoodsService.cs" />
+    <Compile Include="RoleMenuService.cs" />
+    <Compile Include="RoleService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>

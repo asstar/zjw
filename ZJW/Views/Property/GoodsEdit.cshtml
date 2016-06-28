@@ -1,0 +1,165 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Goods item = ViewBag.Goods;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+
+
+</head>
+<body>
+    <div class="easyui-panel" style="padding: 20px 20px;">
+        @RenderPage("~/Views/Shared/upload.cshtml")
+        @{Html.BeginForm(Session["Flag"] == "Create" ? "Create" : "Edit", "Process", FormMethod.Post, new { name = "frm_edit", id = "frm_edit" });}
+        <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">
+                    涉案物品信息表<br/>
+                    @Html.HiddenFor(i => item.ID)
+                      
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">案件名称：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.CaseName}else{@Html.TextBoxFor(i => item.CaseName, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">案件代号：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.CaseCode}else{@Html.TextBoxFor(i => item.CaseCode, new { size = 60 })}}</td>
+            </tr>
+
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"></td>
+            </tr>
+
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">物品编号：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.GoodsCode}else{@Html.TextBoxFor(i => item.GoodsCode, new { size = 60 })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">原持有人：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.OriginalHolder}else{@Html.TextBoxFor(i => item.OriginalHolder, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">物品名称：</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail"){ @item.Name}else{@Html.TextAreaFor(i => item.Name, new { cols = "100%", rows = "5" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">物品类型：</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail"){ @item.Type}else{@Html.TextAreaFor(i => item.Type, new { cols = "100%", rows = "5" })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">单 位 数 ：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.Amount}else{@Html.TextBoxFor(i => item.Amount, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">计量单位：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.Measure}else{@Html.TextBoxFor(i => item.Measure, new { size = 60 })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">件    数：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.PackageNumber}else{@Html.TextBoxFor(i => item.PackageNumber, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">鉴定价格：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.Price}else{@Html.TextBoxFor(i => item.Price, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">物品描述：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Description}else{@Html.TextBoxFor(i => item.Description, new { size = 135 })}}</td>
+            </tr>
+	    <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">物品照片：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Photo}else{@Html.TextBoxFor(i => item.Photo, new { size = 135 })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"></td>
+            </tr>
+	    <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">暂扣方式：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.WithholdDate}else{@Html.TextBoxFor(i => item.WithholdDate, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">承 办 人：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.Undertaker}else{@Html.TextBoxFor(i => item.Undertaker, new { size = 60 })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">暂扣时间：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.WithholdDate}else{@Html.TextBoxFor(i => item.WithholdDate, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">暂扣地点：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.WithholdAddr}else{@Html.TextBoxFor(i => item.WithholdAddr, new { size = 60 })}}</td>
+            </tr>
+	    <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">保管方式：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.KeepMethod}else{@Html.TextBoxFor(i => item.KeepMethod, new { size = 135 })}}</td>
+            </tr>
+	    <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">移交时间：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.TurnInDate}else{@Html.TextBoxFor(i => item.TurnInDate, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">接 收 人：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.Receiver}else{@Html.TextBoxFor(i => item.Receiver, new { size = 60 })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">保 管 人：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.Keeper}else{@Html.TextBoxFor(i => item.Keeper, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">保管地点：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.KeepAddr}else{@Html.TextBoxFor(i => item.KeepAddr, new { size = 60 })}}</td>
+            </tr>
+	    <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"></td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">处置情况：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.HandleMethod}else{@Html.TextBoxFor(i => item.HandleMethod, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">物品性质：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.GoodsProperty}else{@Html.TextBoxFor(i => item.GoodsProperty, new { size = 60 })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">处置移交时间：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.HandleDate}else{@Html.TextBoxFor(i => item.HandleDate, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">处置接收人：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.HandleReveiver}else{@Html.TextBoxFor(i => item.HandleReveiver, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">备注：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Note}else{@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "5" })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">附    件：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Affix}else{@Html.TextBoxFor(i => item.Affix, new { size = 135 })}}</td>
+            </tr>
+
+        </table>
+        <p align="center">
+            @if (Session["Flag"] == "Create")
+            {
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">保存</a>
+            }
+            else if (Session["Flag"] == "Edit")
+            {
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">修改</a>
+            }
+            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+        @{Html.EndForm();}
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    function SubmitData() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () { $('#frm_edit').submit() }, 0);
+            });
+        }
+    }
+
+</script>
+
+
+
+  
+
+

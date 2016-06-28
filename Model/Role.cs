@@ -15,7 +15,8 @@ namespace Model
     public partial class Role
     {
         public System.Guid ID { get; set; }
-        public string Name { get; set; }
+        public string RoleName { get; set; }
         public string Rank { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

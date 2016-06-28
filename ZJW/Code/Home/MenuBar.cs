@@ -13,7 +13,7 @@ namespace zjw
         {
             GID = ID;
             string json = "{\"menus\":[";
-            IList<Menu> t = new MenuBarDB().returnParentMenu();
+            IList<Menu> t = new MenuBarDB().returnParentMenu(GID);
             foreach (Menu model in t)
             {
                 if (model != t[t.Count - 1])
@@ -26,7 +26,7 @@ namespace zjw
                 }
             }
             json += "]}";
-            
+
             json = json.Replace(@"\/", "/");
             //json = json.Replace("\"", "'");
             Debug.WriteLine(json);
@@ -36,8 +36,8 @@ namespace zjw
         public static string GetJsonByModel(Menu t)
         {
             string json = "";
-            bool flag = new MenuBarDB().isHaveChild(GID,t.ID);
-            if(t.Url=="/")
+            bool flag = new MenuBarDB().isHaveChild(GID, (Guid)(t.ParentID));
+            if (t.Url == "/")
                 json = "{\"menuid\": \"" + t.ID + "\",\"icon\":\"" + t.Icon + "\",\"menuname\":\"" + t.Name + "\"";
             else
                 json = "{\"menuid\": \"" + t.ID + "\",\"icon\":\"" + t.Icon + "\",\"menuname\":\"" + t.Name + "\",\"url\":\"" + t.Url + "\"";
@@ -66,6 +66,6 @@ namespace zjw
             }
             return json;
         }
-    
+
     }
 }

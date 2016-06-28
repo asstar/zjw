@@ -1,0 +1,94 @@
+﻿@using BLL;
+@using Model;
+@{
+
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/public.js"></script>
+    <script>
+        //页面初始化
+        $(function () {
+            $('#grid_table').treegrid({
+                fit: true,
+                url: '/Admin/GetDeptList',
+                idField: 'ID',
+                treeField: 'DeptName',
+                frozenColumns: [[
+                    { field: 'ck', checkbox: true },
+
+                ]],
+                columns: [[
+                    { field: 'DeptName', title: '级别名称', width: 220 },
+                    //{ field: 'Remark', title: '备注', width: 220, align: 'center' },
+                    { field: 'Sequence', title: '排序', width: 220, align: 'center' },
+                                        {
+                                            field: 'opt', title: '操作', width: 300, align: 'center',
+                                            formatter: function (value, rec) {
+
+                                                    var optBtn='';
+                                                    optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:openWindow(\'Edit\',\'' + rec.ID + '\')" title=\"修改\">修改</a> ';
+                                                    optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:delDep(\'' + rec.ID + '\')" title=\"删除\">删除</a> ';
+
+                                                    optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:openWindow(\'Create\',\'' + rec.ID + '\')" title=\"新增下级\">新增下级</a> ';
+                                                    return optBtn;
+                                                
+                                            }
+                                        }
+                ]],
+                toolbar: [{
+                    text: '刷新',
+                    iconCls: 'icon-reload',
+                    handler: function () {
+                        refeshTreeGrid();
+                    }
+                }/*, '-', {
+                    text: '新增一级级别',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        openWindow("CreateLevelOne", null);
+                    }
+                }*/]
+            });
+        });
+
+        function refeshTreeGrid() {
+            $('#grid_table').treegrid({
+                url: '/Admin/GetDeptList'
+            });
+        }
+
+        function openWindow(type, ID) {
+            var res = type == "Edit" ? "修改" : "新增";
+            var title = res + "级别";
+            var url = '/Admin/DeptEdit?type=' + type;
+            if (type != "CreateLevelOne") {
+                url += '&ID=' + ID;
+            }
+            openMyWindow(title, url, 460, 270);
+        }
+
+        function funAfterSubmit() {
+            refeshTreeGrid();
+            closeMyWindow();
+        }
+
+        function delDep(ID) {
+            removeObjWithConfirm(ID, "ID", '/Admin/DeptDelete', "refeshTreeGrid")
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+    <div region="center" id="table_div" style="overflow:hidden;">
+        <table id="grid_table"></table>
+    </div>
+    <div id="mywindow" class="easyui-window" closed="true" cache="false" icon="icon-save" style="width:500px;height:200px;padding:5px;background: #fafafa;">
+
+    </div>
+</body>
+</html>

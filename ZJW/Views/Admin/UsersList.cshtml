@@ -1,0 +1,162 @@
+﻿@using Model;
+@{
+    
+    Layout = null;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/public.js"></script>
+    <script>
+        //页面初始化
+        $(function () {
+            $('#grid_table').datagrid({
+                url: '/Admin/GetUsersList',
+                sortName: 'ID',
+                idField: 'ID',
+                sortOrder: 'asc',
+                frozenColumns: [[
+                    { field: 'ck', checkbox: true },
+                    {
+                        field: 'opt', title: '操作', width: 120, align: 'center',
+                        formatter: function (v, r) {
+                            var optBtn = '';
+                            optBtn = ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:openWindow(\'update\',\'' + r.ID + '\')" title=\"修改\">修改</a> ';
+                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteUser(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
+                            return optBtn;
+                        }
+                    }
+                ]],
+                columns: [[
+                    { field: 'RealName', title: '姓名', width: 120, sortable: true, align: 'center' },
+                    { field: 'UserName', title: '帐号', width: 120, sortable: true, align: 'center' },
+                    { field: 'DeptName', title: '部门', width: 120, sortable: true, align: 'center' },
+                    { field: 'RoleName', title: '角色', width: 120, sortable: true, align: 'center' }/*,
+                    {
+                        field: 'CreatTime', title: '创建时间', width: 120, sortable: true, align: 'center',
+                        formatter: function (v, r) {
+                            if (r.CreatTime != null) {
+                                var dateMilliseconds = parseInt(r.CreatTime.replace(/\D/igm, ""));
+                                var result = new Date(dateMilliseconds);
+                                return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate() + " " + result.getHours() + ":" + result.getMinutes() + ":" + result.getSeconds();
+                            }
+                        }
+                    },
+                    {
+                        field: 'LoginTime', title: '最后登录时间', width: 120, sortable: true, align: 'center',
+                        formatter: function (v, r) {
+                            if (r.LoginTime != null) {
+                                var dateMilliseconds = parseInt(r.LoginTime.replace(/\D/igm, ""));
+                                var result = new Date(dateMilliseconds);
+                                return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate() + " " + result.getHours() + ":" + result.getMinutes() + ":" + result.getSeconds();
+                            }
+                        }
+                    },
+                    { field: 'LoginNum', title: '登录次数', width: 120, sortable: true, align: 'center' }*/
+                ]],
+                toolbar: [{
+                    text: '刷新',
+                    iconCls: 'icon-reload',
+                    handler: function () {
+                        refeshGrid();
+                    }
+                }, '-', {
+                    text: '新增',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        openWindow("add", null);
+                    }
+                }, '-', {
+                    text: '修改',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        var ID = getSingleSelection("ID", "grid_table");
+                        if (ID) {
+                            openWindow("update", ID);
+                        }
+                    }
+                }/*, '-', {
+                    text: '删除',
+                    iconCls: 'icon-remove',
+                    handler: function () {
+                        var ID = getMultipleSelections("ID", "grid_table");
+                        if (ID) {
+                            delAdmin(ID);
+                        }
+                    }
+                }
+                */]
+            });
+        });
+
+        function funAfterSubmit() {
+            refeshGrid();
+            closeMyWindow();
+        }
+
+        function funAfterDel() {
+            refeshGrid();
+        }
+
+        function refeshGrid() {
+            $('#grid_table').datagrid({});
+        }
+
+        function openWindow(type, ID) {
+            var res = type == "add" ? "Create" : "Edit";
+            var title = "编辑系统用户";
+            var url = '/Admin/UsersEdit?type='+res;
+            if (type != "create") {
+                url += '&ID=' + ID;
+            }
+            openMyWindow(title, url, 800, 450);
+        }
+
+        function deleteUser(ID) {
+            removeObjWithConfirm(ID, "ID", '/Admin/UsersDelete', "funAfterDel")
+        }
+
+        function queryDataGrid() {
+            var RealName = $('#RealName').val();
+            $('#grid_table').datagrid({
+                queryParams: { RealName: RealName },
+                pageNumber: 1
+            });
+        }
+        </script>
+    </head>
+    <body class="easyui-layout">
+        <div region="north" split="true" style="height:50px;padding:10px;">
+            <form id="qry_frm" onsubmit="return false">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="75" align="right">姓名：</td>
+                        <td><input type="text" name="RealName" id="RealName" class="easyui-validatebox" /></td>
+                        <td width="75" align="right">
+                            <a href="#" onclick="queryDataGrid()" plain="true" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                        </td>
+                        <td width="75" align="right">
+                            <a href="#" onclick="$('#qry_frm')[0].reset();$('#dep_id_query').combotree('clear');" plain="true" class="easyui-linkbutton" iconcls="icon-reset">清除</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div region="center" id="table_div" style="overflow:hidden;">
+            <table id="grid_table"></table>
+        </div>
+        <div id="mywindow" class="easyui-window" closed="true" cache="false" icon="icon-save" style="width:500px;height:200px;padding:5px;background: #fafafa;">
+
+        </div>
+    </body>
+    </html>
+
+
+
+
+
+

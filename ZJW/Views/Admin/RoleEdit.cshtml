@@ -1,0 +1,75 @@
+﻿@using Model;
+@{
+    
+    Layout = null;
+    Role item = ViewBag.role;
+}
+<!-- 不使用EasyUI LayOut样式，防止GariGrid悬浮 -->
+<div id="col_data_panel" class="mng_panel">
+    <div style="margin-top:8px;margin-bottom:8px">
+        <div>
+            <form id="frm_win_add" name="frm_win_add" method="post">
+                <!-- 隐藏域 -->
+                @Html.HiddenFor(i => item.ID)
+                
+                <input id="menuTree" name="menuTree" type="hidden" />
+                <table class="detail_table" border="0" cellspacing="1" cellpadding="0">
+                    <tr class="detail_tr">
+                        <td class="detail_td1"><span style="color: red">*&nbsp;&nbsp;</span>角色名称:</td>
+                        <td class="detail_td2">
+                        	
+                            @Html.TextBoxFor(i => item.RoleName, new { size = 30 })
+                        </td>
+                    </tr>
+					<tr class="detail_tr">
+                        <td class="detail_td1"><span style="color: red">*&nbsp;&nbsp;</span>角色级别:</td>
+                        <td class="detail_td2">
+                    		@Html.TextBoxFor(i => item.Rank, new { size = 30 })
+                        </td>
+                    </tr>
+                    <tr class="detail_tr">
+                        <td class="detail_td1"><span style="color: red">*&nbsp;&nbsp;</span>配置菜单：</td>
+                        <td class="detail_td2">
+                            <input type="text" id="menu_combTree" class="easyui-combotree" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="text-align:center;height:35px;line-height:35px;margin-top:5px;">
+    <a class="easyui-linkbutton" icon="icon-ok" plain="true" href="javascript:void(0)" onclick="beforeSubmit();">保存</a>
+    <a class="easyui-linkbutton" icon="icon-cancel" plain="true" href="javascript:void(0)" onclick="closeMyWindow()">取消</a>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var panel = document.getElementById("col_data_panel");
+        //Form高度为弹出窗高度减去按钮和其他高度
+        panel.style.height = $('#mywindow').window('options').height - 98 + 'px';
+        panel.style.overflowY = 'scroll';
+        panel.style.overflowX = 'hidden';
+
+        var url = "/Admin/GetMenuComboTree?ID=@item.ID";
+
+        $('#menu_combTree').combotree({
+            url: url,
+            multiple: true,
+            width: 300,
+            onLoadSuccess: function (node, data) {
+                // 			if('${vo.roleId}' != ''){
+                // 				var menuTree = '${vo.menuTree}';
+                // 				var menuArr = menuTree.split(",");
+                // 				$('#menu_combTree').combotree('setValues', menuArr);
+                // 			}
+            }
+        });
+    });
+
+    function beforeSubmit() {
+        var menuTree = $('#menu_combTree').combotree('getValues');
+        $('#menuTree').val(menuTree);
+        saveOrUploadForm("frm_win_add", '/Admin/RoleSaveOrUpdate', 'funAfterSubmit');
+    }
+</script>

@@ -8,6 +8,7 @@ namespace IBLL
 {
     public interface IUserService : IBaseService<Users>
     {
-
+        Users FindByUserName(string userName);
+        IEnumerable<UsersMore> SqlQueryMore(string sql);
     }
 }

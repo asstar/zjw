@@ -6,13 +6,14 @@ using System.Web.Mvc;
 
 namespace zjw.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         //
         // GET: /Home/
         public ActionResult Index()
         {
-            Session["Menus"] = MenuBar.GetJson(new Guid("266e2696-bf31-4a32-865e-442e315e5f00"));
+            var temp = MenuBar.GetJson(((BaseInfo)Session["User"]).user.ID);
+            Session["Menus"] = temp;
             return View();
         }
 	}

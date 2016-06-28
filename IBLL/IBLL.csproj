@@ -44,7 +44,9 @@
     <Compile Include="ICaseService.cs" />
     <Compile Include="IGiftService.cs" />
     <Compile Include="IMoneyService.cs" />
-    <Compile Include="IPropertyService.cs" />
+    <Compile Include="IGoodsService.cs" />
+    <Compile Include="IRoleMenuService.cs" />
+    <Compile Include="IRoleService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

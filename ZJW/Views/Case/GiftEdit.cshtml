@@ -1,0 +1,95 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Gift item = ViewBag.Gift;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+
+
+</head>
+<body>
+    <div class="easyui-panel" style="padding: 20px 20px;">
+        @RenderPage("~/Views/Shared/upload.cshtml")
+        @{Html.BeginForm(Session["Flag"] == "Create" ? "Create" : "Edit", "Process", FormMethod.Post, new { name = "frm_edit", id = "frm_edit" });}
+        <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">
+                    礼品、礼金信息表<br />
+                    @Html.HiddenFor(i => item.ID)
+                      
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">上交编号：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.TurnInCode}else{@Html.TextBoxFor(i => item.TurnInCode, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">承办部门：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.UnderTakenDept}else{@Html.TextBoxFor(i => item.UnderTakenDept, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">承办人：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.UnderTaker}else{@Html.TextBoxFor(i => item.UnderTaker, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">上交人：</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail"){ @item.TargetName}else{@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "5" })}}</td>
+            </tr>
+	    <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">上交时间：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.TurnInDate}else{@Html.TextBoxFor(i => item.TurnInDate, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">上交地点：</td>
+                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.TurnInAddr}else{@Html.TextBoxFor(i => item.TurnInAddr, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">详情：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Content}else{@Html.TextAreaFor(i => item.Content, new { cols = "100%", rows = "5" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">备注：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Note}else{@Html.TextBoxFor(i => item.Note, new { size = 135 })}}</td>
+            </tr>
+	        <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">相关文书备案：</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Affix}else{@Html.TextBoxFor(i => item.Affix, new { size = 135 })}}</td>
+            </tr>
+
+        </table>
+        <p align="center">
+            @if (Session["Flag"] == "Create")
+            {
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">保存</a>
+            }
+            else if (Session["Flag"] == "Edit")
+            {
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">修改</a>
+            }
+            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+        @{Html.EndForm();}
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    function SubmitData() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () { $('#frm_edit').submit() }, 0);
+            });
+        }
+    }
+</script>
+
+
+
+  
+
+

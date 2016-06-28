@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Model;
 namespace IBLL
 {
-    public interface IPropertyService : IBaseService<Property>
+    public interface IRoleMenuService : IBaseService<RoleMenu>
     {
-
+        void DeleteByRoleID(Guid roleId);
     }
 }

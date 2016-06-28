@@ -1,0 +1,77 @@
+﻿@using Model;
+@{
+    
+    Layout = null;
+    Dept item = ViewBag.dept;
+}
+<!-- 不使用EasyUI LayOut样式，防止GariGrid悬浮 -->
+<div id="user_win_panel" class="mng_panel">
+    <div style="margin-top:8px;margin-bottom:8px">
+        <div>
+            <form id="frm_win_add" name="frm_win_add" method="post">
+                <!-- 隐藏域 -->
+                @Html.HiddenFor(i => item.ID)
+                @Html.HiddenFor(i => item.ParentID)
+
+                @Html.Hidden("item.IsDeleted", "false")
+                <!-- 显示域 -->
+                <table class="detail_table" border="0" cellspacing="1" cellpadding="0">
+                    <tr class="detail_tr">
+                        <td class="detail_td1"><span style="color: red">*&nbsp;&nbsp;</span>级别名称:</td>
+                        <td class="detail_td2">
+                            @Html.TextBoxFor(i => item.DeptName, new { size = 30 })
+                        </td>
+                    </tr>
+                    <tr class="detail_tr">
+                        <td class="detail_td1">上级级别名称:</td>
+                        <td class="detail_td2">
+                            <input class="easyui-validatebox" type="text" id="ParentName" readonly="readonly" size=30 />
+                        </td>
+                    </tr>
+
+                    <tr class="detail_tr">
+                        <td class="detail_td1"><span style="color: red">*&nbsp;&nbsp;</span>排序:</td>
+                        <td class="detail_td2">
+                            @Html.TextBoxFor(i => item.Sequence, new { size = 30,required="true", @class = "easyui-numberbox" })
+                           
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="text-align:center;height:35px;line-height:35px;margin-top:5px;">
+    <a class="easyui-linkbutton" icon="icon-ok" plain="true" href="javascript:void(0)" onclick="beforeSubmit();">保存</a>
+    <a class="easyui-linkbutton" icon="icon-cancel" plain="true" href="javascript:void(0)" onclick="closeMyWindow()">
+        取消
+    </a>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var panel = document.getElementById("user_win_panel");
+        //Form高度为弹出窗高度减去按钮和其他高度
+        panel.style.height = $('#mywindow').window('options').height - 98 + 'px';
+        panel.style.overflowY = 'scroll';
+        panel.style.overflowX = 'hidden';
+
+        var type = '@Session["DeptEditType"]';
+        if (type == 'CreateLevelOne') {
+            $('#item_ParentID').val(null);
+        } else if (type == 'Create') {
+            $('#item_ParentID').val('@Session["ID"]');
+            var pNode = $('#grid_table').treegrid('find', '@Session["ID"]');
+            $('#ParentName').val(pNode.DeptName);
+        } else if (type == 'Edit'){
+            var pNode = $('#grid_table').treegrid('find', '@item.ParentID');
+            if (null != pNode) {
+                $('#ParentName').val(pNode.DeptName);
+            }
+        }
+    });
+
+    function beforeSubmit() {
+        saveOrUploadForm("frm_win_add", '/Admin/DeptSaveOrUpdate', 'funAfterSubmit');
+    }
+</script>

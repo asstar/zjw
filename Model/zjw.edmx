@@ -10,25 +10,24 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="CaseName" Type="text" />
           <Property Name="CaseCode" Type="text" />
           <Property Name="UnderTakenDept" Type="text" />
-          <Property Name="LeaderName" Type="text" />
+          <Property Name="UnderTaker" Type="text" />
           <Property Name="TargetName" Type="text" />
           <Property Name="CaseFormedDate" Type="text" />
           <Property Name="Note" Type="text" />
           <Property Name="Movie" Type="text" />
           <Property Name="Affix" Type="text" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“def.zjw.Dept”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Dept">
           <Key>
-            <PropertyRef Name="IsDeleted" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="guid" />
+          <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="DeptName" Type="text" />
           <Property Name="ParentID" Type="guid" />
-          <Property Name="Type" Type="text" />
+          <Property Name="Sequence" Type="text" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Gift">
@@ -38,12 +37,62 @@
           <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="TurnInCode" Type="text" />
           <Property Name="UnderTakenDept" Type="text" />
-          <Property Name="UnderTakenStaff" Type="text" />
+          <Property Name="UnderTaker" Type="text" />
           <Property Name="TargetName" Type="text" />
           <Property Name="TurnInDate" Type="timestamp" Precision="0" />
           <Property Name="TurnInAddr" Type="text" />
           <Property Name="Content" Type="text" />
           <Property Name="Note" Type="text" />
+          <Property Name="Affix" Type="text" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="CaseID" Type="guid" />
+          <Property Name="CaseName" Type="text" />
+          <Property Name="CaseCode" Type="text" />
+          <Property Name="GoodsCode" Type="text" />
+          <Property Name="OriginalHolder" Type="text" />
+          <Property Name="Name" Type="text" />
+          <Property Name="Type" Type="text" />
+          <Property Name="Amount" Type="text" />
+          <Property Name="Measure" Type="text" />
+          <Property Name="PackageNumber" Type="text" />
+          <Property Name="Price" Type="text" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Photo" Type="text" />
+          <Property Name="WithholdMethod" Type="text" />
+          <Property Name="Undertaker" Type="text" />
+          <Property Name="WithholdDate" Type="timestamp" Precision="0" />
+          <Property Name="WithholdAddr" Type="text" />
+          <Property Name="KeepMethod" Type="text" />
+          <Property Name="TurnInDate" Type="text" />
+          <Property Name="Receiver" Type="text" />
+          <Property Name="Keeper" Type="text" />
+          <Property Name="KeepAddr" Type="text" />
+          <Property Name="HandleMethod" Type="text" />
+          <Property Name="GoodsProperty" Type="text" />
+          <Property Name="HandleDate" Type="text" />
+          <Property Name="HandleReveiver" Type="text" />
+          <Property Name="Note" Type="text" />
+          <Property Name="Affix" Type="text" />
+        </EntityType>
+        <EntityType Name="InfoLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="CreateDate" Type="guid" />
+          <Property Name="CreateStaff" Type="guid" />
+          <Property Name="CaseType" Type="text" />
+          <Property Name="MasterID" Type="guid" />
+          <Property Name="DetailID" Type="guid" />
+          <Property Name="WithholdID" Type="guid" />
+          <Property Name="KeepID" Type="guid" />
+          <Property Name="TrailID" Type="guid" />
+          <Property Name="IsDeleted" Type="guid" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -66,52 +115,20 @@
           <Property Name="CaseCode" Type="text" />
           <Property Name="MoneyCode" Type="text" />
           <Property Name="OriginalHolder" Type="text" />
-          <Property Name="MoneyProperty" Type="text" />
           <Property Name="MoneyType" Type="text" />
+          <Property Name="Currency" Type="text" />
           <Property Name="Sum" Type="text" />
           <Property Name="OriginAccount" Type="text" />
           <Property Name="KeepAccount" Type="text" />
           <Property Name="Content" Type="text" />
           <Property Name="WithholdDate" Type="timestamp" Precision="0" />
-          <Property Name="UnderTakenStaff" Type="text" />
+          <Property Name="Undertaker" Type="text" />
           <Property Name="HandOverDate" Type="timestamp" Precision="0" />
-          <Property Name="ReceiveStaff" Type="text" />
+          <Property Name="Receicer" Type="text" />
           <Property Name="HandleMethod" Type="text" />
+          <Property Name="MoneyProperty" Type="text" />
           <Property Name="HandleDate" Type="timestamp" Precision="0" />
-          <Property Name="HandleReveiveStaff" Type="text" />
-          <Property Name="Note" Type="text" />
-          <Property Name="Affix" Type="text" />
-        </EntityType>
-        <EntityType Name="Property">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="guid" Nullable="false" />
-          <Property Name="CaseID" Type="guid" />
-          <Property Name="CaseName" Type="text" />
-          <Property Name="CaseCode" Type="text" />
-          <Property Name="PropertyCode" Type="text" />
-          <Property Name="OriginalHolder" Type="text" />
-          <Property Name="Name" Type="text" />
-          <Property Name="Type" Type="text" />
-          <Property Name="Amount" Type="text" />
-          <Property Name="Measure" Type="text" />
-          <Property Name="PackageNumber" Type="text" />
-          <Property Name="Price" Type="text" />
-          <Property Name="Description" Type="text" />
-          <Property Name="Photo" Type="text" />
-          <Property Name="WithholdMethod" Type="text" />
-          <Property Name="UndertakenStaff" Type="text" />
-          <Property Name="WithholdDate" Type="timestamp" Precision="0" />
-          <Property Name="WithholdAddr" Type="text" />
-          <Property Name="KeepMethod" Type="text" />
-          <Property Name="TurnInDate" Type="text" />
-          <Property Name="ReceiveStaff" Type="text" />
-          <Property Name="Keeper" Type="text" />
-          <Property Name="KeepAddr" Type="text" />
-          <Property Name="Handle" Type="text" />
-          <Property Name="HandleDate" Type="text" />
-          <Property Name="HandleReceiveStaff" Type="text" />
+          <Property Name="HandleReveiver" Type="text" />
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="text" />
         </EntityType>
@@ -120,8 +137,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
-          <Property Name="Name" Type="text" />
+          <Property Name="RoleName" Type="text" />
           <Property Name="Rank" Type="text" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RoleMenu">
           <Key>
@@ -140,27 +158,21 @@
           <Property Name="Password" Type="text" />
           <Property Name="DeptID" Type="guid" />
           <Property Name="RealName" Type="text" />
+          <Property Name="RoleID" Type="guid" />
           <Property Name="Rank" Type="text" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Case" EntityType="Self.Case" Schema="zjw" store:Type="Tables" />
+          <EntitySet Name="Dept" EntityType="Self.Dept" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Gift" EntityType="Self.Gift" Schema="zjw" store:Type="Tables" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" Schema="zjw" store:Type="Tables" />
+          <EntitySet Name="InfoLink" EntityType="Self.InfoLink" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Money" EntityType="Self.Money" Schema="zjw" store:Type="Tables" />
-          <EntitySet Name="Property" EntityType="Self.Property" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="zjw" store:Type="Tables" />
-          <EntitySet Name="Dept" EntityType="Self.Dept" store:Type="Tables" store:Schema="zjw">
-            <DefiningQuery>SELECT
-`Dept`.`ID`, 
-`Dept`.`DeptName`, 
-`Dept`.`ParentID`, 
-`Dept`.`Type`, 
-`Dept`.`IsDeleted`
-FROM `Dept` AS `Dept`</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -172,14 +184,25 @@ FROM `Dept` AS `Dept`</DefiningQuery>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="LeaderName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="UnderTaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="TargetName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="CaseFormedDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Movie" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Dept">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="DeptName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="ParentID" Type="Guid" />
+          <Property Name="Sequence" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Gift">
           <Key>
@@ -188,12 +211,62 @@ FROM `Dept` AS `Dept`</DefiningQuery>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="TurnInCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="UnderTakenStaff" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="UnderTaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="TargetName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="TurnInDate" Type="DateTime" />
           <Property Name="TurnInAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CaseID" Type="Guid" />
+          <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="GoodsCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalHolder" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="PackageNumber" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="WithholdMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Undertaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="WithholdDate" Type="DateTime" />
+          <Property Name="WithholdAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="KeepMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="TurnInDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Receiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Keeper" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="KeepAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="GoodsProperty" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="InfoLink">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CreateDate" Type="Guid" />
+          <Property Name="CreateStaff" Type="Guid" />
+          <Property Name="CaseType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterID" Type="Guid" />
+          <Property Name="DetailID" Type="Guid" />
+          <Property Name="WithholdID" Type="Guid" />
+          <Property Name="KeepID" Type="Guid" />
+          <Property Name="TrailID" Type="Guid" />
+          <Property Name="IsDeleted" Type="Guid" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -216,52 +289,20 @@ FROM `Dept` AS `Dept`</DefiningQuery>
           <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="MoneyCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="OriginalHolder" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="MoneyProperty" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="MoneyType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Currency" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Sum" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="OriginAccount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="KeepAccount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="WithholdDate" Type="DateTime" />
-          <Property Name="UnderTakenStaff" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Undertaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="HandOverDate" Type="DateTime" />
-          <Property Name="ReceiveStaff" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Receicer" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="HandleMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MoneyProperty" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="HandleDate" Type="DateTime" />
-          <Property Name="HandleReveiveStaff" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Property">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="CaseID" Type="Guid" />
-          <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="PropertyCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="OriginalHolder" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Measure" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="PackageNumber" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Photo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="WithholdMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="UndertakenStaff" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="WithholdDate" Type="DateTime" />
-          <Property Name="WithholdAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="KeepMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="TurnInDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="ReceiveStaff" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Keeper" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="KeepAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Handle" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="HandleDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="HandleReceiveStaff" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -270,8 +311,9 @@ FROM `Dept` AS `Dept`</DefiningQuery>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="RoleName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Rank" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="RoleMenu">
           <Key>
@@ -290,29 +332,21 @@ FROM `Dept` AS `Dept`</DefiningQuery>
           <Property Name="Password" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="DeptID" Type="Guid" />
           <Property Name="RealName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Guid" />
           <Property Name="Rank" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Dept">
-          <Key>
-            <PropertyRef Name="IsDeleted" />
-          </Key>
-          <Property Name="ID" Type="Guid" />
-          <Property Name="DeptName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="ParentID" Type="Guid" />
-          <Property Name="Type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Case" EntityType="Self.Case" />
+          <EntitySet Name="Dept" EntityType="Self.Dept" />
           <EntitySet Name="Gift" EntityType="Self.Gift" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" />
+          <EntitySet Name="InfoLink" EntityType="Self.InfoLink" />
           <EntitySet Name="Menu" EntityType="Self.Menu" />
           <EntitySet Name="Money" EntityType="Self.Money" />
-          <EntitySet Name="Property" EntityType="Self.Property" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <EntitySet Name="Dept" EntityType="Self.Dept" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -324,14 +358,26 @@ FROM `Dept` AS `Dept`</DefiningQuery>
             <EntityTypeMapping TypeName="Model.Case">
               <MappingFragment StoreEntitySet="Case">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
                 <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
                 <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
-                <ScalarProperty Name="LeaderName" ColumnName="LeaderName" />
+                <ScalarProperty Name="UnderTaker" ColumnName="UnderTaker" />
                 <ScalarProperty Name="TargetName" ColumnName="TargetName" />
                 <ScalarProperty Name="CaseFormedDate" ColumnName="CaseFormedDate" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Movie" ColumnName="Movie" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dept">
+            <EntityTypeMapping TypeName="Model.Dept">
+              <MappingFragment StoreEntitySet="Dept">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -341,12 +387,64 @@ FROM `Dept` AS `Dept`</DefiningQuery>
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TurnInCode" ColumnName="TurnInCode" />
                 <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
-                <ScalarProperty Name="UnderTakenStaff" ColumnName="UnderTakenStaff" />
+                <ScalarProperty Name="UnderTaker" ColumnName="UnderTaker" />
                 <ScalarProperty Name="TargetName" ColumnName="TargetName" />
                 <ScalarProperty Name="TurnInDate" ColumnName="TurnInDate" />
                 <ScalarProperty Name="TurnInAddr" ColumnName="TurnInAddr" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Affix" ColumnName="Affix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods">
+            <EntityTypeMapping TypeName="Model.Goods">
+              <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
+                <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
+                <ScalarProperty Name="GoodsCode" ColumnName="GoodsCode" />
+                <ScalarProperty Name="OriginalHolder" ColumnName="OriginalHolder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="WithholdMethod" ColumnName="WithholdMethod" />
+                <ScalarProperty Name="Undertaker" ColumnName="Undertaker" />
+                <ScalarProperty Name="WithholdDate" ColumnName="WithholdDate" />
+                <ScalarProperty Name="WithholdAddr" ColumnName="WithholdAddr" />
+                <ScalarProperty Name="KeepMethod" ColumnName="KeepMethod" />
+                <ScalarProperty Name="TurnInDate" ColumnName="TurnInDate" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+                <ScalarProperty Name="Keeper" ColumnName="Keeper" />
+                <ScalarProperty Name="KeepAddr" ColumnName="KeepAddr" />
+                <ScalarProperty Name="HandleMethod" ColumnName="HandleMethod" />
+                <ScalarProperty Name="GoodsProperty" ColumnName="GoodsProperty" />
+                <ScalarProperty Name="HandleDate" ColumnName="HandleDate" />
+                <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Affix" ColumnName="Affix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoLink">
+            <EntityTypeMapping TypeName="Model.InfoLink">
+              <MappingFragment StoreEntitySet="InfoLink">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateStaff" ColumnName="CreateStaff" />
+                <ScalarProperty Name="CaseType" ColumnName="CaseType" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+                <ScalarProperty Name="WithholdID" ColumnName="WithholdID" />
+                <ScalarProperty Name="KeepID" ColumnName="KeepID" />
+                <ScalarProperty Name="TrailID" ColumnName="TrailID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -371,53 +469,20 @@ FROM `Dept` AS `Dept`</DefiningQuery>
                 <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
                 <ScalarProperty Name="MoneyCode" ColumnName="MoneyCode" />
                 <ScalarProperty Name="OriginalHolder" ColumnName="OriginalHolder" />
-                <ScalarProperty Name="MoneyProperty" ColumnName="MoneyProperty" />
                 <ScalarProperty Name="MoneyType" ColumnName="MoneyType" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="Sum" ColumnName="Sum" />
                 <ScalarProperty Name="OriginAccount" ColumnName="OriginAccount" />
                 <ScalarProperty Name="KeepAccount" ColumnName="KeepAccount" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="WithholdDate" ColumnName="WithholdDate" />
-                <ScalarProperty Name="UnderTakenStaff" ColumnName="UnderTakenStaff" />
+                <ScalarProperty Name="Undertaker" ColumnName="Undertaker" />
                 <ScalarProperty Name="HandOverDate" ColumnName="HandOverDate" />
-                <ScalarProperty Name="ReceiveStaff" ColumnName="ReceiveStaff" />
+                <ScalarProperty Name="Receicer" ColumnName="Receicer" />
                 <ScalarProperty Name="HandleMethod" ColumnName="HandleMethod" />
+                <ScalarProperty Name="MoneyProperty" ColumnName="MoneyProperty" />
                 <ScalarProperty Name="HandleDate" ColumnName="HandleDate" />
-                <ScalarProperty Name="HandleReveiveStaff" ColumnName="HandleReveiveStaff" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Affix" ColumnName="Affix" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Property">
-            <EntityTypeMapping TypeName="Model.Property">
-              <MappingFragment StoreEntitySet="Property">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
-                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
-                <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
-                <ScalarProperty Name="PropertyCode" ColumnName="PropertyCode" />
-                <ScalarProperty Name="OriginalHolder" ColumnName="OriginalHolder" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Measure" ColumnName="Measure" />
-                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="WithholdMethod" ColumnName="WithholdMethod" />
-                <ScalarProperty Name="UndertakenStaff" ColumnName="UndertakenStaff" />
-                <ScalarProperty Name="WithholdDate" ColumnName="WithholdDate" />
-                <ScalarProperty Name="WithholdAddr" ColumnName="WithholdAddr" />
-                <ScalarProperty Name="KeepMethod" ColumnName="KeepMethod" />
-                <ScalarProperty Name="TurnInDate" ColumnName="TurnInDate" />
-                <ScalarProperty Name="ReceiveStaff" ColumnName="ReceiveStaff" />
-                <ScalarProperty Name="Keeper" ColumnName="Keeper" />
-                <ScalarProperty Name="KeepAddr" ColumnName="KeepAddr" />
-                <ScalarProperty Name="Handle" ColumnName="Handle" />
-                <ScalarProperty Name="HandleDate" ColumnName="HandleDate" />
-                <ScalarProperty Name="HandleReceiveStaff" ColumnName="HandleReceiveStaff" />
+                <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
               </MappingFragment>
@@ -427,8 +492,9 @@ FROM `Dept` AS `Dept`</DefiningQuery>
             <EntityTypeMapping TypeName="Model.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -449,18 +515,8 @@ FROM `Dept` AS `Dept`</DefiningQuery>
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="DeptID" ColumnName="DeptID" />
                 <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Dept">
-            <EntityTypeMapping TypeName="Model.Dept">
-              <MappingFragment StoreEntitySet="Dept">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>

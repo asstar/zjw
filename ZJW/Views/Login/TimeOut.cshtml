@@ -1,0 +1,31 @@
+﻿@using Model;
+@{
+    
+    Layout = null;
+}
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="zh-cn" http-equiv="Content-Language" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>用户登录</title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.messager.confirm('提示', '您的登录已超时，请重新登录！', function (r) {
+                top.location.href = '/Login/LogOut/';
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+

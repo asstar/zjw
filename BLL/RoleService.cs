@@ -7,7 +7,7 @@ using Model;
 using IBLL;
 namespace BLL
 {
-    class PropertyService : BaseService<Property>, IPropertyService
+    public class RoleService : BaseService<Role>, IRoleService
     {
     }
 }

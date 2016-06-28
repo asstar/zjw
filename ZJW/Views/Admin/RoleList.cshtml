@@ -1,0 +1,116 @@
+﻿@using Model;
+@{
+    
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/public.js"></script>
+    <script>
+        //页面初始化
+        $(function () {
+            $('#grid_table').datagrid({
+                url: '/Admin/GetRoleList',
+                sortName: 'RoleName',
+                idField: 'ID',
+                frozenColumns: [[
+                    { field: 'ck', checkbox: true },
+                    {
+                        field: 'opt', title: '操作', width: 120, align: 'center',
+                        formatter: function (value, rec) {
+                            var optBtn = '';
+                            if (rec.ID != '1') {
+                                optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:openWindow(\'Edit\',\'' + rec.ID + '\')" title=\"修改\">修改</a> ';
+                                optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:delRole(\'' + rec.ID + '\')" title=\"删除\">删除</a> ';
+                            }
+                            return optBtn;
+                        }
+                    }
+                ]],
+                columns: [[
+                    { field: 'RoleName', title: '角色名称', width: 120, sortable: true, align: 'center' },
+                    { field: 'Remark', title: '说明', width: 220, sortable: true, align: 'center' }
+                ]],
+                toolbar: [{
+                    text: '刷新',
+                    name: 'role_reload',
+                    iconCls: 'icon-reload',
+                    handler: function () {
+                        refeshGrid();
+                    }
+                }, '-', {
+                    text: '新增',
+                    name: 'role_add',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        openWindow("Create", null);
+                    }
+                }]
+            });
+        });
+
+        function funAfterSubmit() {
+            refeshGrid();
+            closeMyWindow();
+        }
+
+        function funAfterDel() {
+            refeshGrid();
+        }
+
+        function refeshGrid() {
+            $('#grid_table').datagrid({});
+        }
+
+        function openWindow(type, ID) {
+            var res = type == "Create" ? "新增" : "修改";
+            var title = res + "角色";
+            var url = '/Admin/RoleEdit?type=' + type;
+            if (type != "Create") {
+                url += '&ID=' + ID;
+            }
+            openMyWindow(title, url, 460, 280);
+        }
+
+        function delRole(ID) {
+            removeObjWithConfirm(ID, "ID", '/Admin/RoleDelete', "funAfterDel")
+        }
+
+        function queryDataGrid() {
+            var roleName = document.getElementById("role_name_q").value;
+            $('#grid_table').datagrid({
+                queryParams: { roleName: roleName },
+                pageNumber: 1
+            });
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+    <div region="north" split="true" style="height:50px;padding:10px;">
+        <form id="qry_frm" onsubmit="return false">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="75" align="right">角色名称：</td>
+                    <td><input type="text" name="role_name_q" id="role_name_q" class="easyui-validatebox" /></td>
+                    <td width="75" align="right">
+                        <a href="#" onclick="queryDataGrid()" plain="true" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                    </td>
+                    <td width="75" align="right">
+                        <a href="#" onclick="$('#qry_frm')[0].reset();" plain="true" class="easyui-linkbutton" iconcls="icon-reset">清除</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div region="center" id="table_div" style="overflow:hidden;">
+        <table id="grid_table"></table>
+    </div>
+    <div id="mywindow" class="easyui-window" closed="true" cache="false" icon="icon-save" style="width:500px;height:200px;padding:5px;background: #fafafa;">
+
+    </div>
+</body>
+</html>

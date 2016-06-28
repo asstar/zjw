@@ -19,6 +19,7 @@ namespace Model
         public string Password { get; set; }
         public Nullable<System.Guid> DeptID { get; set; }
         public string RealName { get; set; }
+        public Nullable<System.Guid> RoleID { get; set; }
         public string Rank { get; set; }
         public bool IsDeleted { get; set; }
     }

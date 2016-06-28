@@ -27,6 +27,11 @@ namespace zjw.Controllers
                 if (users.Count() > 0)
                 {
                     user = users.FirstOrDefault();
+
+                    UserInfo userInfo = new UserInfo();
+                    userInfo.setUser(user.ID);
+                    Session["User"] = userInfo.baseInfo;
+                    Session["UserName"] = user.UserName;
                     return Json(new { result = "success", content = "" });
                 }
                 else
@@ -34,6 +39,15 @@ namespace zjw.Controllers
                     return Json(new { result = "error", content = "用户名密码错误，请您检查" });
                 }
             }
+        }
+        public ActionResult LogOut()
+        {
+            return View("Login");
+        }
+
+        public ActionResult TimeOut()
+        {
+            return View();
         }
 
 	}

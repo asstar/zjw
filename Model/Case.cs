@@ -15,9 +15,10 @@ namespace Model
     public partial class Case
     {
         public System.Guid ID { get; set; }
+        public string CaseName { get; set; }
         public string CaseCode { get; set; }
         public string UnderTakenDept { get; set; }
-        public string LeaderName { get; set; }
+        public string UnderTaker { get; set; }
         public string TargetName { get; set; }
         public string CaseFormedDate { get; set; }
         public string Note { get; set; }

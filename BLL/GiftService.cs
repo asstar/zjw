@@ -7,7 +7,7 @@ using Model;
 using IBLL;
 namespace BLL
 {
-    class GiftService : BaseService<Gift>, IGiftService
+    public class GiftService : BaseService<Gift>, IGiftService
     {
     }
 }
