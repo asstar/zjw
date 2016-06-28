@@ -15,10 +15,11 @@
           <Property Name="UnderTakenDept" Type="text" />
           <Property Name="UnderTaker" Type="text" />
           <Property Name="TargetName" Type="text" />
-          <Property Name="CaseFormedDate" Type="text" />
+          <Property Name="CaseFormedDate" Type="timestamp" Precision="0" />
           <Property Name="Note" Type="text" />
           <Property Name="Movie" Type="text" />
           <Property Name="Affix" Type="text" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Dept">
           <Key>
@@ -44,6 +45,7 @@
           <Property Name="Content" Type="text" />
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="text" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Goods">
           <Key>
@@ -78,6 +80,7 @@
           <Property Name="HandleReveiver" Type="text" />
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="text" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="InfoLink">
           <Key>
@@ -131,6 +134,7 @@
           <Property Name="HandleReveiver" Type="text" />
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="text" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -189,10 +193,11 @@
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="TargetName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="CaseFormedDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CaseFormedDate" Type="DateTime" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Movie" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Dept">
           <Key>
@@ -218,6 +223,7 @@
           <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Goods">
           <Key>
@@ -252,6 +258,7 @@
           <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="InfoLink">
           <Key>
@@ -305,6 +312,7 @@
           <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -367,6 +375,7 @@
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Movie" ColumnName="Movie" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -394,6 +403,7 @@
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -429,6 +439,7 @@
                 <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -485,6 +496,7 @@
                 <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -9,51 +9,61 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     @RenderPage("~/Views/Shared/Include.cshtml")
-    <script src="../../Contents/public.js"></script>
+    <script src="../../Resource/public.js"></script>
     <script>
+
+
         $(function () {
+            var strcookie = document.cookie;
+            var arrcookie = strcookie.split("=");
+            var statuscookie = arrcookie[1];
+            if (statuscookie == "" || statuscookie == "0") {
+                //retset flag
+                document.cookie = "statuscookie=1";
+                showData();
+
+            } else {
+                window.location.reload();
+
+                document.cookie = "statuscookie=0";
+            }
+
+        });
+
+        function  showData(){
             $('#grid_table').datagrid({
-                url: '/Clue/GetClueList',
-                sortName: 'createDate',
-                idField: 'clueId',
+                url: '/Case/GetCaseList',
+                sortName: 'CaseFormedDate',
+                idField: 'ID',
                 frozenColumns: [[
                     {
                         field: 'opt', title: '操作', width: 260, align: 'center',
                         formatter: function (v, r) {
                             var optBtn = "";
 
-                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Clue/Edit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
-                                //optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteClue(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
-    
-                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Clue/Details?ID=' + r.ID + '" title=\"查看\">查看</a> ';
-
-                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Print/Print?ID=' + r.ID + '" title=\"打印\">打印</a> ';
-                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Approval/Create?ID=' + r.ID + '" title=\"确认打印\">录入批示</a> ';
-
+                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Case/CaseEdit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
+                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteByID(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
+                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Case/CaseDetails?ID=' + r.ID + '" title=\"查看\">查看</a> ';
                             return optBtn;
                         }
                     }
                 ]],
                 columns: [[
-                     { field: 'clueCode', title: '信访编号', width: 300, sortable: true, align: 'center' },
-                     { field: 'objName', title: '被反映人姓名', width: 120, sortable: true, align: 'center' },
-                     { field: 'objAddress', title: '被反映人单位', width: 120, sortable: true, align: 'center' },
-                     { field: 'objAdminLvl', title: '被反映人行政级别', width: 120, sortable: true, align: 'center' },
-                     { field: 'reflectName', title: '反映人', width: 120, sortable: true, align: 'center' },
-                     { field: 'handleDeptName', title: '当前处理部门', width: 120, sortable: true, align: 'center' },
-                     { field: 'handleStaffName', title: '当前处理人员', width: 120, sortable: true, align: 'center' },
+                     { field: 'CaseName', title: '案件名称', width: 300, sortable: true, align: 'center' },
+                     { field: 'UnderTakenDept', title: '承办部门', width: 120, sortable: true, align: 'center' },
+                     { field: 'UnderTaker', title: '负责人', width: 120, sortable: true, align: 'center' },
+                     { field: 'TargetName', title: '涉案对象', width: 120, sortable: true, align: 'center' },
+
                      {
-                         field: 'createDate', title: '录入时间', width: 120, sortable: true, align: 'center',
+                         field: 'CaseFormedDate', title: '立案时间', width: 120, sortable: true, align: 'center',
                          formatter: function (v, r) {
-                             if (r.createDate != null) {
-                                 var dateMilliseconds = parseInt(r.createDate.replace(/\D/igm, ""));
+                             if (r.CaseFormedDate != null) {
+                                 var dateMilliseconds = parseInt(r.CaseFormedDate.replace(/\D/igm, ""));
                                  var result = new Date(dateMilliseconds);
                                  return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
                              }
                          }
-                     },
-                     { field: 'clueDate', title: '登记时间', width: 120, sortable: true, align: 'center' },
-                     { field: 'Status', title: '状态', width: 80, sortable: true, align: 'center' }
+                     }
                 ]],
                 toolbar: [{
                     text: '刷新',
@@ -64,7 +74,7 @@
                 }]
             });
             $("#queryType").combobox({
-                url: '/json/clueSimple.json',
+                url: '/json/caseQuery.json',
                 valueField: 'id',
                 textField: 'text', method: "get",
                 width: 150
@@ -76,33 +86,61 @@
                 textField: 'text', method: "get",
                 width: 100
             });
-        });
 
-        function funAfterSubmit() {
-            refeshGrid();
-            closeMyWindow();
-        }
+        @if ((bool)Session["UsePrev"] == true && Session["Caretaker"] != null)
+            {
 
-        function funAfterDel() {
-            refeshGrid();
-        }
+                Originator<ListModel> o = new Originator<ListModel>();
+                Caretaker<ListModel> c=(Caretaker<ListModel>)Session["Caretaker"];
+                if (c != null)
+                {
+                    o.SetMemento(c.Memento);
+                    ListModel info = o.State;
+                    <text>$("#queryType").combobox('select', '@info.QueryType');  //.setValue('select','info.QueryType');
 
-        function refeshGrid() {
-            $('#grid_table').datagrid({});
-        }
-
-        function deleteClue(clueId) {
-            removeObjWithConfirm(clueId, "ID", '/Clue/Delete', "funAfterDel");
-        }
-        function queryDataGrid() {
-            var queryType = $("#queryType").combobox('getValue');
-            var queryFH = $("#queryFH").combobox('getValue');
-            var keyword = $('#keyword').val();
-            $('#grid_table').datagrid({
-                queryParams: { 'queryType': queryType, 'queryFH': queryFH, 'keyword': keyword },
-                pageNumber: 1
+        $("#queryFH").combobox('select', '@info.Opt');
+        $("#keyword").val('@info.KeyWord');
+        var queryType = $("#queryType").combobox('getValue');
+        var queryFH = $("#queryFH").combobox('getValue');
+        var keyword = $('#keyword').val();
+        $('#grid_table').datagrid({
+            queryParams: { 'queryType': queryType, 'queryFH': queryFH, 'keyword': keyword },
+            pageNumber:  @{ @info.PageIndex; } ,
+            pageSize: @{@info.PageSize}
             });
+        </text>
+
+            Session["UsePrev"] = false;
         }
+
+        }
+    }
+
+    function funAfterSubmit() {
+        refeshGrid();
+        closeMyWindow();
+    }
+
+    function funAfterDel() {
+        refeshGrid();
+    }
+
+    function refeshGrid() {
+        $('#grid_table').datagrid({});
+    }
+
+    function deleteByID(ID) {
+        removeObjWithConfirm(ID, "ID", '/Case/CaseDelete', "funAfterDel");
+    }
+    function queryDataGrid() {
+        var queryType = $("#queryType").combobox('getValue');
+        var queryFH = $("#queryFH").combobox('getValue');
+        var keyword = $('#keyword').val();
+        $('#grid_table').datagrid({
+            queryParams: { 'queryType': queryType, 'queryFH': queryFH, 'keyword': keyword },
+            pageNumber: 1
+        });
+    }
     </script>
 </head>
 <body class="easyui-layout" style="width: 100%;height: 100%;">

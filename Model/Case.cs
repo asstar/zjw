@@ -20,9 +20,10 @@ namespace Model
         public string UnderTakenDept { get; set; }
         public string UnderTaker { get; set; }
         public string TargetName { get; set; }
-        public string CaseFormedDate { get; set; }
+        public Nullable<System.DateTime> CaseFormedDate { get; set; }
         public string Note { get; set; }
         public string Movie { get; set; }
         public string Affix { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

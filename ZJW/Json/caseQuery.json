@@ -1,0 +1,9 @@
+﻿[
+{"id":"CaseName","text":"案件名称"},
+{"id":"CaseCode","text":"案件代号"},
+{"id":"UnderTakenDept","text":"承办部门"},
+{"id":"UnderTaker","text":"专案组负责人"},
+{"id":"TargetName","text":"涉案对象"},
+{"id":"CaseFormedDate","text":"立案时间"},
+{"id":"Note","text":"备    注"}
+ ]

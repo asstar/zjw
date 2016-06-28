@@ -36,5 +36,6 @@ namespace Model
         public string HandleReveiver { get; set; }
         public string Note { get; set; }
         public string Affix { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

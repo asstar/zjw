@@ -57,8 +57,19 @@ namespace BLL
             {
 
                 T item = Find(guid);
-                db.Entry(item).State = EntityState.Deleted;
-                db.SaveChanges();
+                Type itemType = typeof(T);
+                PropertyInfo[] pi = itemType.GetProperties();
+                foreach (PropertyInfo property in pi)
+                {
+                    //给属性赋值
+                    if (property.Name == "IsDeleted")
+                    {
+                        property.SetValue(item, true);
+                    }
+                }
+                Update(item);
+                //db.Entry(item).State = EntityState.Deleted;
+                //db.SaveChanges();
 
             }
         }

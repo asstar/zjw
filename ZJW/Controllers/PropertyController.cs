@@ -33,6 +33,7 @@ namespace zjw.Controllers
             {
                 item.ID = Guid.NewGuid();
                 moneyService.Add(item);
+                ModelState.Clear();
                 return MoneyCreate();
             }
             catch (Exception e)
@@ -46,6 +47,22 @@ namespace zjw.Controllers
             ViewBag.Goods = goodsInfo;
             Session["Flag"] = "Create";
             return View("GoodsEdit");
+        }
+        [HttpPost]
+        public ActionResult GoodsCreate(Goods item)
+        {
+
+            try
+            {
+                item.ID = Guid.NewGuid();
+                goodsService.Add(item);
+                ModelState.Clear();
+                return GoodsCreate();
+            }
+            catch (Exception e)
+            {
+                return Content(e.ToString());
+            }
         }
 	}
 }

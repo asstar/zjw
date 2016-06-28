@@ -14,6 +14,8 @@ namespace zjw.Controllers
         {
             var temp = MenuBar.GetJson(((BaseInfo)Session["User"]).user.ID);
             Session["Menus"] = temp;
+            Session["UsePrev"] = false;
+            Session["Caretaker"] = null;
             return View();
         }
 	}

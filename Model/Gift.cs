@@ -24,5 +24,6 @@ namespace Model
         public string Content { get; set; }
         public string Note { get; set; }
         public string Affix { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

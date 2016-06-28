@@ -15,7 +15,7 @@ namespace zjw
 
             IList<Tree> t = new List<Tree>();
             IEnumerable<Tree> temp = null;
-            string sql = "SELECT * FROM (SELECT menu.ParentID as id ,Name as text,parentId,r.checked FROM menu left join (select id AS checked From RoleMenu WHERE roleId='" + ID + "') AS r ON menu.Id=r.checked) AS s WHERE  parentId='00000000-0000-0000-0000-000000000000'";
+            string sql = "SELECT * FROM (SELECT menu.ID as id ,Name as text,parentId,r.checked FROM menu left join (select id AS checked From RoleMenu WHERE roleId='" + ID + "') AS r ON menu.Id=r.checked) AS s WHERE  parentId='00000000-0000-0000-0000-000000000000'";
             temp = db.Database.SqlQuery<Tree>(sql);
             return temp.ToList();
         }
