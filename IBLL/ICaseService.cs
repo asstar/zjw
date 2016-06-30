@@ -8,6 +8,5 @@ namespace IBLL
 {
     public interface ICaseService : IBaseService<Case>
     {
-        List<Case> List(ListModel listModel, String TableName, ref int total);
     }
 }

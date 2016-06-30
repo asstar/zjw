@@ -35,7 +35,7 @@ namespace Model
         public Nullable<System.DateTime> HandleDate { get; set; }
         public string HandleReveiver { get; set; }
         public string Note { get; set; }
-        public string Affix { get; set; }
+        public Nullable<System.Guid> Affix { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

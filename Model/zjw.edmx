@@ -5,6 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Affix">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="MasterID" Type="guid" />
+          <Property Name="Prev" Type="guid" />
+          <Property Name="Next" Type="guid" />
+          <Property Name="FileName" Type="text" />
+          <Property Name="SaveName" Type="text" />
+          <Property Name="FileExtension" Type="text" />
+          <Property Name="ContentType" Type="text" />
+          <Property Name="Content" Type="longblob" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Case">
           <Key>
             <PropertyRef Name="ID" />
@@ -18,7 +33,7 @@
           <Property Name="CaseFormedDate" Type="timestamp" Precision="0" />
           <Property Name="Note" Type="text" />
           <Property Name="Movie" Type="text" />
-          <Property Name="Affix" Type="text" />
+          <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Dept">
@@ -44,7 +59,7 @@
           <Property Name="TurnInAddr" Type="text" />
           <Property Name="Content" Type="text" />
           <Property Name="Note" Type="text" />
-          <Property Name="Affix" Type="text" />
+          <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Goods">
@@ -70,16 +85,16 @@
           <Property Name="WithholdDate" Type="timestamp" Precision="0" />
           <Property Name="WithholdAddr" Type="text" />
           <Property Name="KeepMethod" Type="text" />
-          <Property Name="TurnInDate" Type="text" />
+          <Property Name="TurnInDate" Type="timestamp" Precision="0" />
           <Property Name="Receiver" Type="text" />
           <Property Name="Keeper" Type="text" />
           <Property Name="KeepAddr" Type="text" />
           <Property Name="HandleMethod" Type="text" />
           <Property Name="GoodsProperty" Type="text" />
           <Property Name="HandleDate" Type="text" />
-          <Property Name="HandleReveiver" Type="text" />
+          <Property Name="HandleReveiver" Type="timestamp" Precision="0" />
           <Property Name="Note" Type="text" />
-          <Property Name="Affix" Type="text" />
+          <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="InfoLink">
@@ -133,7 +148,7 @@
           <Property Name="HandleDate" Type="timestamp" Precision="0" />
           <Property Name="HandleReveiver" Type="text" />
           <Property Name="Note" Type="text" />
-          <Property Name="Affix" Type="text" />
+          <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
@@ -167,6 +182,7 @@
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Affix" EntityType="Self.Affix" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Case" EntityType="Self.Case" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Dept" EntityType="Self.Dept" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Gift" EntityType="Self.Gift" Schema="zjw" store:Type="Tables" />
@@ -183,6 +199,21 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Affix">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="MasterID" Type="Guid" />
+          <Property Name="Prev" Type="Guid" />
+          <Property Name="Next" Type="Guid" />
+          <Property Name="FileName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="SaveName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="FileExtension" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Case">
           <Key>
             <PropertyRef Name="ID" />
@@ -196,7 +227,7 @@
           <Property Name="CaseFormedDate" Type="DateTime" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Movie" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Dept">
@@ -222,7 +253,7 @@
           <Property Name="TurnInAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Goods">
@@ -248,16 +279,16 @@
           <Property Name="WithholdDate" Type="DateTime" />
           <Property Name="WithholdAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="KeepMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="TurnInDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="TurnInDate" Type="DateTime" />
           <Property Name="Receiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Keeper" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="KeepAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="HandleMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="GoodsProperty" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="HandleDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleReveiver" Type="DateTime" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="InfoLink">
@@ -311,7 +342,7 @@
           <Property Name="HandleDate" Type="DateTime" />
           <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Affix" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
@@ -345,6 +376,7 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Affix" EntityType="Self.Affix" />
           <EntitySet Name="Case" EntityType="Self.Case" />
           <EntitySet Name="Dept" EntityType="Self.Dept" />
           <EntitySet Name="Gift" EntityType="Self.Gift" />
@@ -362,6 +394,22 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Affix">
+            <EntityTypeMapping TypeName="Model.Affix">
+              <MappingFragment StoreEntitySet="Affix">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="Prev" ColumnName="Prev" />
+                <ScalarProperty Name="Next" ColumnName="Next" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="SaveName" ColumnName="SaveName" />
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Case">
             <EntityTypeMapping TypeName="Model.Case">
               <MappingFragment StoreEntitySet="Case">

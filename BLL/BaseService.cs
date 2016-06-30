@@ -104,5 +104,18 @@ namespace BLL
                 return db.Set<T>().Find(guid);//db.ClueInfo.Find(guid);
             }
         }
+
+        public List<T> List(ListModel listModel, String TableName, ref int total)
+        {
+            using (var db = new DBEntities())
+            {
+                string sql = "select * FROM " + TableName + " where isDeleted=false " + listModel.StatusString + listModel.QueryString + listModel.AuthString + " order by " + listModel.Sort + " " + listModel.Direction;
+                IEnumerable<T> temp = SqlQuery(sql);
+                total = temp.Count();
+                var users = temp.Skip<T>((listModel.PageIndex - 1) * listModel.PageSize).Take<T>(listModel.PageSize);
+                var result = users.ToList<T>();
+                return result;
+            }
+        }
     }
 }

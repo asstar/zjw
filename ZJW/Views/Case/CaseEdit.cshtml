@@ -11,6 +11,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/edit.js"></script>
 
 
 </head>
@@ -44,7 +45,7 @@
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">立案时间：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.CaseFormedDate}else{@Html.TextBoxFor(i => item.CaseFormedDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.CaseFormedDate}else{@Html.TextBoxFor(i => item.CaseFormedDate, new { size = 30, @class = "easyui-datebox" })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">备注：</td>
@@ -54,10 +55,8 @@
                 <td class="detail_td1" colspan="1">暂扣视频：</td>
                 <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Movie}else{@Html.TextBoxFor(i => item.Movie, new { size = 135 })}}</td>
             </tr>
-	        <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">相关文书备案：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Affix}else{@Html.TextBoxFor(i => item.Affix, new { size = 135 })}}</td>
-            </tr>
+            @RenderPage("~/Views/Shared/FileUpload.cshtml")
+            
 
         </table>
         <p align="center">
@@ -77,7 +76,9 @@
 
 </body>
 </html>
+
 <script type="text/javascript">
+
     function SubmitData() {
         if ($("#frm_edit").form('validate')) {
             $("#btnLogin").linkbutton("disable");
@@ -87,7 +88,10 @@
         }
     }
 
+
 </script>
+
+<script src="../../Resource/upload.js"></script>
 
 
 

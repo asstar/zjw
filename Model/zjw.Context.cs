@@ -25,6 +25,7 @@ namespace Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Affix> Affix { get; set; }
         public DbSet<Case> Case { get; set; }
         public DbSet<Dept> Dept { get; set; }
         public DbSet<Gift> Gift { get; set; }

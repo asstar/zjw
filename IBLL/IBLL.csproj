@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBaseService.cs" />
+    <Compile Include="IAffixService.cs" />
     <Compile Include="IDeptService.cs" />
     <Compile Include="ICaseService.cs" />
     <Compile Include="IGiftService.cs" />

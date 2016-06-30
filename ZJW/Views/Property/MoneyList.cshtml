@@ -1,0 +1,175 @@
+﻿@using Model;
+@{
+    
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/public.js"></script>
+    <script>
+
+
+        $(function () {
+            var strcookie = document.cookie;
+            var arrcookie = strcookie.split("=");
+            var statuscookie = arrcookie[1];
+            if (statuscookie == "" || statuscookie == "0") {
+                //retset flag
+                document.cookie = "statuscookie=1";
+                showData();
+
+            } else {
+                window.location.reload();
+
+                document.cookie = "statuscookie=0";
+            }
+
+        });
+
+        function  showData(){
+            $('#grid_table').datagrid({
+                url: '/Property/GetMoneyList',
+                sortName: 'WithholdDate',
+                idField: 'ID',
+                frozenColumns: [[
+                    {
+                        field: 'opt', title: '操作', width: 260, align: 'center',
+                        formatter: function (v, r) {
+                            var optBtn = "";
+
+                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Property/MoneyEdit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
+                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteByID(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
+                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Property/MoneyDetails?ID=' + r.ID + '" title=\"查看\">查看</a> ';
+                            return optBtn;
+                        }
+                    }
+                ]],
+                columns: [[
+                     { field: 'CaseName', title: '案件名称', width: 300, sortable: true, align: 'center' },
+                     { field: 'UnderTakenDept', title: '承办部门', width: 120, sortable: true, align: 'center' },
+                     { field: 'UnderTaker', title: '负责人', width: 120, sortable: true, align: 'center' },
+                     { field: 'TargetName', title: '涉案对象', width: 120, sortable: true, align: 'center' },
+
+                     {
+                         field: 'CaseFormedDate', title: '立案时间', width: 120, sortable: true, align: 'center',
+                         formatter: function (v, r) {
+                             if (r.CaseFormedDate != null) {
+                                 var dateMilliseconds = parseInt(r.CaseFormedDate.replace(/\D/igm, ""));
+                                 var result = new Date(dateMilliseconds);
+                                 return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
+                             }
+                         }
+                     }
+                ]],
+                toolbar: [{
+                    text: '刷新',
+                    iconCls: 'icon-reload',
+                    handler: function () {
+                        refeshGrid();
+                    }
+                }]
+            });
+            $("#queryType").combobox({
+                url: '/json/moneyQuery.json',
+                valueField: 'id',
+                textField: 'text', method: "get",
+                width: 150
+            });
+
+            $("#queryFH").combobox({
+                url: '/json/queryFH.json',
+                valueField: 'id',
+                textField: 'text', method: "get",
+                width: 100
+            });
+
+        @if ((bool)Session["UsePrev"] == true && Session["Caretaker"] != null)
+            {
+
+                Originator<ListModel> o = new Originator<ListModel>();
+                Caretaker<ListModel> c=(Caretaker<ListModel>)Session["Caretaker"];
+                if (c != null)
+                {
+                    o.SetMemento(c.Memento);
+                    ListModel info = o.State;
+                    <text>$("#queryType").combobox('select', '@info.QueryType');  //.setValue('select','info.QueryType');
+
+        $("#queryFH").combobox('select', '@info.Opt');
+        $("#keyword").val('@info.KeyWord');
+        var queryType = $("#queryType").combobox('getValue');
+        var queryFH = $("#queryFH").combobox('getValue');
+        var keyword = $('#keyword').val();
+        $('#grid_table').datagrid({
+            queryParams: { 'queryType': queryType, 'queryFH': queryFH, 'keyword': keyword },
+            pageNumber:  @{ @info.PageIndex; } ,
+            pageSize: @{@info.PageSize}
+            });
+        </text>
+
+            Session["UsePrev"] = false;
+        }
+
+        }
+    }
+
+    function funAfterSubmit() {
+        refeshGrid();
+        closeMyWindow();
+    }
+
+    function funAfterDel() {
+        refeshGrid();
+    }
+
+    function refeshGrid() {
+        $('#grid_table').datagrid({});
+    }
+
+    function deleteByID(ID) {
+        removeObjWithConfirm(ID, "ID", '/Property/MoneyDelete', "funAfterDel");
+    }
+    function queryDataGrid() {
+        var queryType = $("#queryType").combobox('getValue');
+        var queryFH = $("#queryFH").combobox('getValue');
+        var keyword = $('#keyword').val();
+        $('#grid_table').datagrid({
+            queryParams: { 'queryType': queryType, 'queryFH': queryFH, 'keyword': keyword },
+            pageNumber: 1
+        });
+    }
+    </script>
+</head>
+<body class="easyui-layout" style="width: 100%;height: 100%;">
+    <div region="north" split="true" style="height:50px;padding:10px;">
+        <form id="qry_frm" onsubmit="return false">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="75" align="right">查询条件：</td>
+                    <td>
+                        <input id="queryType" name="queryType" class="easyui-combobox" />
+                        <input id="queryFH" name="queryFH" class="easyui-combobox" />
+                        <input style="width: 250px;" name="keyword" id="keyword" class="easyui-validatebox" />
+                    </td>
+                    <td width="75" align="right">
+                        <a href="#" onclick="queryDataGrid()" plain="true" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                    </td>
+                    <td width="75" align="right">
+                        <a href="#" onclick="$('#qry_frm')[0].reset();" plain="true" class="easyui-linkbutton" iconcls="icon-reset">清除</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div region="center" id="table_div" style="overflow:hidden;">
+        <form method="post" id="_frm"></form>
+        <table id="grid_table"></table>
+    </div>
+    <div id="mywindow" class="easyui-window" closed="true" cache="false" icon="icon-save" style="width:500px;height:200px;padding:5px;background: #fafafa;">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿
+@using Model;
+@{
+
+    Layout = null;
+}
+
+<tr class="detail_tr">
+    <td class="detail_td1" colspan="1">相关文书备案：</td>
+    <td class="detail_td1" colspan="1">选择文件：</td>
+    <td class="detail_td2" colspan="1"><input id="file_upload" name="file_upload" type="file" multiple="true" /></td>
+    <td class="detail_td1" colspan="1">操作：</td>
+    <td class="detail_td2" colspan="4">
+
+        <a class="easyui-linkbutton" id="btnUpload" data-options="iconCls:'icon-save'"
+           href="javascript:checkQueue()">上传</a>
+        <a class="easyui-linkbutton" id="btnCancelUpload" data-options="iconCls:'icon-cancel'"
+           href="javascript:checkCancel()">取消</a>
+    </td>
+</tr>
+<tr class="detail_tr">
+    <td class="detail_td2" colspan="8">
+        <div id="queue"></div>
+    </td>
+
+</tr>
+<tr class="detail_tr">
+    <td class="detail_td2" colspan="8">
+        <div region="center" id="table_div" style="overflow:hidden;">
+            <table id="grid_table" align="center" style="height: auto; width: auto"></table>
+        </div>
+    </td>
+
+</tr>
+

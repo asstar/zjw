@@ -11,7 +11,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     @RenderPage("~/Views/Shared/Include.cshtml")
-
+    <script src="../../Resource/edit.js"></script>
+    <script src="../../Resource/upload.js"></script>
 
 </head>
 <body>
@@ -42,8 +43,8 @@
             </tr>
 	    <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">上交时间：</td>
-                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.TurnInDate}else{@Html.TextBoxFor(i => item.TurnInDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
-                <td class="detail_td1" colspan="1">上交地点：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.TurnInDate}else{@Html.TextBoxFor(i => item.TurnInDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+            <td class="detail_td1" colspan="1">上交地点：</td>
                 <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.TurnInAddr}else{@Html.TextBoxFor(i => item.TurnInAddr, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
@@ -54,10 +55,7 @@
                 <td class="detail_td1" colspan="1">备注：</td>
                 <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Note}else{@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "5" })}}</td>
             </tr>
-	        <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">相关文书备案：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Affix}else{@Html.TextBoxFor(i => item.Affix, new { size = 135 })}}</td>
-            </tr>
+	        @RenderPage("~/Views/Shared/FileUpload.cshtml")
 
         </table>
         <p align="center">
@@ -78,6 +76,7 @@
 </body>
 </html>
 <script type="text/javascript">
+
     function SubmitData() {
         if ($("#frm_edit").form('validate')) {
             $("#btnLogin").linkbutton("disable");
@@ -88,7 +87,7 @@
     }
 </script>
 
-
+<script src="../../Resource/upload.js"></script>
 
   
 

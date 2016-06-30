@@ -16,5 +16,7 @@ namespace IBLL
         void Delete(T item);
         T Find(Guid guid);
         IEnumerable<T> SqlQuery(string sql);
+
+        List<T> List(ListModel listModel, String TableName, ref int total);
     }
 }

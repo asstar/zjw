@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Affix.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
     <Compile Include="Case.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>

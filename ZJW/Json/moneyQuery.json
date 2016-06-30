@@ -1,0 +1,21 @@
+﻿[
+{"id":"CaseName","text":"案件名称"},
+{"id":"CaseCode","text":"案件代号"},
+{"id":"MoneyCode","text":"款项编号"},
+{"id":"OriginalHolder","text":"原持有人"},
+{"id":"MoneyType","text":"款项种类"},
+{"id":"Currency","text":"币种"},
+{"id":"Sum","text":"金额"},
+{"id":"OriginAccount","text":"原账号"},
+{"id":"KeepAccount","text":"保管账号"},
+{"id":"Content","text":"款项说明"},
+{"id":"WithholdDate","text":"暂扣时间"},
+{"id":"Undertaker","text":"承办人员"},
+{"id":"HandOverDate","text":"移交时间"},
+{"id":"Receicer","text":"接收人员"},
+{"id":"HandleMethod","text":"处置情况"},
+{"id":"MoneyProperty","text":"款项性质"},
+{"id":"HandleDate","text":"处置移交时间"},
+{"id":"HandleReveiver","text":"处置接收人"},
+{"id":"Note","text":"备注"}
+ ]

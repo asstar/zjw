@@ -21,6 +21,7 @@ namespace zjw.Controllers
         public ActionResult CaseCreate()
         {
             Case caseInfo = new Case();
+            caseInfo.ID = Guid.NewGuid();
             ViewBag.Case = caseInfo;
             Session["Flag"] = "Create";
             return View("CaseEdit");
@@ -31,7 +32,7 @@ namespace zjw.Controllers
 
             try
             {
-                item.ID = Guid.NewGuid();
+                //item.ID = Guid.NewGuid();
                 caseService.Add(item);
                 ModelState.Clear();
                 return CaseCreate();
@@ -73,7 +74,8 @@ namespace zjw.Controllers
         public ActionResult GiftCreate()
         {
             Gift giftInfo = new Gift();
-            ViewBag.Money = giftInfo;
+            giftInfo.ID = Guid.NewGuid();
+            ViewBag.Gift = giftInfo;
             Session["Flag"] = "Create";
             return View("GiftEdit");
         }
@@ -83,7 +85,7 @@ namespace zjw.Controllers
 
             try
             {
-                item.ID = Guid.NewGuid();
+                //item.ID = Guid.NewGuid();
                 giftService.Add(item);
                 ModelState.Clear();
                 return GiftCreate();
@@ -92,6 +94,35 @@ namespace zjw.Controllers
             {
                 return Content(e.ToString());
             }
+        }
+        public ActionResult GiftEdit(Guid ID)
+        {
+            var temp = giftService.Find(ID);
+            ViewBag.Gift = temp;
+            Session["Flag"] = "Edit";
+            Session["UsePrev"] = true;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GiftEdit(Gift item)
+        {
+            giftService.Update(item);
+            return Content("<script type=\"text/javascript\">history.go(-2);</script>");
+
+        }
+        public ActionResult GiftDetails(Guid ID)
+        {
+            Gift giftInfo = giftService.Find(ID); //db.ClueInfo.Find(ID);
+            ViewBag.Gift = giftInfo;
+            Session["Flag"] = "Detail";
+            Session["UsePrev"] = true;
+            return View("GiftEdit");
+        }
+        [HttpPost]
+        public ActionResult GiftDelete(Guid ID)
+        {
+            giftService.Delete(ID);
+            return Content("success");
         }
         public ActionResult CaseList()
         {
@@ -127,7 +158,39 @@ namespace zjw.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GiftList()
+        {
+            return View();
+        }
+        public JsonResult GetGiftList()
+        {
+            Originator<ListModel> o = new Originator<ListModel>();
+            o.State = getListModel();
+            if ((bool)Session["UsePrev"] == false || Session["Caretaker"] == null)
+            {
 
+                Caretaker<ListModel> c = new Caretaker<ListModel>();
+                c.Memento = o.CreateMemento();
+                Session["Caretaker"] = c;
+            }
+            else
+            {
+                Caretaker<ListModel> c = (Caretaker<ListModel>)Session["Caretaker"];
+                o.SetMemento(c.Memento);
+            }
+            ListModel info = o.State;
+            int total = 0;
+            var result = giftService.List(info, "`Gift`", ref total);
+            total = result.Count();
+
+            var data = new
+            {
+                total = total,
+                rows = result
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public ListModel getListModel()
         {
             ListModel info = new ListModel();
@@ -149,32 +212,6 @@ namespace zjw.Controllers
                 {
                     info.QueryString = " and " + info.QueryType + " LIKE '%" + info.KeyWord + "%' ";
                 }
-            }
-            return info;
-        }
-        public ActionResult AdvQuery()
-        {
-            return View();
-        }
-
-        public ListModel getAdvListModel()
-        {
-            ListModel info = new ListModel();
-            info.PageIndex = Request["page"] == null ? 1 : int.Parse(Request["page"]);//Request["page"] == null ? 1 : int.Parse(Request["page"]);
-            info.PageSize = Request["rows"] == null ? 30 : int.Parse(Request["rows"]);
-            info.Sort = Request["sort"];
-            info.Direction = Request["order"];
-            info.QueryType = null;
-            //string keyWord = Request["keyWord"];
-            info.KeyWord = Request["keyWord"];
-            info.QueryString = "";
-            /*if (keyWord == null)
-            {
-                keyWord = "";
-            }*/
-            if (info.QueryType != null && info.KeyWord != null & info.QueryType != "" && info.KeyWord != "")
-            {
-                info.QueryString = info.KeyWord;
             }
             return info;
         }

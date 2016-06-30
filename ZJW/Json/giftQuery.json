@@ -1,0 +1,10 @@
+﻿[
+{"id":"TurnInCode","text":"上交编号"},
+{"id":"UnderTakenDept","text":"承办部门"},
+{"id":"UnderTaker","text":"承办人"},
+{"id":"TargetName","text":"上交人"},
+{"id":"TurnInDate","text":"上交时间"},
+{"id":"TurnInAddr","text":"上交地点"},
+{"id":"Content","text":"详情"},
+{"id":"Note","text":"备注"}
+ ]
