@@ -4,7 +4,7 @@ $(function(){
 	InitLeftMenu();
 	tabClose();
 	tabCloseEven();
-	$('#tabs').tabs('add', {
+	/*$('#tabs').tabs('add', {
 	    title: '线索处置',
 	    content: createFrame('/Approval/List')
 	}).tabs({
@@ -19,7 +19,7 @@ $(function(){
 	    }
 	});
 
-
+    */
 
 })
 

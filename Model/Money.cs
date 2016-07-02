@@ -37,5 +37,6 @@ namespace Model
         public string Note { get; set; }
         public Nullable<System.Guid> Affix { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
     }
 }

@@ -19,5 +19,6 @@ namespace Model
         public Nullable<System.Guid> ParentID { get; set; }
         public string Sequence { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
     }
 }

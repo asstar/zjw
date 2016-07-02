@@ -57,8 +57,8 @@
                      {
                          field: 'TurnInDate', title: '上交时间', width: 120, sortable: true, align: 'center',
                          formatter: function (v, r) {
-                             if (r.CaseFormedDate != null) {
-                                 var dateMilliseconds = parseInt(r.CaseFormedDate.replace(/\D/igm, ""));
+                             if (r.TurnInDate != null) {
+                                 var dateMilliseconds = parseInt(r.TurnInDate.replace(/\D/igm, ""));
                                  var result = new Date(dateMilliseconds);
                                  return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
                              }

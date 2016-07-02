@@ -1,0 +1,149 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Users item = ViewBag.user;
+}
+<script>
+
+
+
+    $(function () {
+        $('#case_grid_table').datagrid({
+            url: '/Case/GetCaseList',
+            sortName: 'CaseFormedDate',
+            idField: 'ID',
+            fit: false,
+            fitColumns: true,
+            frozenColumns: [[
+                {
+                    field: 'opt', title: '操作', width: 80, align: 'center',
+                    formatter: function (v, r) {
+                        var optBtn = "";
+                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:beforeSubmit()" title=\"选择\">选择</a> ';
+                        return optBtn;
+                    }
+                }
+            ]],
+            columns: [[
+                 { field: 'CaseName', title: '案件名称', width: 100, sortable: true, align: 'center' },
+                 { field: 'UnderTakenDept', title: '承办部门', width: 100, sortable: true, align: 'center' },
+                 { field: 'UnderTaker', title: '负责人', width: 100, sortable: true, align: 'center' },
+                 { field: 'TargetName', title: '涉案对象', width: 100, sortable: true, align: 'center' },
+
+                 {
+                     field: 'CaseFormedDate', title: '立案时间', width: 100, sortable: true, align: 'center',
+                     formatter: function (v, r) {
+                         if (r.CaseFormedDate != null) {
+                             var dateMilliseconds = parseInt(r.CaseFormedDate.replace(/\D/igm, ""));
+                             var result = new Date(dateMilliseconds);
+                             return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
+                         }
+                     }
+                 }
+            ]],
+            toolbar: [{
+                text: '刷新',
+                iconCls: 'icon-reload',
+                handler: function () {
+                    refeshGrid();
+                }
+            }]
+        });
+        $("#queryType").combobox({
+            url: '/json/caseQuery.json',
+            valueField: 'id',
+            textField: 'text', method: "get",
+            width: 150
+        });
+
+        $("#queryFH").combobox({
+            url: '/json/queryFH.json',
+            valueField: 'id',
+            textField: 'text', method: "get",
+            width: 100
+        });
+    });
+
+    function funAfterSubmit() {
+        refeshGrid();
+        closeMyWindow();
+    }
+
+    function funAfterDel() {
+        refeshGrid();
+    }
+
+    function refeshGrid() {
+        $('#case_grid_table').datagrid({});
+    }
+
+    function SelectCaseByID(ID) {
+        removeObjWithConfirm(ID, "ID", '/Case/CaseDelete', "funAfterDel");
+    }
+    function queryDataGrid() {
+        var queryType = $("#queryType").combobox('getValue');
+        var queryFH = $("#queryFH").combobox('getValue');
+        var keyword = $('#keyword').val();
+        $('#case_grid_table').datagrid({
+            queryParams: { 'queryType': queryType, 'queryFH': queryFH, 'keyword': keyword },
+            pageNumber: 1
+        });
+    }
+</script>
+
+
+
+<!-- 不使用EasyUI LayOut样式，防止GariGrid悬浮 -->
+<div id="win_panel" class="mng_panel">
+    <div region="north" split="true" style="height:50px;padding:10px;">
+        <form id="qry_frm" onsubmit="return false">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="75" align="right">查询条件：</td>
+                    <td>
+                        <input id="queryType" name="queryType" class="easyui-combobox" />
+                        <input id="queryFH" name="queryFH" class="easyui-combobox" />
+                        <input style="width: 250px;" name="keyword" id="keyword" class="easyui-validatebox" />
+                    </td>
+                    <td width="75" align="right">
+                        <a href="#" onclick="queryDataGrid()" plain="true" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                    </td>
+                    <td width="75" align="right">
+                        <a href="#" onclick="$('#qry_frm')[0].reset();" plain="true" class="easyui-linkbutton" iconcls="icon-reset">清除</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div region="center" id="table_div" style="overflow:hidden;">
+        <form method="post" id="_frm"></form>
+        <table id="case_grid_table"></table>
+    </div>
+</div>
+    <script type="text/javascript">
+        $.extend($.fn.validatebox.defaults.rules, {
+            /*必须和某个字段相等*/
+            equalTo: { validator: function (value, param) { return $(param[0]).val() == value; }, message: '字段不匹配' }
+        });
+        $(document).ready(function () {
+            var panel = document.getElementById("win_panel");
+            //Form高度为弹出窗高度减去按钮和其他高度
+            panel.style.height = $('#mywindow').window('options').height - 50 + 'px';
+            panel.style.width = $('#mywindow').window('options').width-50  + 'px';
+
+
+        });
+        function beforeSubmit() {
+            var selected = $('#case_grid_table').datagrid('getSelected');
+            if (selected) {
+                $("#item_CaseName").val(selected.CaseName);
+                $("#item_CaseID").val(selected.CaseID);
+                $("#item_CaseCode").val(selected.CaseCode);
+            }
+            closeMyWindow();
+        }
+    </script>
+
+
+

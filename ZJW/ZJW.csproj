@@ -120,6 +120,14 @@
     <Content Include="Json\giftQuery.json" />
     <Content Include="Json\moneyQuery.json" />
     <Content Include="Json\goodsQuery.json" />
+    <Content Include="Json\MoneyType.json" />
+    <Content Include="Json\Currency.json" />
+    <Content Include="Json\HandleMethod.json" />
+    <Content Include="Json\Property.json" />
+    <Content Include="Json\Type.json" />
+    <Content Include="Json\WithholdMethod.json" />
+    <Content Include="Json\KeepMethod.json" />
+    <None Include="Properties\PublishProfiles\zjw.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Resource\admin.css" />
     <Content Include="Resource\ajaxUpload\ajaxfileupload.js" />
@@ -1661,6 +1669,7 @@
     <Content Include="Resource\upload.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resource\utils.css" />
     <Content Include="Resource\utils.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1694,7 +1703,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
-    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
@@ -1727,6 +1736,8 @@
     <Content Include="Views\Shared\upload.cshtml" />
     <Content Include="Views\Shared\FileUpload.cshtml" />
     <Content Include="Views\Shared\UploadScript.cshtml" />
+    <Content Include="Views\Property\FindCase.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

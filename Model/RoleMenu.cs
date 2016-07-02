@@ -17,5 +17,6 @@ namespace Model
         public System.Guid ID { get; set; }
         public Nullable<System.Guid> RoleID { get; set; }
         public Nullable<System.Guid> MenuID { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
     }
 }

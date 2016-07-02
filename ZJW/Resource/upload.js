@@ -7,11 +7,11 @@
             'multi': true,
             'queueID': 'queue',
             'uploadScript': '/File/Upload',
-            'formData': { 'ID': $('#item_ID').val() },
+            'formData': { 'ID': $('#item_ID').val(), 'type': 'file' },
             'onUploadComplete': function (file, data) { refeshGrid(); }
         });
         $('#grid_table').datagrid({
-            url: '/File/GetList?ID='+$('#item_ID').val(),
+            url: '/File/GetList?ID='+$('#item_ID').val()+'&Type=file',
             sortName: 'ID',
             idField: 'ID',
 

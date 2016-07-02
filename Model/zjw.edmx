@@ -13,12 +13,14 @@
           <Property Name="MasterID" Type="guid" />
           <Property Name="Prev" Type="guid" />
           <Property Name="Next" Type="guid" />
+          <Property Name="Type" Type="text" />
           <Property Name="FileName" Type="text" />
           <Property Name="SaveName" Type="text" />
           <Property Name="FileExtension" Type="text" />
           <Property Name="ContentType" Type="text" />
           <Property Name="Content" Type="longblob" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Case">
           <Key>
@@ -35,6 +37,7 @@
           <Property Name="Movie" Type="text" />
           <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Dept">
           <Key>
@@ -45,6 +48,7 @@
           <Property Name="ParentID" Type="guid" />
           <Property Name="Sequence" Type="text" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Gift">
           <Key>
@@ -61,6 +65,7 @@
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Goods">
           <Key>
@@ -96,6 +101,7 @@
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="InfoLink">
           <Key>
@@ -122,6 +128,7 @@
           <Property Name="ParentID" Type="guid" />
           <Property Name="Url" Type="text" />
           <Property Name="Sequence" Type="int" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Money">
           <Key>
@@ -150,6 +157,7 @@
           <Property Name="Note" Type="text" />
           <Property Name="Affix" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -159,6 +167,7 @@
           <Property Name="RoleName" Type="text" />
           <Property Name="Rank" Type="text" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="RoleMenu">
           <Key>
@@ -167,6 +176,7 @@
           <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="RoleID" Type="guid" />
           <Property Name="MenuID" Type="guid" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -180,6 +190,7 @@
           <Property Name="RoleID" Type="guid" />
           <Property Name="Rank" Type="text" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Affix" EntityType="Self.Affix" Schema="zjw" store:Type="Tables" />
@@ -207,12 +218,14 @@
           <Property Name="MasterID" Type="Guid" />
           <Property Name="Prev" Type="Guid" />
           <Property Name="Next" Type="Guid" />
+          <Property Name="Type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="FileName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="SaveName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="FileExtension" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="ContentType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Case">
           <Key>
@@ -229,6 +242,7 @@
           <Property Name="Movie" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Dept">
           <Key>
@@ -239,6 +253,7 @@
           <Property Name="ParentID" Type="Guid" />
           <Property Name="Sequence" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Gift">
           <Key>
@@ -255,6 +270,7 @@
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Goods">
           <Key>
@@ -290,6 +306,7 @@
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="InfoLink">
           <Key>
@@ -316,6 +333,7 @@
           <Property Name="ParentID" Type="Guid" />
           <Property Name="Url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Sequence" Type="Int32" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Money">
           <Key>
@@ -344,6 +362,7 @@
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -353,6 +372,7 @@
           <Property Name="RoleName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Rank" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="RoleMenu">
           <Key>
@@ -361,6 +381,7 @@
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="RoleID" Type="Guid" />
           <Property Name="MenuID" Type="Guid" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -374,6 +395,7 @@
           <Property Name="RoleID" Type="Guid" />
           <Property Name="Rank" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Affix" EntityType="Self.Affix" />
@@ -401,12 +423,14 @@
                 <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="Prev" ColumnName="Prev" />
                 <ScalarProperty Name="Next" ColumnName="Next" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="SaveName" ColumnName="SaveName" />
                 <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -424,6 +448,7 @@
                 <ScalarProperty Name="Movie" ColumnName="Movie" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -435,6 +460,7 @@
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="Sequence" ColumnName="Sequence" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -452,6 +478,7 @@
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -488,6 +515,7 @@
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -516,6 +544,7 @@
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -545,6 +574,7 @@
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -555,6 +585,7 @@
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -564,6 +595,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -578,6 +610,7 @@
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

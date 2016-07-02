@@ -50,20 +50,24 @@
                 ]],
                 columns: [[
                      { field: 'CaseName', title: '案件名称', width: 300, sortable: true, align: 'center' },
-                     { field: 'UnderTakenDept', title: '承办部门', width: 120, sortable: true, align: 'center' },
-                     { field: 'UnderTaker', title: '负责人', width: 120, sortable: true, align: 'center' },
-                     { field: 'TargetName', title: '涉案对象', width: 120, sortable: true, align: 'center' },
-
+                     { field: 'GoodsCode', title: '物品编号', width: 120, sortable: true, align: 'center' },
+                     { field: 'Name', title: '物品名称', width: 120, sortable: true, align: 'center' },
+                     { field: 'OriginalHolder', title: '原持有人', width: 120, sortable: true, align: 'center' },
+                     { field: 'Amount', title: '单 位 数', width: 120, sortable: true, align: 'center' },
+                     { field: 'Undertaker', title: '承 办 人', width: 120, sortable: true, align: 'center' },
                      {
-                         field: 'CaseFormedDate', title: '立案时间', width: 120, sortable: true, align: 'center',
+                         field: 'WithholdDate', title: '暂扣时间', width: 120, sortable: true, align: 'center',
                          formatter: function (v, r) {
-                             if (r.CaseFormedDate != null) {
-                                 var dateMilliseconds = parseInt(r.CaseFormedDate.replace(/\D/igm, ""));
+                             if (r.WithholdDate != null) {
+                                 var dateMilliseconds = parseInt(r.WithholdDate.replace(/\D/igm, ""));
                                  var result = new Date(dateMilliseconds);
                                  return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
                              }
                          }
-                     }
+                     },
+                     { field: 'KeepMethod', title: '保管方式', width: 120, sortable: true, align: 'center' },
+                     { field: 'HandleMethod', title: '处置情况', width: 120, sortable: true, align: 'center' },
+
                 ]],
                 toolbar: [{
                     text: '刷新',

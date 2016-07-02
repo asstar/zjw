@@ -20,5 +20,6 @@ namespace Model
         public Nullable<System.Guid> ParentID { get; set; }
         public string Url { get; set; }
         public Nullable<int> Sequence { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
     }
 }

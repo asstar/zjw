@@ -18,11 +18,13 @@ namespace Model
         public Nullable<System.Guid> MasterID { get; set; }
         public Nullable<System.Guid> Prev { get; set; }
         public Nullable<System.Guid> Next { get; set; }
+        public string Type { get; set; }
         public string FileName { get; set; }
         public string SaveName { get; set; }
         public string FileExtension { get; set; }
         public string ContentType { get; set; }
         public byte[] Content { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
     }
 }

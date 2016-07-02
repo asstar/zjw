@@ -24,7 +24,7 @@ namespace BLL
                 foreach (PropertyInfo property in pi)
                 {
                     //给属性赋值
-                    if (property.Name == "TimeStamp")
+                    if (property.Name == "Timestamp")
                     {
                         property.SetValue(item, DateTime.Now);
                     }
@@ -42,7 +42,7 @@ namespace BLL
                 foreach (PropertyInfo property in pi)
                 {
                     //给属性赋值
-                    if (property.Name == "TimeStamp")
+                    if (property.Name == "Timestamp")
                     {
                         property.SetValue(item, DateTime.Now);
                     }
@@ -65,6 +65,10 @@ namespace BLL
                     if (property.Name == "IsDeleted")
                     {
                         property.SetValue(item, true);
+                    }
+                    if (property.Name == "Timestamp")
+                    {
+                        property.SetValue(item, DateTime.Now);
                     }
                 }
                 Update(item);

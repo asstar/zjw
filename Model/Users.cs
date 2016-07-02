@@ -22,5 +22,6 @@ namespace Model
         public Nullable<System.Guid> RoleID { get; set; }
         public string Rank { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
     }
 }

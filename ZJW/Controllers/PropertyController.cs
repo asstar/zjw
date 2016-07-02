@@ -14,8 +14,24 @@ namespace zjw.Controllers
         // GET: /Property/
         IMoneyService moneyService = new MoneyService();
         IGoodsService goodsService = new GoodsService();
-        public ActionResult Index()
+
+        public JsonResult GetGoodsLastData()
         {
+            string sql = "select * FROM Goods Order by TimeStamp limit 1";
+            var result = goodsService.SqlQuery(sql);
+            Goods max = result.FirstOrDefault();
+            return Json(max, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetMoneyLastData()
+        {
+            string sql = "select * FROM Money Order by TimeStamp limit 1";
+            var result = moneyService.SqlQuery(sql);
+            Money max = result.FirstOrDefault();
+            return Json(max, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult FindCase()
+        {
+            Session["UsePrev"] = false;
             return View();
         }
         public ActionResult MoneyCreate()
