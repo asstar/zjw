@@ -16,6 +16,7 @@ namespace Model
     {
         public System.Guid ID { get; set; }
         public Nullable<System.Guid> UserID { get; set; }
+        public string MasterType { get; set; }
         public string TurnInCode { get; set; }
         public string UnderTakenDept { get; set; }
         public string UnderTaker { get; set; }

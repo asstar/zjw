@@ -18,9 +18,9 @@ namespace Model
         public string QueryString { get; set; }
         public string AuthString { get; set; }
         public string StatusString { get; set; }
-        public QueryInfo deepClone()
+        public ListModel deepClone()
         {
-            QueryInfo clone = new QueryInfo();
+            ListModel clone = new ListModel();
             clone.PageIndex = this.PageIndex;
             clone.PageSize = this.PageSize;
             clone.Sort = this.Sort == null?null: new string(this.Sort.ToCharArray());

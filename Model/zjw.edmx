@@ -28,6 +28,7 @@
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="UserID" Type="guid" />
+          <Property Name="MasterType" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="CaseName" Type="text" />
           <Property Name="CaseCode" Type="text" />
           <Property Name="UnderTakenDept" Type="text" />
@@ -58,6 +59,7 @@
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="UserID" Type="guid" />
+          <Property Name="MasterType" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="TurnInCode" Type="text" />
           <Property Name="UnderTakenDept" Type="text" />
           <Property Name="UnderTaker" Type="text" />
@@ -206,11 +208,11 @@
           <Property Name="RealName" Type="text" />
           <Property Name="RoleID" Type="guid" />
           <Property Name="Rank" Type="text" />
+          <Property Name="IsKeyNode" Type="bit" Nullable="false" />
           <Property Name="MasterType" Type="text" />
           <Property Name="MasterID" Type="guid" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
-          <Property Name="IsKeyNode" Type="bit" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“def.zjw.GoodsView”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -430,6 +432,7 @@ FROM `MoneyView` AS `MoneyView`</DefiningQuery>
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="UserID" Type="Guid" />
+          <Property Name="MasterType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -460,6 +463,7 @@ FROM `MoneyView` AS `MoneyView`</DefiningQuery>
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="UserID" Type="Guid" />
+          <Property Name="MasterType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TurnInCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -608,11 +612,11 @@ FROM `MoneyView` AS `MoneyView`</DefiningQuery>
           <Property Name="RealName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="RoleID" Type="Guid" />
           <Property Name="Rank" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsKeyNode" Type="Boolean" Nullable="false" />
           <Property Name="MasterType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="MasterID" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" />
-          <Property Name="IsKeyNode" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="GoodsView">
           <Key>
@@ -750,6 +754,7 @@ FROM `MoneyView` AS `MoneyView`</DefiningQuery>
               <MappingFragment StoreEntitySet="Case">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
                 <ScalarProperty Name="CaseName" ColumnName="CaseName" />
                 <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
                 <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
@@ -782,6 +787,7 @@ FROM `MoneyView` AS `MoneyView`</DefiningQuery>
               <MappingFragment StoreEntitySet="Gift">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
                 <ScalarProperty Name="TurnInCode" ColumnName="TurnInCode" />
                 <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
                 <ScalarProperty Name="UnderTaker" ColumnName="UnderTaker" />
@@ -938,11 +944,11 @@ FROM `MoneyView` AS `MoneyView`</DefiningQuery>
                 <ScalarProperty Name="RealName" ColumnName="RealName" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="IsKeyNode" ColumnName="IsKeyNode" />
                 <ScalarProperty Name="MasterType" ColumnName="MasterType" />
                 <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="IsKeyNode" ColumnName="IsKeyNode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

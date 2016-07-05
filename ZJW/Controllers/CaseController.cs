@@ -12,6 +12,7 @@ namespace zjw.Controllers
     {
         ICaseService caseService = new CaseService();
         IGiftService giftService = new GiftService();
+        IUserService userService = new UserService();
         //
         // GET: /Case/
         public ActionResult Movie()
@@ -23,7 +24,9 @@ namespace zjw.Controllers
             Case caseInfo = new Case();
             caseInfo.ID = Guid.NewGuid();
             caseInfo.UserID = ((BaseInfo)Session["User"]).user.ID;
+            caseInfo.UnderTakenDept = ((BaseInfo)Session["User"]).user.RealName;
             caseInfo.IsDeleted = false;
+            caseInfo.MasterType = "案件";
             ViewBag.Case = caseInfo;
             Session["Flag"] = "Create";
             return View("CaseEdit");
@@ -32,16 +35,53 @@ namespace zjw.Controllers
         public ActionResult CaseCreate(Case item)
         {
 
-            try
-            {
+
                 //item.ID = Guid.NewGuid();
                 caseService.Add(item);
+                makeCaseUser(item);
                 ModelState.Clear();
                 return CaseCreate();
-            }
-            catch (Exception e)
+
+        }
+        public void makeCaseUser(Case item)
+        {
+            var masterID = item.ID;
+            Users find = userService.FindByMasterID(masterID);
+            if (find == null)
             {
-                return Content(e.ToString());
+                Users user = new Users();
+                user.ID = Guid.NewGuid();
+                user.MasterID = masterID;
+                user.DeptID = ((BaseInfo)Session["User"]).user.DeptID;
+                user.RoleID = new Guid("00000000-0007-0000-0000-000000000000");
+                user.RealName = item.CaseName;
+                user.IsKeyNode = true;
+                user.IsDeleted = false;
+                userService.Add(user);
+                Case result = caseService.Find((Guid)user.MasterID);
+                result.UserID = user.ID;
+                caseService.Update(result);
+                
+            }
+        }
+        public void makeGiftUser(Gift item)
+        {
+            var masterID = item.ID;
+            Users find = userService.FindByMasterID(masterID);
+            if (find == null)
+            {
+                Users user = new Users();
+                user.ID = Guid.NewGuid();
+                user.MasterID = masterID;
+                user.DeptID = ((BaseInfo)Session["User"]).user.DeptID;
+                user.RoleID = new Guid("00000000-0007-0000-0000-000000000000");
+                user.RealName = item.TurnInCode;
+                user.IsKeyNode = true;
+                user.IsDeleted = false;
+                userService.Add(user);
+                Gift result = giftService.Find((Guid)user.MasterID);
+                result.UserID = user.ID;
+                giftService.Update(result);
             }
         }
         public ActionResult CaseEdit(Guid ID)
@@ -78,7 +118,9 @@ namespace zjw.Controllers
             Gift giftInfo = new Gift();
             giftInfo.ID = Guid.NewGuid();
             giftInfo.UserID = ((BaseInfo)Session["User"]).user.ID;
+            giftInfo.UnderTakenDept = ((BaseInfo)Session["User"]).user.RealName;
             giftInfo.IsDeleted = false;
+            giftInfo.MasterType = "上交";
             ViewBag.Gift = giftInfo;
             Session["Flag"] = "Create";
             return View("GiftEdit");
@@ -87,17 +129,12 @@ namespace zjw.Controllers
         public ActionResult GiftCreate(Gift item)
         {
 
-            try
-            {
                 //item.ID = Guid.NewGuid();
                 giftService.Add(item);
+                makeGiftUser(item);
                 ModelState.Clear();
                 return GiftCreate();
-            }
-            catch (Exception e)
-            {
-                return Content(e.ToString());
-            }
+
         }
         public ActionResult GiftEdit(Guid ID)
         {
@@ -161,7 +198,76 @@ namespace zjw.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetCaseGiftList()
+        {
+            Originator<ListModel> o = new Originator<ListModel>();
+            o.State = getListModel();
+            if ((bool)Session["UsePrev"] == false || Session["Caretaker"] == null)
+            {
 
+                Caretaker<ListModel> c = new Caretaker<ListModel>();
+                c.Memento = o.CreateMemento();
+                Session["Caretaker"] = c;
+            }
+            else
+            {
+                Caretaker<ListModel> c = (Caretaker<ListModel>)Session["Caretaker"];
+                o.SetMemento(c.Memento);
+            }
+            ListModel info = o.State;
+            int caseTotal = 0;
+            int giftTotal = 0;
+            var caseResult = caseService.List(info, "`Case`", ref caseTotal);
+            ListModel giftInfo = info.deepClone();
+            giftInfo.KeyWord = GiftCaseMapping(giftInfo.KeyWord);
+            giftInfo.QueryString = GiftCaseMapping(giftInfo.QueryString);
+            giftInfo.Sort = GiftCaseMapping(giftInfo.Sort);
+            var giftResult = giftService.List(giftInfo, "Gift", ref giftTotal);
+            foreach (var item in giftResult)
+            {
+                Case copy = new Case();
+                copy.ID = item.ID;
+
+                copy.CaseName = item.TurnInCode;
+                copy.UnderTakenDept = item.UnderTakenDept;
+                copy.TargetName = item.TargetName;
+                copy.UnderTaker = item.UnderTaker;
+                copy.CaseFormedDate = item.TurnInDate;
+                copy.MasterType = item.MasterType;
+                caseResult.Add(copy);
+            }
+            var total = caseResult.Count();
+
+            var data = new
+            {
+                total = total,
+                rows = caseResult
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public string GiftCaseMapping(string src)
+        {
+            string result = null;
+            if (src != null)
+            {
+                Dictionary<string, string> map = new Dictionary<string, string>() { { "CaseName", "TurnInCode" }, { "CaseFormedDate", "TurnInDate" }, };
+                foreach (var dict in map)
+                {
+                    if (result != null)
+                    {
+                        result = result.Replace(dict.Key, dict.Value);
+                    }
+                    else
+                    {
+                        result = src.Replace(dict.Key, dict.Value);
+                    }
+                    
+                }
+            }
+            return result;
+        }
         public ActionResult GiftList()
         {
             return View();

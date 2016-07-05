@@ -322,22 +322,24 @@
     function CopyData() {
         $.getJSON("/Property/GetGoodsLastData",
             function (jsonData) {
-
-                $("#item_MasterID").val(jsonData.MasterID);
-                $("#item_CaseName").val(jsonData.CaseName);
-                $("#item_CaseCode").val(jsonData.CaseCode);
-                $("#item_OriginalHolder").val(jsonData.OriginalHolder);
-                $("#item_Type").combobox('setValue',jsonData.Type);
-                $("#item_Amount").val(jsonData.Amount);
-                $("#item_Measure").val(jsonData.Measure);
-                $("#item_PackageNumber").val(jsonData.PackageNumber);
-                $("#item_WithholdMethod").combobox('setValue', jsonData.WithholdMethod);
-                $("#item_Undertaker").val(jsonData.Undertaker);
-                $("#item_WithholdDate").datebox("setValue", parseDate(jsonData.WithholdDate));//.val(jsonData.WithholdDate);
-                $("#item_WithholdAddr").val(jsonData.WithholdAddr);
-                $("#item_KeepMethod").combobox('setValue', jsonData.KeepMethod);
-                $("#item_Keeper").val(jsonData.Keeper);
-                $("#item_KeepAddr").val(jsonData.KeepAddr);
+                if (jsonData != null) {
+                    $("#item_MasterID").val(jsonData.MasterID);
+                    $("#item_MasterType").val(jsonData.MasterType);
+                    $("#item_CaseName").val(jsonData.CaseName);
+                    $("#item_CaseCode").val(jsonData.CaseCode);
+                    $("#item_OriginalHolder").val(jsonData.OriginalHolder);
+                    $("#item_Type").combobox('setValue', jsonData.Type);
+                    $("#item_Amount").val(jsonData.Amount);
+                    $("#item_Measure").val(jsonData.Measure);
+                    $("#item_PackageNumber").val(jsonData.PackageNumber);
+                    $("#item_WithholdMethod").combobox('setValue', jsonData.WithholdMethod);
+                    $("#item_Undertaker").val(jsonData.Undertaker);
+                    $("#item_WithholdDate").datebox("setValue", parseDate(jsonData.WithholdDate));//.val(jsonData.WithholdDate);
+                    $("#item_WithholdAddr").val(jsonData.WithholdAddr);
+                    $("#item_KeepMethod").combobox('setValue', jsonData.KeepMethod);
+                    $("#item_Keeper").val(jsonData.Keeper);
+                    $("#item_KeepAddr").val(jsonData.KeepAddr);
+                }
 
             }
 );

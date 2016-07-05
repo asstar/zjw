@@ -41,23 +41,24 @@ namespace zjw.Controllers
 
         public Object setMasterInfo(Object item)
         {
+
             if (((BaseInfo)Session["User"]).role.RoleName == "专案组")
             {
                 if (item.GetType() == typeof(Money))
                 {
                     var money = (Money)item;
-                    money.MasterType="款项";
-                    money.MasterID=((BaseInfo)Session["User"]).user.MasterID;
-                    money.CaseName=caseService.Find((Guid)(money.MasterID)).CaseName;
+                    money.MasterType = "案件";
+                    money.MasterID = ((BaseInfo)Session["User"]).user.MasterID;
+                    money.CaseName = caseService.Find((Guid)(money.MasterID)).CaseName;
                     money.CaseCode = caseService.Find((Guid)(money.MasterID)).CaseCode;
-                    
+
                     return money;
-                    
+
                 }
                 if (item.GetType() == typeof(Goods))
                 {
                     var goods = (Goods)item;
-                    goods.MasterType = "款项";
+                    goods.MasterType = "案件";
                     goods.MasterID = ((BaseInfo)Session["User"]).user.MasterID;
                     goods.CaseName = caseService.Find((Guid)(goods.MasterID)).CaseName;
                     goods.CaseCode = caseService.Find((Guid)(goods.MasterID)).CaseCode;
@@ -69,6 +70,7 @@ namespace zjw.Controllers
             {
                 return item;
             }
+            
         }
         public ActionResult MoneyCreate()
         {
@@ -83,18 +85,13 @@ namespace zjw.Controllers
         public ActionResult MoneyCreate(Money item)
         {
 
-            try
-            {
+
                 //item.ID = Guid.NewGuid();
                 moneyService.Add(item);
                 infoLinkService.Add(item.ID, "款项");
                 ModelState.Clear();
                 return MoneyCreate();
-            }
-            catch (Exception e)
-            {
-                return Content(e.ToString());
-            }
+
         }
         public ActionResult MoneyEdit(Guid ID)
         {
@@ -138,18 +135,13 @@ namespace zjw.Controllers
         public ActionResult GoodsCreate(Goods item)
         {
 
-            try
-            {
+
                 //item.ID = Guid.NewGuid();
                 goodsService.Add(item);
                 infoLinkService.Add(item.ID, "物品");
                 ModelState.Clear();
                 return GoodsCreate();
-            }
-            catch (Exception e)
-            {
-                return Content(e.ToString());
-            }
+
         }
         public ActionResult GoodsEdit(Guid ID)
         {

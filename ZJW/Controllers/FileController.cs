@@ -103,7 +103,7 @@ namespace zjw.Controllers
                 int total = 0;
                 //string dept = (string)Session["Dept"];
                 IEnumerable<Guid> temp = null; ;
-                string sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 ";
+                string sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and Type='Image'";
                 temp = db.Database.SqlQuery<Guid>(sql);
                 var processList = temp.ToList<Guid>();
                 total = temp.Count();
@@ -130,7 +130,7 @@ namespace zjw.Controllers
                 }
                 if (flag == "first")
                 {
-                    sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and prev is null";
+                    sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and prev is null and Type='Image'";
                 }
                 if (currentAffix != null || sql != null)
                 {
@@ -140,21 +140,21 @@ namespace zjw.Controllers
                         case "prev":
                             if (currentAffix.Prev != null)
                             {
-                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.Prev + "'";
+                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.Prev + "' and Type='Image'";
                             }
                             else
                             {
-                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.ID + "'";
+                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.ID + "' and Type='Image'";
                             }
                             break;
                         case "next":
                             if (currentAffix.Next != null)
                             {
-                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.Next + "'";
+                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.Next + "' and Type='Image'";
                             }
                             else
                             {
-                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.ID + "'";
+                                sql = "select ID FROM Affix where MasterID='" + ID + "' and IsDeleted=0 and ID='" + currentAffix.ID + "' and Type='Image'";
                             }
                             break;
                     }

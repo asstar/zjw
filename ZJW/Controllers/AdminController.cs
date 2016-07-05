@@ -92,7 +92,7 @@ namespace zjw.Controllers
                 user.ID = Guid.NewGuid();
                 user.MasterID = masterID;
                 user.DeptID = ((BaseInfo)Session["User"]).user.DeptID;
-                user.RoleID = ((BaseInfo)Session["User"]).user.RoleID;
+                user.RoleID = new Guid("00000000-0007-0000-0000-000000000000"); ;
                 user.IsKeyNode = true;
                 ViewBag.user = user;
                 ViewBag.baseInfo = ((BaseInfo)Session["User"]);
@@ -125,7 +125,6 @@ namespace zjw.Controllers
             }
             if (editType == "Edit")
             {
-                item.RoleID = item.RoleID;
                 item.IsDeleted = false;
                 userService.Update(item);
                 Case result = caseService.Find((Guid)item.MasterID);

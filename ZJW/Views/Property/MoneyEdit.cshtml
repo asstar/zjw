@@ -190,23 +190,24 @@
     function CopyData() {
         $.getJSON("/Property/GetMoneyLastData",
             function (jsonData) {
-
-                $("#item_MasterID").val(jsonData.MasterID);
-                $("#item_CaseName").val(jsonData.CaseName);
-                $("#item_CaseCode").val(jsonData.CaseCode);
-                $("#item_OriginalHolder").val(jsonData.OriginalHolder);
-                $("#item_MoneyType").combobox('setValue', jsonData.MoneyType);
-                $("#item_Currency").combobox('setValue', jsonData.Currency);
-                $("#item_KeepAccount").val(jsonData.KeepAccount);
-                $("#item_WithholdDate").datebox("setValue", parseDate(jsonData.WithholdDate));//.val(jsonData.WithholdDate);
-                $("#item_Undertaker").val(jsonData.Undertaker);
-                $("#item_HandOverDate").datebox("setValue", parseDate(jsonData.HandOverDate));//.val(jsonData.HandOverDate);
-                $("#item_Receicer").val(jsonData.Receicer);
-                $("#item_HandleMethod").combobox('setValue', jsonData.HandleMethod);
-                $("#item_MoneyProperty").combobox('setValue', jsonData.MoneyProperty);
-                $("#item_HandleDate").datebox("setValue", parseDate(jsonData.HandleDate));//.val(jsonData.HandleDate);
-                $("#item_HandleReveiver").val(jsonData.HandleReveiver);
-
+                if (jsonData != null) {
+                    $("#item_MasterID").val(jsonData.MasterID);
+                    $("#item_MasterType").val(jsonData.MasterType);
+                    $("#item_CaseName").val(jsonData.CaseName);
+                    $("#item_CaseCode").val(jsonData.CaseCode);
+                    $("#item_OriginalHolder").val(jsonData.OriginalHolder);
+                    $("#item_MoneyType").combobox('setValue', jsonData.MoneyType);
+                    $("#item_Currency").combobox('setValue', jsonData.Currency);
+                    $("#item_KeepAccount").val(jsonData.KeepAccount);
+                    $("#item_WithholdDate").datebox("setValue", parseDate(jsonData.WithholdDate));//.val(jsonData.WithholdDate);
+                    $("#item_Undertaker").val(jsonData.Undertaker);
+                    $("#item_HandOverDate").datebox("setValue", parseDate(jsonData.HandOverDate));//.val(jsonData.HandOverDate);
+                    $("#item_Receicer").val(jsonData.Receicer);
+                    $("#item_HandleMethod").combobox('setValue', jsonData.HandleMethod);
+                    $("#item_MoneyProperty").combobox('setValue', jsonData.MoneyProperty);
+                    $("#item_HandleDate").datebox("setValue", parseDate(jsonData.HandleDate));//.val(jsonData.HandleDate);
+                    $("#item_HandleReveiver").val(jsonData.HandleReveiver);
+                }
             }
 );
     }
