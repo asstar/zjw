@@ -198,13 +198,13 @@
                 $("#item_MoneyType").combobox('setValue', jsonData.MoneyType);
                 $("#item_Currency").combobox('setValue', jsonData.Currency);
                 $("#item_KeepAccount").val(jsonData.KeepAccount);
-                $("#item_WithholdDate").val(jsonData.WithholdDate);
+                $("#item_WithholdDate").datebox("setValue", parseDate(jsonData.WithholdDate));//.val(jsonData.WithholdDate);
                 $("#item_Undertaker").val(jsonData.Undertaker);
-                $("#item_HandOverDate").val(jsonData.HandOverDate);
+                $("#item_HandOverDate").datebox("setValue", parseDate(jsonData.HandOverDate));//.val(jsonData.HandOverDate);
                 $("#item_Receicer").val(jsonData.Receicer);
                 $("#item_HandleMethod").combobox('setValue', jsonData.HandleMethod);
                 $("#item_MoneyProperty").combobox('setValue', jsonData.MoneyProperty);
-                $("#item_HandleDate").val(jsonData.HandleDate);
+                $("#item_HandleDate").datebox("setValue", parseDate(jsonData.HandleDate));//.val(jsonData.HandleDate);
                 $("#item_HandleReveiver").val(jsonData.HandleReveiver);
 
             }

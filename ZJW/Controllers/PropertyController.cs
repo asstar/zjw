@@ -21,16 +21,16 @@ namespace zjw.Controllers
         IInfoLinkService infoLinkService = new InfoLinkService();
         public JsonResult GetGoodsLastData()
         {
-            string sql = "select * FROM Goods Order by TimeStamp limit 1";
-            var result = goodsService.SqlQuery(sql);
-            Goods max = result.FirstOrDefault();
+            string sql = "select * FROM GoodsView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "' and IsDeleted=0 Order by TimeStamp desc limit 1";
+            var result = goodsViewService.SqlQuery(sql);
+            GoodsView max = result.FirstOrDefault();
             return Json(max, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetMoneyLastData()
         {
-            string sql = "select * FROM Money Order by TimeStamp limit 1";
-            var result = moneyService.SqlQuery(sql);
-            Money max = result.FirstOrDefault();
+            string sql = "select * FROM MoneyView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "'and IsDeleted=0  Order by TimeStamp desc limit 1";
+            var result = moneyViewService.SqlQuery(sql);
+            MoneyView max = result.FirstOrDefault();
             return Json(max, JsonRequestBehavior.AllowGet);
         }
         public ActionResult FindCase()

@@ -129,12 +129,13 @@
 <tr class="detail_tr">
     <td class="detail_td1" colspan="1">物品照片：</td>
     <td class="detail_td2" colspan="7">
-
-        <img id="showImage" width="640" height="480" src="" /><br />
-        <a class="easyui-linkbutton" id="prev" data-options="iconCls:'icon-save'"
-           href="javascript:getImage('prev')">上一张</a>
-        <a class="easyui-linkbutton" id="next" data-options="iconCls:'icon-save'"
-           href="javascript:getImage('next')">下一张</a>
+        <div id="ImageBlock">
+            <img id="showImage" width="640" height="480" src="" /><br />
+            <a class="easyui-linkbutton" id="prev" data-options="iconCls:'icon-save'"
+               href="javascript:getImage('prev')">上一张</a>
+            <a class="easyui-linkbutton" id="next" data-options="iconCls:'icon-save'"
+               href="javascript:getImage('next')">下一张</a>
+        </div>
     </td>
 
 </tr>
@@ -332,7 +333,7 @@
                 $("#item_PackageNumber").val(jsonData.PackageNumber);
                 $("#item_WithholdMethod").combobox('setValue', jsonData.WithholdMethod);
                 $("#item_Undertaker").val(jsonData.Undertaker);
-                $("#item_WithholdDate").val(jsonData.WithholdDate);
+                $("#item_WithholdDate").datebox("setValue", parseDate(jsonData.WithholdDate));//.val(jsonData.WithholdDate);
                 $("#item_WithholdAddr").val(jsonData.WithholdAddr);
                 $("#item_KeepMethod").combobox('setValue', jsonData.KeepMethod);
                 $("#item_Keeper").val(jsonData.Keeper);
@@ -383,7 +384,7 @@
         });
     }
     $(document).ready(function () {
-
+        $("#ImageBlock").hide();
         $("#item_Type").combobox({
             url: '/json/Type.json',
             valueField: 'id',
@@ -445,13 +446,12 @@
                 field: 'opt', title: '操作', width: 150, align: 'center',
                 formatter: function (value, r) {
                     var optBtn = '';
-                    if (r.isSys != '1') {
+
                         optBtn = ' <a class="button blue small" style="color: white;text-decoration: none;" href="/File/Download?ID=' + r.ID + '" title=\"下载\">下载</a> ';
                                     @if (Session["Flag"] != "Detail")
                         {<text>
-                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:delFile(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
+                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:delPicFile(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
                                         </text>}
-                    }
                     return optBtn;
                 }
             }
@@ -476,7 +476,7 @@
             $('#pic_upload').uploadifive('clearQueue');
         }
     }
-    function delFile(ID) {
+    function delPicFile(ID) {
         removeObjWithConfirm(ID, "ID", '/File/Delete', "funAfterPicDel")
     }
     function funAfterPicDel() {
@@ -501,8 +501,11 @@
             type: "POST",
             dataType: 'json',
             success: function (data) {
+                if (data.rows != 0) {
+                    $("#ImageBlock").show();
+                }
                 for (var p in data.rows) {
-                    $("#showImage").attr("src", "http://localhost:3143/File/Download?ID=" + data.rows[p]);
+                    $("#showImage").attr("src", "/File/Download?ID=" + data.rows[p]);
                     $("#current").val(data.rows[p]);
                 }
             },
