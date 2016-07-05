@@ -36,7 +36,7 @@ namespace zjw
         public static string GetJsonByModel(Menu t)
         {
             string json = "";
-            bool flag = new MenuBarDB().isHaveChild(GID, (Guid)(t.ParentID));
+            bool flag = new MenuBarDB().isHaveChild(GID, (Guid)(t.ID));
             if (t.Url == "/")
                 json = "{\"menuid\": \"" + t.ID + "\",\"icon\":\"" + t.Icon + "\",\"menuname\":\"" + t.Name + "\"";
             else

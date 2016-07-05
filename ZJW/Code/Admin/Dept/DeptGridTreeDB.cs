@@ -16,7 +16,7 @@ namespace zjw
             {
                 IList<Dept> t = new List<Dept>();
                 IEnumerable<Dept> temp = null;
-                string sql = "SELECT * FROM Dept WHERE ParentID is null AND IsDeleted<>'1' ORDER BY Sequence";
+                string sql = "SELECT * FROM Dept WHERE ParentID ='00000000-0000-0000-0000-000000000000' AND IsDeleted<>'1' ORDER BY Sequence";
                 temp = db.Database.SqlQuery<Dept>(sql);
                 return temp.ToList();
             }

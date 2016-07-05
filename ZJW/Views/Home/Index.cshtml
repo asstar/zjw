@@ -53,12 +53,13 @@
         <div style="float:left"><img src="../../Resource/head.png" /></div>
         <div style="position: fixed !important; top: 20px; right: 5px; ">
             <table>
-                <tr>
+                <!--<tr>
                     <td colspan="2" style="color:blue;">中纪委专用</td>
                 </tr>
+                    -->
                 <tr>
                     <td style="color:blue;">用户：</td>
-                    <td style="color:blue;"></td>
+                    <td style="color:blue;">@(((BaseInfo)Session["User"]).user.RealName )</td>
                 </tr>
                 <tr>
                     <td colspan="2"><a class="blue small" href="javascript:void(0)" onclick="changePassword();">修改密码</a>  <a class="blue small" onclick="confirm()" href="javascript:void(0)">退出系统</a></tdclass>

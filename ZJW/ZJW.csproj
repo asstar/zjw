@@ -1688,18 +1688,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Code\Admin\Role\DeptComboTree.cs" />
+    <Compile Include="Code\Admin\Role\DeptComboTreeDB.cs" />
     <Compile Include="Code\Memento\Caretaker.cs" />
     <Compile Include="Code\Memento\Memento.cs" />
     <Compile Include="Code\Memento\Originator.cs" />
+    <Compile Include="Code\Permission\PermissionTreeDB.cs" />
+    <Compile Include="Code\Permission\PermissionService.cs" />
+    <Compile Include="Code\Permission\PermissionTree.cs" />
     <Compile Include="Code\UserInfo.cs" />
-    <Compile Include="Code\BaseInfo.cs" />
-    <Compile Include="Code\Admin\Role\ComboTreeDB.cs" />
+    <Compile Include="Code\Admin\Role\MenuComboTreeDB.cs" />
     <Compile Include="Code\Admin\Dept\DeptGridTree.cs" />
     <Compile Include="Code\Admin\Dept\DeptGridTreeDB.cs" />
     <Compile Include="Code\JsonHelper.cs" />
     <Compile Include="Code\Home\MenuBar.cs" />
     <Compile Include="Code\Home\MenuBarDB.cs" />
-    <Compile Include="Code\Admin\Role\ComboTree.cs" />
+    <Compile Include="Code\Admin\Role\MenuComboTree.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
@@ -1781,7 +1785,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3160</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3143/</IISUrl>
+          <IISUrl>http://localhost:8080/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

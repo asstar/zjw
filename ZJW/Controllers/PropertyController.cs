@@ -14,7 +14,11 @@ namespace zjw.Controllers
         // GET: /Property/
         IMoneyService moneyService = new MoneyService();
         IGoodsService goodsService = new GoodsService();
-
+        IMoneyViewService moneyViewService = new MoneyViewService();
+        IGoodsViewService goodsViewService = new GoodsViewService();
+        ICaseService caseService = new CaseService();
+        IGiftService giftService = new GiftService();
+        IInfoLinkService infoLinkService = new InfoLinkService();
         public JsonResult GetGoodsLastData()
         {
             string sql = "select * FROM Goods Order by TimeStamp limit 1";
@@ -34,11 +38,44 @@ namespace zjw.Controllers
             Session["UsePrev"] = false;
             return View();
         }
+
+        public Object setMasterInfo(Object item)
+        {
+            if (((BaseInfo)Session["User"]).role.RoleName == "专案组")
+            {
+                if (item.GetType() == typeof(Money))
+                {
+                    var money = (Money)item;
+                    money.MasterType="款项";
+                    money.MasterID=((BaseInfo)Session["User"]).user.MasterID;
+                    money.CaseName=caseService.Find((Guid)(money.MasterID)).CaseName;
+                    money.CaseCode = caseService.Find((Guid)(money.MasterID)).CaseCode;
+                    
+                    return money;
+                    
+                }
+                if (item.GetType() == typeof(Goods))
+                {
+                    var goods = (Goods)item;
+                    goods.MasterType = "款项";
+                    goods.MasterID = ((BaseInfo)Session["User"]).user.MasterID;
+                    goods.CaseName = caseService.Find((Guid)(goods.MasterID)).CaseName;
+                    goods.CaseCode = caseService.Find((Guid)(goods.MasterID)).CaseCode;
+                    return goods;
+                }
+                return item;
+            }
+            else
+            {
+                return item;
+            }
+        }
         public ActionResult MoneyCreate()
         {
             Money moneyInfo = new Money();
             moneyInfo.ID = Guid.NewGuid();
-            ViewBag.Money = moneyInfo;
+            moneyInfo.IsDeleted = false;
+            ViewBag.Money = setMasterInfo(moneyInfo);
             Session["Flag"] = "Create";
             return View("MoneyEdit");
         }
@@ -50,6 +87,7 @@ namespace zjw.Controllers
             {
                 //item.ID = Guid.NewGuid();
                 moneyService.Add(item);
+                infoLinkService.Add(item.ID, "款项");
                 ModelState.Clear();
                 return MoneyCreate();
             }
@@ -91,7 +129,8 @@ namespace zjw.Controllers
         {
             Goods goodsInfo = new Goods();
             goodsInfo.ID = Guid.NewGuid();
-            ViewBag.Goods = goodsInfo;
+            goodsInfo.IsDeleted = false;
+            ViewBag.Goods = setMasterInfo(goodsInfo);
             Session["Flag"] = "Create";
             return View("GoodsEdit");
         }
@@ -103,6 +142,7 @@ namespace zjw.Controllers
             {
                 //item.ID = Guid.NewGuid();
                 goodsService.Add(item);
+                infoLinkService.Add(item.ID, "物品");
                 ModelState.Clear();
                 return GoodsCreate();
             }
@@ -162,7 +202,7 @@ namespace zjw.Controllers
             }
             ListModel info = o.State;
             int total = 0;
-            var result = moneyService.List(info, "`Money`", ref total);
+            var result = moneyViewService.List(info, "`MoneyView`", ref total);
             total = result.Count();
 
             var data = new
@@ -195,7 +235,7 @@ namespace zjw.Controllers
             }
             ListModel info = o.State;
             int total = 0;
-            var result = goodsService.List(info, "`Goods`", ref total);
+            var result = goodsViewService.List(info, "`GoodsView`", ref total);
             total = result.Count();
 
             var data = new
@@ -228,6 +268,7 @@ namespace zjw.Controllers
                     info.QueryString = " and " + info.QueryType + " LIKE '%" + info.KeyWord + "%' ";
                 }
             }
+            info.AuthString = new PermissionService().getPermission();
             return info;
         }
 	}

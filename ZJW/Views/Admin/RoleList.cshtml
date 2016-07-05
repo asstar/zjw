@@ -18,7 +18,7 @@
                 sortName: 'RoleName',
                 idField: 'ID',
                 frozenColumns: [[
-                    { field: 'ck', checkbox: true },
+                    { field: 'ck', checkbox: false },
                     {
                         field: 'opt', title: '操作', width: 120, align: 'center',
                         formatter: function (value, rec) {
@@ -35,14 +35,14 @@
                     { field: 'RoleName', title: '角色名称', width: 120, sortable: true, align: 'center' },
                     { field: 'Remark', title: '说明', width: 220, sortable: true, align: 'center' }
                 ]],
-                toolbar: [{
+                toolbar: [/*{
                     text: '刷新',
                     name: 'role_reload',
                     iconCls: 'icon-reload',
                     handler: function () {
                         refeshGrid();
                     }
-                }, '-', {
+                }, '-', */{
                     text: '新增',
                     name: 'role_add',
                     iconCls: 'icon-add',
@@ -90,7 +90,7 @@
     </script>
 </head>
 <body class="easyui-layout">
-    <div region="north" split="true" style="height:50px;padding:10px;">
+    <!--<div region="north" split="true" style="height:50px;padding:10px;">
         <form id="qry_frm" onsubmit="return false">
             <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
@@ -105,7 +105,7 @@
                 </tr>
             </table>
         </form>
-    </div>
+    </div>-->
     <div region="center" id="table_div" style="overflow:hidden;">
         <table id="grid_table"></table>
     </div>

@@ -30,6 +30,9 @@ namespace Model
     [Serializable]
     public partial class RoleMenu { }
     [Serializable]
-    public partial class UserPermission { }
-
+    public partial class UserDept { }
+    [Serializable]
+    public partial class MoneyView { }
+    [Serializable]
+    public partial class GoodsView { }
 }

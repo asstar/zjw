@@ -24,7 +24,8 @@
                 <td class="table_title" colspan="8">
                     礼品、礼金信息表<br />
                     @Html.HiddenFor(i => item.ID)
-                      
+                    @Html.HiddenFor(i => item.UserID)
+                    @Html.HiddenFor(i => item.IsDeleted)
                 </td>
             </tr>
             <tr class="detail_tr">
@@ -86,8 +87,6 @@
         }
     }
 </script>
-
-<script src="../../Resource/upload.js"></script>
 
   
 

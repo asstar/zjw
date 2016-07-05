@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Model;
-using IBLL;
-using BLL;
 using System.Diagnostics;
-namespace zjw
+namespace Model
 {
     [Serializable]
     public class BaseInfo

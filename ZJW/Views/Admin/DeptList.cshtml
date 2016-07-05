@@ -20,20 +20,20 @@
                 idField: 'ID',
                 treeField: 'DeptName',
                 frozenColumns: [[
-                    { field: 'ck', checkbox: true },
+                    { field: 'ck', checkbox: false },
 
                 ]],
                 columns: [[
                     { field: 'DeptName', title: '级别名称', width: 220 },
                     //{ field: 'Remark', title: '备注', width: 220, align: 'center' },
-                    { field: 'Sequence', title: '排序', width: 220, align: 'center' },
+                    //{ field: 'Sequence', title: '排序', width: 220, align: 'center' },
                                         {
                                             field: 'opt', title: '操作', width: 300, align: 'center',
                                             formatter: function (value, rec) {
 
                                                     var optBtn='';
                                                     optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:openWindow(\'Edit\',\'' + rec.ID + '\')" title=\"修改\">修改</a> ';
-                                                    optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:delDep(\'' + rec.ID + '\')" title=\"删除\">删除</a> ';
+                                                    //optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:delDep(\'' + rec.ID + '\')" title=\"删除\">删除</a> ';
 
                                                     optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:openWindow(\'Create\',\'' + rec.ID + '\')" title=\"新增下级\">新增下级</a> ';
                                                     return optBtn;
@@ -41,19 +41,19 @@
                                             }
                                         }
                 ]],
-                toolbar: [{
+                /* toolbar: [{
                     text: '刷新',
                     iconCls: 'icon-reload',
                     handler: function () {
                         refeshTreeGrid();
                     }
-                }/*, '-', {
+                }, '-', {
                     text: '新增一级级别',
                     iconCls: 'icon-add',
                     handler: function () {
                         openWindow("CreateLevelOne", null);
                     }
-                }*/]
+                }]*/
             });
         });
 

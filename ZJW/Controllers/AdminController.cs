@@ -17,8 +17,10 @@ namespace zjw.Controllers
         IUserService userService = new UserService();
         IDeptService deptService = new DeptService();
         IRoleService roleService = new RoleService();
+        IUserDeptService userDeptService = new UserDeptService();
         IRoleMenuService RoleMenuService = new RoleMenuService();
-
+        ICaseService caseService = new CaseService();
+        IGiftService giftService = new GiftService();
         public ActionResult Index()
         {
             return View();
@@ -31,7 +33,7 @@ namespace zjw.Controllers
 
         public ActionResult ChangePassword()
         {
-            ViewBag.users = ((BaseInfo)Session["Auth"]).user;
+            ViewBag.users = ((BaseInfo)Session["User"]).user;
             return View();
         }
 
@@ -44,7 +46,7 @@ namespace zjw.Controllers
                 item.IsDeleted = false;
                 userService.Update(item);
                 Debug.WriteLine("Save Password OK");
-                ViewBag.users = ((BaseInfo)Session["Auth"]).user;
+                ViewBag.users = ((BaseInfo)Session["User"]).user;
                 return View("ChangePassword");
             }
             catch (Exception e)
@@ -89,7 +91,11 @@ namespace zjw.Controllers
                 Users user = new Users();
                 user.ID = Guid.NewGuid();
                 user.MasterID = masterID;
+                user.DeptID = ((BaseInfo)Session["User"]).user.DeptID;
+                user.RoleID = ((BaseInfo)Session["User"]).user.RoleID;
+                user.IsKeyNode = true;
                 ViewBag.user = user;
+                ViewBag.baseInfo = ((BaseInfo)Session["User"]);
                 return View();
             }
             else
@@ -100,7 +106,35 @@ namespace zjw.Controllers
                 return View();
             }
         }
+        public ActionResult CaseUserSaveOrUpdate(Users item)
+        {
 
+            string editType = (string)Session["UserEditType"];
+            Debug.WriteLine(editType);
+            if (editType == "Create")
+            {
+                Guid guid = Guid.NewGuid();
+                item.ID = guid;
+                item.RoleID = item.RoleID;
+                item.IsDeleted = false;
+                userService.Add(item);
+                Case result=caseService.Find((Guid)item.MasterID);
+                result.UserID = item.ID;
+                caseService.Update(result);
+                return Content("<script type=\"text/javascript\">history.go(-2);</script>");
+            }
+            if (editType == "Edit")
+            {
+                item.RoleID = item.RoleID;
+                item.IsDeleted = false;
+                userService.Update(item);
+                Case result = caseService.Find((Guid)item.MasterID);
+                result.UserID = item.ID;
+                caseService.Update(result);
+                return Content("<script type=\"text/javascript\">history.go(-2);</script>");
+            }
+            return Content("<script type=\"text/javascript\">history.go(-2);</script>");
+        }
         
         [HttpPost]
         public ActionResult UsersDelete(Guid ID)
@@ -119,12 +153,27 @@ namespace zjw.Controllers
             }
             return Content("true");
         }
-        public ActionResult test() { return Content("true"); }
+
         public ActionResult SaveOrUpdate(Users item)
         {
 
             string editType = (string)Session["UserEditType"];
             Debug.WriteLine(editType);
+            string deptTree = Request["deptCombTree"];
+            if (deptTree != null)
+            {
+                userDeptService.DeleteByUserID(item.ID);
+                string[] array = deptTree.Split(',');
+                foreach (string s in array)
+                {
+                    UserDept obj = new UserDept();
+                    obj.ID = Guid.NewGuid();
+                    obj.UserID = item.ID;
+                    obj.DeptID = new Guid(s);
+                    userDeptService.Add(obj);
+
+                }
+            }
             if (editType == "Create")
             {
                 Guid guid = Guid.NewGuid();
@@ -150,7 +199,7 @@ namespace zjw.Controllers
             IEnumerable<Users> temp = null;
             string sql = null;
 
-            sql = "SELECT * FROM Users where IsKeyNode=1";
+            sql = "SELECT * FROM Users where IsKeyNode=1 and IsDeleted=0";
 
 
             temp = userService.SqlQuery(sql);
@@ -164,7 +213,7 @@ namespace zjw.Controllers
             string sort = Request["sort"];
             string direction = Request["order"];
             string uName = Request["RealName"];
-            string sqlUserName = "Where  IsDeleted<>'1'";
+            string sqlUserName = "Where  IsDeleted=0";
             if (uName != null)
             {
                 sqlUserName = " WHERE RealName like '%" + uName + "%' ";
@@ -172,7 +221,7 @@ namespace zjw.Controllers
             int total = 0;
             //string dept = (string)Session["Dept"];
             IEnumerable<UsersMore> temp = null; ;
-            string sql = "SELECT *,(SELECT RoleName from Role WHERE users.RoleID=Role.ID )AS RoleName, (SELECT DeptName from Dept WHERE users.DeptId=Dept.ID)AS DeptName FROM users " + sqlUserName + " order by " + sort + " " + direction;
+            string sql = "SELECT *,(SELECT RoleName from Role WHERE users.RoleID=Role.ID )AS RoleName, (SELECT DeptName from Dept WHERE users.DeptId=Dept.ID)AS DeptName FROM users " + sqlUserName + "  and IsDeleted=0 order by " + sort + " " + direction;
             temp = userService.SqlQueryMore(sql);
             total = temp.Count();
             var users = temp.Skip<UsersMore>((pageIndex - 1) * pageSize).Take<UsersMore>(pageSize);
@@ -189,7 +238,7 @@ namespace zjw.Controllers
         public JsonResult GetShowDeptList()
         {
             IEnumerable<Dept> temp = null; ;
-            string sql = "SELECT * FROM Dept WHERE  IsDeleted<>'1'";
+            string sql = "SELECT * FROM Dept WHERE  IsDeleted= 0 ";
 
             temp = deptService.SqlQuery(sql);
 
@@ -308,7 +357,11 @@ namespace zjw.Controllers
         }
         public ActionResult GetMenuComboTree(Guid ID)
         {
-            return Content(ComboTree.GetJson(ID));
+            return Content(MenuComboTree.GetJson(ID));
+        }
+        public ActionResult GetDeptComboTree(Guid ID)
+        {
+            return Content(DeptComboTree.GetJson(ID));
         }
         public ActionResult RoleSaveOrUpdate(Role item)
         {
@@ -361,7 +414,11 @@ namespace zjw.Controllers
             string sqlUserName = "";
             if (uName != null)
             {
-                sqlUserName = " and UserName like '%" + uName + "%' ";
+                sqlUserName = " and UserName like '%" + uName + "%'  and IsDeleted= 0 ";
+            }
+            else
+            {
+                sqlUserName = " Where IsDeleted= 0 ";
             }
             int total = 0;
             //string dept = (string)Session["Dept"];

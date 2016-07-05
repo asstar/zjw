@@ -24,6 +24,7 @@
                     涉案款项信息表<br />
                     @Html.HiddenFor(i => item.ID)
                     @Html.HiddenFor(i => item.MasterID)
+                    @Html.HiddenFor(i => item.MasterType)
                 </td>
             </tr>
             <tr class="detail_tr">
@@ -31,7 +32,8 @@
                 <td class="detail_td2" colspan="5">@{if (Session["Flag"] == "Detail")
                 { @item.CaseName}
                 else
-                {@Html.TextBoxFor(i => item.CaseName, new { size = 60 })}}<a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件款项信息</a></td>
+                { @Html.TextBoxFor(i => item.CaseName, new { size = 60 }) <text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件款项信息</a></text>}}
+                </td>
                 <td class="detail_td1" colspan="1">案件代号：</td>
                 <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail")
                 { @item.CaseCode}
@@ -290,7 +292,6 @@
 
     });
 </script>
-<script src="../../Resource/upload.js"></script>
 
 
 

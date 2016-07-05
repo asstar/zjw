@@ -22,6 +22,8 @@ namespace zjw.Controllers
         {
             Case caseInfo = new Case();
             caseInfo.ID = Guid.NewGuid();
+            caseInfo.UserID = ((BaseInfo)Session["User"]).user.ID;
+            caseInfo.IsDeleted = false;
             ViewBag.Case = caseInfo;
             Session["Flag"] = "Create";
             return View("CaseEdit");
@@ -75,6 +77,8 @@ namespace zjw.Controllers
         {
             Gift giftInfo = new Gift();
             giftInfo.ID = Guid.NewGuid();
+            giftInfo.UserID = ((BaseInfo)Session["User"]).user.ID;
+            giftInfo.IsDeleted = false;
             ViewBag.Gift = giftInfo;
             Session["Flag"] = "Create";
             return View("GiftEdit");
@@ -213,6 +217,7 @@ namespace zjw.Controllers
                     info.QueryString = " and " + info.QueryType + " LIKE '%" + info.KeyWord + "%' ";
                 }
             }
+            info.AuthString = new PermissionService().getPermission();
             return info;
         }
 	}

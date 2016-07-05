@@ -1,0 +1,24 @@
+        public ActionResult SaveOrUpdate1(Users item)
+        {
+
+            string editType = (string)Session["UserEditType"];
+            Debug.WriteLine(editType);
+            if (editType == "Create")
+            {
+                Guid guid = Guid.NewGuid();
+                item.ID = guid;
+                item.RoleID = item.RoleID;
+                item.IsDeleted = false;
+                userService.Add(item);
+
+                return Content("<script type=\"text/javascript\">history.go(-2);</script>");
+            }
+            if (editType == "Edit")
+            {
+                item.RoleID = item.RoleID;
+                item.IsDeleted = false;
+                userService.Update(item);
+                return Content("<script type=\"text/javascript\">history.go(-2);</script>");
+            }
+            return Content("<script type=\"text/javascript\">history.go(-2);</script>");
+        }

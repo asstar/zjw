@@ -12,7 +12,7 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class UserPermission
+    public partial class UserDept
     {
         public System.Guid ID { get; set; }
         public Nullable<System.Guid> UserID { get; set; }

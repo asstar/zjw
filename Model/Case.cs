@@ -15,6 +15,7 @@ namespace Model
     public partial class Case
     {
         public System.Guid ID { get; set; }
+        public Nullable<System.Guid> UserID { get; set; }
         public string CaseName { get; set; }
         public string CaseCode { get; set; }
         public string UnderTakenDept { get; set; }

@@ -6,14 +6,14 @@ using System.Diagnostics;
 using Model;
 namespace zjw
 {
-    public class ComboTree
+    public class MenuComboTree
     {
         public static Guid GID;
         public static string GetJson(Guid ID)
         {
             GID = ID;
             string json = "[";
-            IList<Tree> t = ComboTreeDB.returnParentTreeModel(GID);
+            IList<Tree> t = MenuComboTreeDB.returnParentTreeModel(GID);
             foreach (Tree model in t)
             {
                 if (model != t[t.Count - 1])
@@ -34,7 +34,7 @@ namespace zjw
         public static string GetJsonByModel(Tree t)
         {
             string json = "";
-            bool flag = ComboTreeDB.isHaveChild(t.id);
+            bool flag = MenuComboTreeDB.isHaveChild(t.id);
 
             json = "{"
                       + "\"id\":\"" + t.id + "\","
@@ -52,7 +52,7 @@ namespace zjw
             else
             {
                 json += "[";
-                IList<Tree> list = ComboTreeDB.getChild(GID,t.id);
+                IList<Tree> list = MenuComboTreeDB.getChild(GID,t.id);
                 foreach (Tree atom in list)
                 {
                     if (atom != list[list.Count - 1])

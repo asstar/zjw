@@ -15,6 +15,7 @@ namespace Model
     public partial class Gift
     {
         public System.Guid ID { get; set; }
+        public Nullable<System.Guid> UserID { get; set; }
         public string TurnInCode { get; set; }
         public string UnderTakenDept { get; set; }
         public string UnderTaker { get; set; }

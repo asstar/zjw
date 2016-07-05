@@ -39,13 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IGoodsViewService.cs" />
+    <Compile Include="IInfoLinkService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="IAffixService.cs" />
     <Compile Include="IDeptService.cs" />
     <Compile Include="ICaseService.cs" />
     <Compile Include="IGiftService.cs" />
+    <Compile Include="IMoneyViewService.cs" />
     <Compile Include="IMoneyService.cs" />
     <Compile Include="IGoodsService.cs" />
+    <Compile Include="IUserDeptService.cs" />
     <Compile Include="IRoleMenuService.cs" />
     <Compile Include="IRoleService.cs" />
     <Compile Include="IUserService.cs" />

@@ -23,6 +23,7 @@
                 <td class="table_title" colspan="8">
                     涉案物品信息表<br />
                     @Html.HiddenFor(i => item.ID)
+                    @Html.HiddenFor(i => item.MasterType)
                     @Html.HiddenFor(i => item.MasterID)
                     <input type="hidden" name="current" id="current" value="" />
                 </td>
@@ -33,7 +34,7 @@
                     @{if (Session["Flag"] == "Detail")
                     { @item.CaseName}
                     else
-                    {@Html.TextBoxFor(i => item.CaseName, new { size = 60 })}} <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件物品信息</a>
+                    {@Html.TextBoxFor(i => item.CaseName, new { size = 60 }) <text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件物品信息</a></text> }} 
             </td>
             <td class="detail_td1" colspan="1">案件代号：</td>
             <td class="detail_td2" colspan="1">
@@ -137,6 +138,9 @@
     </td>
 
 </tr>
+            @if (Session["Flag"] != "Detail")
+{
+                <text>
 <tr class="detail_tr">
     <td class="detail_td1" colspan="1">照片上传：</td>
     <td class="detail_td1" colspan="1">选择照片：</td>
@@ -150,6 +154,7 @@
            href="javascript:checkPicCancel()">取消</a>
     </td>
 </tr>
+        </text>}
 <tr class="detail_tr">
     <td class="detail_td2" colspan="8">
         <div id="picQueue"></div>
@@ -442,7 +447,10 @@
                     var optBtn = '';
                     if (r.isSys != '1') {
                         optBtn = ' <a class="button blue small" style="color: white;text-decoration: none;" href="/File/Download?ID=' + r.ID + '" title=\"下载\">下载</a> ';
+                                    @if (Session["Flag"] != "Detail")
+                        {<text>
                         optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:delFile(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
+                                        </text>}
                     }
                     return optBtn;
                 }
@@ -506,4 +514,3 @@
     }
 </script>
 
-<script src="../../Resource/upload.js"></script>

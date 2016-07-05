@@ -35,7 +35,9 @@ namespace Model
         public DbSet<Money> Money { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<RoleMenu> RoleMenu { get; set; }
-        public DbSet<UserPermission> UserPermission { get; set; }
+        public DbSet<UserDept> UserDept { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<GoodsView> GoodsView { get; set; }
+        public DbSet<MoneyView> MoneyView { get; set; }
     }
 }

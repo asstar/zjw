@@ -49,6 +49,7 @@
     <Compile Include="Affix.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseInfo.cs" />
     <Compile Include="Case.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
@@ -59,6 +60,9 @@
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
     <Compile Include="Goods.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GoodsView.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
     <Compile Include="InfoLink.cs">
@@ -72,6 +76,9 @@
     <Compile Include="Money.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
+    <Compile Include="MoneyView.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryInfo.cs" />
     <Compile Include="Role.cs">
@@ -82,7 +89,7 @@
     </Compile>
     <Compile Include="Serializable.cs" />
     <Compile Include="Tree.cs" />
-    <Compile Include="UserPermission.cs">
+    <Compile Include="UserDept.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
     <Compile Include="Users.cs">

@@ -10,8 +10,11 @@
     <div style="margin-top:8px;margin-bottom:8px">
         <div>
             <form id="frm_win_add" name="frm_win_add" method="post">
-                @Html.HiddenFor(i=>item.ID)
-                @Html.Hidden("item.IsDeleted", "false")
+                @Html.HiddenFor(i => item.ID)
+                @Html.HiddenFor(i => item.MasterID)
+                @Html.HiddenFor(i => item.MasterType)
+                @Html.HiddenFor(i => item.IsKeyNode)
+                @Html.HiddenFor(i => item.IsDeleted)
                 <input name="old_login_name" id="old_login_name" type="hidden" value="@item.UserName" />
                 <!-- 显示域 -->
                 <table class="detail_table" border="0" cellspacing="1" cellpadding="0">
@@ -47,6 +50,12 @@
                             @Html.TextBoxFor(i => item.RoleID, new { size = 60, @class="easyui-combobox" })
                         </td>
                     </tr>
+                    <tr class="detail_tr">
+                        <td class="detail_td1"><span style="color: red">*&nbsp;&nbsp;</span>访问权限：</td>
+                        <td class="detail_td2" colspan="3">
+                            <input type="text" id="deptCombTree" name="deptCombTree" class="easyui-combotree" />
+                        </td>
+                    </tr>
                 </table>
             </form>
         </div>
@@ -68,11 +77,25 @@
         panel.style.height = $('#mywindow').window('options').height - 98 + 'px';
         panel.style.overflowY = 'scroll';
         panel.style.overflowX = 'hidden';
+        var url = "/Admin/GetDeptComboTree?ID=@item.ID";
 
+        $('#deptCombTree').combotree({
+            url: url,
+            multiple: true,
+            width: 300,
+            onLoadSuccess: function (node, data) {
+                // 			if('${vo.roleId}' != ''){
+                // 				var menuTree = '${vo.menuTree}';
+                // 				var menuArr = menuTree.split(",");
+                // 				$('#menu_combTree').combotree('setValues', menuArr);
+                // 			}
+            }
+        });
         $("#item_DeptID").combotree({
             url: '/Admin/GetShowDeptList',
             valueField: 'ID',
             textField: 'DeptName',
+            editable: false,
             required: true,
             width: 250
         });
@@ -81,12 +104,15 @@
             url: '/Admin/GetShowRoleList',
             valueField: 'ID',
             textField: 'RoleName',
+            editable: false,
             width: 250,
             required: true
         });
 
     });
     function beforeSubmit() {
+        var deptTree = $('#deptCombTree').combotree('getValues');
+        $('#deptCombTree').val(deptTree);
         if ($("#frm_win_add").form('validate')) {
             $.ajax({
                 type: "POST",

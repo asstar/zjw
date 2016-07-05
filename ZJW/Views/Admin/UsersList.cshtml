@@ -20,7 +20,7 @@
                 idField: 'ID',
                 sortOrder: 'asc',
                 frozenColumns: [[
-                    { field: 'ck', checkbox: true },
+                    { field: 'ck', checkbox: false },
                     {
                         field: 'opt', title: '操作', width: 120, align: 'center',
                         formatter: function (v, r) {
@@ -58,13 +58,13 @@
                     },
                     { field: 'LoginNum', title: '登录次数', width: 120, sortable: true, align: 'center' }*/
                 ]],
-                toolbar: [{
+                toolbar: [/*{
                     text: '刷新',
                     iconCls: 'icon-reload',
                     handler: function () {
                         refeshGrid();
                     }
-                }, '-', {
+                }, '-',*/ {
                     text: '新增',
                     iconCls: 'icon-add',
                     handler: function () {

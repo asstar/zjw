@@ -27,6 +27,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="UserID" Type="guid" />
           <Property Name="CaseName" Type="text" />
           <Property Name="CaseCode" Type="text" />
           <Property Name="UnderTakenDept" Type="text" />
@@ -56,6 +57,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="UserID" Type="guid" />
           <Property Name="TurnInCode" Type="text" />
           <Property Name="UnderTakenDept" Type="text" />
           <Property Name="UnderTaker" Type="text" />
@@ -117,7 +119,7 @@
           <Property Name="PropertyID" Type="guid" />
           <Property Name="UserID" Type="guid" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="guid" />
+          <Property Name="IsDeleted" Type="bit" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
@@ -183,7 +185,7 @@
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
-        <EntityType Name="UserPermission">
+        <EntityType Name="UserDept">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -210,6 +212,101 @@
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
           <Property Name="IsKeyNode" Type="bit" Nullable="false" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“def.zjw.GoodsView”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="GoodsView">
+          <Key>
+            <PropertyRef Name="LinkID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="Timestamp" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsEditable" />
+          </Key>
+          <Property Name="LinkID" Type="guid" Nullable="false" />
+          <Property Name="Prev" Type="guid" />
+          <Property Name="Next" Type="guid" />
+          <Property Name="PropertyType" Type="text" />
+          <Property Name="PropertyID" Type="guid" />
+          <Property Name="UserID" Type="guid" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="MasterType" Type="text" />
+          <Property Name="MasterID" Type="guid" />
+          <Property Name="CaseName" Type="text" />
+          <Property Name="CaseCode" Type="text" />
+          <Property Name="GoodsCode" Type="text" />
+          <Property Name="OriginalHolder" Type="text" />
+          <Property Name="Name" Type="text" />
+          <Property Name="Type" Type="text" />
+          <Property Name="Amount" Type="text" />
+          <Property Name="Measure" Type="text" />
+          <Property Name="PackageNumber" Type="text" />
+          <Property Name="Price" Type="text" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Photo" Type="text" />
+          <Property Name="WithholdMethod" Type="text" />
+          <Property Name="Undertaker" Type="text" />
+          <Property Name="WithholdDate" Type="timestamp" Precision="0" />
+          <Property Name="WithholdAddr" Type="text" />
+          <Property Name="KeepMethod" Type="text" />
+          <Property Name="TurnInDate" Type="timestamp" Precision="0" />
+          <Property Name="Receiver" Type="text" />
+          <Property Name="Keeper" Type="text" />
+          <Property Name="KeepAddr" Type="text" />
+          <Property Name="HandleMethod" Type="text" />
+          <Property Name="GoodsProperty" Type="text" />
+          <Property Name="HandleDate" Type="text" />
+          <Property Name="HandleReveiver" Type="timestamp" Precision="0" />
+          <Property Name="Note" Type="text" />
+          <Property Name="Affix" Type="guid" />
+          <Property Name="IsEditable" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“def.zjw.MoneyView”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="MoneyView">
+          <Key>
+            <PropertyRef Name="LinkID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="Timestamp" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsEditable" />
+          </Key>
+          <Property Name="LinkID" Type="guid" Nullable="false" />
+          <Property Name="Prev" Type="guid" />
+          <Property Name="Next" Type="guid" />
+          <Property Name="PropertyType" Type="text" />
+          <Property Name="PropertyID" Type="guid" />
+          <Property Name="UserID" Type="guid" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="MasterType" Type="text" />
+          <Property Name="MasterID" Type="guid" />
+          <Property Name="CaseName" Type="text" />
+          <Property Name="CaseCode" Type="text" />
+          <Property Name="MoneyCode" Type="text" />
+          <Property Name="OriginalHolder" Type="text" />
+          <Property Name="MoneyType" Type="text" />
+          <Property Name="Currency" Type="text" />
+          <Property Name="Sum" Type="text" />
+          <Property Name="OriginAccount" Type="text" />
+          <Property Name="KeepAccount" Type="text" />
+          <Property Name="Content" Type="text" />
+          <Property Name="WithholdDate" Type="timestamp" Precision="0" />
+          <Property Name="Undertaker" Type="text" />
+          <Property Name="HandOverDate" Type="timestamp" Precision="0" />
+          <Property Name="Receicer" Type="text" />
+          <Property Name="HandleMethod" Type="text" />
+          <Property Name="MoneyProperty" Type="text" />
+          <Property Name="HandleDate" Type="timestamp" Precision="0" />
+          <Property Name="HandleReveiver" Type="text" />
+          <Property Name="Note" Type="text" />
+          <Property Name="Affix" Type="guid" />
+          <Property Name="IsEditable" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Affix" EntityType="Self.Affix" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Case" EntityType="Self.Case" Schema="zjw" store:Type="Tables" />
@@ -221,8 +318,89 @@
           <EntitySet Name="Money" EntityType="Self.Money" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" Schema="zjw" store:Type="Tables" />
-          <EntitySet Name="UserPermission" EntityType="Self.UserPermission" Schema="zjw" store:Type="Tables" />
+          <EntitySet Name="UserDept" EntityType="Self.UserDept" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="zjw" store:Type="Tables" />
+          <EntitySet Name="GoodsView" EntityType="Self.GoodsView" store:Type="Views" store:Schema="zjw">
+            <DefiningQuery>SELECT
+`GoodsView`.`LinkID`, 
+`GoodsView`.`Prev`, 
+`GoodsView`.`Next`, 
+`GoodsView`.`PropertyType`, 
+`GoodsView`.`PropertyID`, 
+`GoodsView`.`UserID`, 
+`GoodsView`.`Active`, 
+`GoodsView`.`IsDeleted`, 
+`GoodsView`.`Timestamp`, 
+`GoodsView`.`ID`, 
+`GoodsView`.`MasterType`, 
+`GoodsView`.`MasterID`, 
+`GoodsView`.`CaseName`, 
+`GoodsView`.`CaseCode`, 
+`GoodsView`.`GoodsCode`, 
+`GoodsView`.`OriginalHolder`, 
+`GoodsView`.`Name`, 
+`GoodsView`.`Type`, 
+`GoodsView`.`Amount`, 
+`GoodsView`.`Measure`, 
+`GoodsView`.`PackageNumber`, 
+`GoodsView`.`Price`, 
+`GoodsView`.`Description`, 
+`GoodsView`.`Photo`, 
+`GoodsView`.`WithholdMethod`, 
+`GoodsView`.`Undertaker`, 
+`GoodsView`.`WithholdDate`, 
+`GoodsView`.`WithholdAddr`, 
+`GoodsView`.`KeepMethod`, 
+`GoodsView`.`TurnInDate`, 
+`GoodsView`.`Receiver`, 
+`GoodsView`.`Keeper`, 
+`GoodsView`.`KeepAddr`, 
+`GoodsView`.`HandleMethod`, 
+`GoodsView`.`GoodsProperty`, 
+`GoodsView`.`HandleDate`, 
+`GoodsView`.`HandleReveiver`, 
+`GoodsView`.`Note`, 
+`GoodsView`.`Affix`, 
+`GoodsView`.`IsEditable`
+FROM `GoodsView` AS `GoodsView`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MoneyView" EntityType="Self.MoneyView" store:Type="Views" store:Schema="zjw">
+            <DefiningQuery>SELECT
+`MoneyView`.`LinkID`, 
+`MoneyView`.`Prev`, 
+`MoneyView`.`Next`, 
+`MoneyView`.`PropertyType`, 
+`MoneyView`.`PropertyID`, 
+`MoneyView`.`UserID`, 
+`MoneyView`.`Active`, 
+`MoneyView`.`IsDeleted`, 
+`MoneyView`.`Timestamp`, 
+`MoneyView`.`ID`, 
+`MoneyView`.`MasterType`, 
+`MoneyView`.`MasterID`, 
+`MoneyView`.`CaseName`, 
+`MoneyView`.`CaseCode`, 
+`MoneyView`.`MoneyCode`, 
+`MoneyView`.`OriginalHolder`, 
+`MoneyView`.`MoneyType`, 
+`MoneyView`.`Currency`, 
+`MoneyView`.`Sum`, 
+`MoneyView`.`OriginAccount`, 
+`MoneyView`.`KeepAccount`, 
+`MoneyView`.`Content`, 
+`MoneyView`.`WithholdDate`, 
+`MoneyView`.`Undertaker`, 
+`MoneyView`.`HandOverDate`, 
+`MoneyView`.`Receicer`, 
+`MoneyView`.`HandleMethod`, 
+`MoneyView`.`MoneyProperty`, 
+`MoneyView`.`HandleDate`, 
+`MoneyView`.`HandleReveiver`, 
+`MoneyView`.`Note`, 
+`MoneyView`.`Affix`, 
+`MoneyView`.`IsEditable`
+FROM `MoneyView` AS `MoneyView`</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -251,6 +429,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Guid" />
           <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -280,6 +459,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Guid" />
           <Property Name="TurnInCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -341,7 +521,7 @@
           <Property Name="PropertyID" Type="Guid" />
           <Property Name="UserID" Type="Guid" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="IsDeleted" Type="Guid" />
+          <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
@@ -407,7 +587,7 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
-        <EntityType Name="UserPermission">
+        <EntityType Name="UserDept">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -434,6 +614,97 @@
           <Property Name="Timestamp" Type="DateTime" />
           <Property Name="IsKeyNode" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="GoodsView">
+          <Key>
+            <PropertyRef Name="LinkID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="Timestamp" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsEditable" />
+          </Key>
+          <Property Name="LinkID" Type="Guid" Nullable="false" />
+          <Property Name="Prev" Type="Guid" />
+          <Property Name="Next" Type="Guid" />
+          <Property Name="PropertyType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="PropertyID" Type="Guid" />
+          <Property Name="UserID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="MasterType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterID" Type="Guid" />
+          <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="GoodsCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalHolder" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="PackageNumber" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="WithholdMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Undertaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="WithholdDate" Type="DateTime" />
+          <Property Name="WithholdAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="KeepMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="TurnInDate" Type="DateTime" />
+          <Property Name="Receiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Keeper" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="KeepAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="GoodsProperty" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleDate" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleReveiver" Type="DateTime" />
+          <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="Guid" />
+          <Property Name="IsEditable" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoneyView">
+          <Key>
+            <PropertyRef Name="LinkID" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="Timestamp" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsEditable" />
+          </Key>
+          <Property Name="LinkID" Type="Guid" Nullable="false" />
+          <Property Name="Prev" Type="Guid" />
+          <Property Name="Next" Type="Guid" />
+          <Property Name="PropertyType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="PropertyID" Type="Guid" />
+          <Property Name="UserID" Type="Guid" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="MasterType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterID" Type="Guid" />
+          <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MoneyCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalHolder" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MoneyType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Currency" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Sum" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="OriginAccount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="KeepAccount" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="WithholdDate" Type="DateTime" />
+          <Property Name="Undertaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandOverDate" Type="DateTime" />
+          <Property Name="Receicer" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleMethod" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MoneyProperty" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="HandleDate" Type="DateTime" />
+          <Property Name="HandleReveiver" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Affix" Type="Guid" />
+          <Property Name="IsEditable" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Affix" EntityType="Self.Affix" />
           <EntitySet Name="Case" EntityType="Self.Case" />
@@ -445,8 +716,10 @@
           <EntitySet Name="Money" EntityType="Self.Money" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" />
-          <EntitySet Name="UserPermission" EntityType="Self.UserPermission" />
+          <EntitySet Name="UserDept" EntityType="Self.UserDept" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="GoodsView" EntityType="Self.GoodsView" />
+          <EntitySet Name="MoneyView" EntityType="Self.MoneyView" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -476,6 +749,7 @@
             <EntityTypeMapping TypeName="Model.Case">
               <MappingFragment StoreEntitySet="Case">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="CaseName" ColumnName="CaseName" />
                 <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
                 <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
@@ -507,6 +781,7 @@
             <EntityTypeMapping TypeName="Model.Gift">
               <MappingFragment StoreEntitySet="Gift">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="TurnInCode" ColumnName="TurnInCode" />
                 <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
                 <ScalarProperty Name="UnderTaker" ColumnName="UnderTaker" />
@@ -642,9 +917,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserPermission">
-            <EntityTypeMapping TypeName="Model.UserPermission">
-              <MappingFragment StoreEntitySet="UserPermission">
+          <EntitySetMapping Name="UserDept">
+            <EntityTypeMapping TypeName="Model.UserDept">
+              <MappingFragment StoreEntitySet="UserDept">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="DeptID" ColumnName="DeptID" />
@@ -668,6 +943,91 @@
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="IsKeyNode" ColumnName="IsKeyNode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodsView">
+            <EntityTypeMapping TypeName="Model.GoodsView">
+              <MappingFragment StoreEntitySet="GoodsView">
+                <ScalarProperty Name="LinkID" ColumnName="LinkID" />
+                <ScalarProperty Name="Prev" ColumnName="Prev" />
+                <ScalarProperty Name="Next" ColumnName="Next" />
+                <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
+                <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
+                <ScalarProperty Name="GoodsCode" ColumnName="GoodsCode" />
+                <ScalarProperty Name="OriginalHolder" ColumnName="OriginalHolder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="WithholdMethod" ColumnName="WithholdMethod" />
+                <ScalarProperty Name="Undertaker" ColumnName="Undertaker" />
+                <ScalarProperty Name="WithholdDate" ColumnName="WithholdDate" />
+                <ScalarProperty Name="WithholdAddr" ColumnName="WithholdAddr" />
+                <ScalarProperty Name="KeepMethod" ColumnName="KeepMethod" />
+                <ScalarProperty Name="TurnInDate" ColumnName="TurnInDate" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+                <ScalarProperty Name="Keeper" ColumnName="Keeper" />
+                <ScalarProperty Name="KeepAddr" ColumnName="KeepAddr" />
+                <ScalarProperty Name="HandleMethod" ColumnName="HandleMethod" />
+                <ScalarProperty Name="GoodsProperty" ColumnName="GoodsProperty" />
+                <ScalarProperty Name="HandleDate" ColumnName="HandleDate" />
+                <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoneyView">
+            <EntityTypeMapping TypeName="Model.MoneyView">
+              <MappingFragment StoreEntitySet="MoneyView">
+                <ScalarProperty Name="LinkID" ColumnName="LinkID" />
+                <ScalarProperty Name="Prev" ColumnName="Prev" />
+                <ScalarProperty Name="Next" ColumnName="Next" />
+                <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
+                <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
+                <ScalarProperty Name="MoneyCode" ColumnName="MoneyCode" />
+                <ScalarProperty Name="OriginalHolder" ColumnName="OriginalHolder" />
+                <ScalarProperty Name="MoneyType" ColumnName="MoneyType" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="OriginAccount" ColumnName="OriginAccount" />
+                <ScalarProperty Name="KeepAccount" ColumnName="KeepAccount" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="WithholdDate" ColumnName="WithholdDate" />
+                <ScalarProperty Name="Undertaker" ColumnName="Undertaker" />
+                <ScalarProperty Name="HandOverDate" ColumnName="HandOverDate" />
+                <ScalarProperty Name="Receicer" ColumnName="Receicer" />
+                <ScalarProperty Name="HandleMethod" ColumnName="HandleMethod" />
+                <ScalarProperty Name="MoneyProperty" ColumnName="MoneyProperty" />
+                <ScalarProperty Name="HandleDate" ColumnName="HandleDate" />
+                <ScalarProperty Name="HandleReveiver" ColumnName="HandleReveiver" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Affix" ColumnName="Affix" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
