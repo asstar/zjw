@@ -75,7 +75,7 @@ namespace zjw.Controllers
                 user.MasterID = masterID;
                 user.DeptID = ((BaseInfo)Session["User"]).user.DeptID;
                 user.RoleID = new Guid("00000000-0007-0000-0000-000000000000");
-                user.RealName = item.TurnInCode;
+                user.RealName = item.CaseName;
                 user.IsKeyNode = true;
                 user.IsDeleted = false;
                 userService.Add(user);
@@ -216,14 +216,6 @@ namespace zjw.Controllers
             ListModel info = o.State;
             int total = 0;
             var result = masterService.List(info, "`Master`", ref total);
-            foreach (var r in result)
-            {
-                if (r.MasterType == "上交")
-                {
-                    r.CaseName = r.TurnInCode;
-                    r.CaseFormedDate = r.TurnInDate;
-                }
-            }
 
             var data = new
             {
@@ -231,59 +223,10 @@ namespace zjw.Controllers
                 rows = result
             };
 
-            /*int caseTotal = 0;
-            int giftTotal = 0;
-            var caseResult = caseService.List(info, "`Master`", ref caseTotal);
-            ListModel giftInfo = info.deepClone();
-            giftInfo.KeyWord = GiftCaseMapping(giftInfo.KeyWord);
-            giftInfo.QueryString = GiftCaseMapping(giftInfo.QueryString);
-            giftInfo.Sort = GiftCaseMapping(giftInfo.Sort);
-            var giftResult = giftService.List(giftInfo, "Gift", ref giftTotal);
-            foreach (var item in giftResult)
-            {
-                Master copy = new Master();
-                copy.ID = item.ID;
-
-                copy.CaseName = item.TurnInCode;
-                copy.UnderTakenDept = item.UnderTakenDept;
-                copy.TargetName = item.TargetName;
-                copy.UnderTaker = item.UnderTaker;
-                copy.CaseFormedDate = item.TurnInDate;
-                copy.MasterType = item.MasterType;
-                caseResult.Add(copy);
-            }
-            var total = caseResult.Count();
-
-            var data = new
-            {
-                total = total,
-                rows = caseResult
-            };*/
-
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public string GiftCaseMapping(string src)
-        {
-            string result = null;
-            if (src != null)
-            {
-                Dictionary<string, string> map = new Dictionary<string, string>() { { "CaseName", "TurnInCode" }, { "CaseFormedDate", "TurnInDate" }, };
-                foreach (var dict in map)
-                {
-                    if (result != null)
-                    {
-                        result = result.Replace(dict.Key, dict.Value);
-                    }
-                    else
-                    {
-                        result = src.Replace(dict.Key, dict.Value);
-                    }
-                    
-                }
-            }
-            return result;
-        }
+
         public ActionResult GiftList()
         {
             return View();

@@ -33,7 +33,7 @@
         function  showData(){
             $('#grid_table').datagrid({
                 url: '/Case/GetCaseList',
-                sortName: 'CaseFormedDate',
+                sortName: 'FormedDate',
                 idField: 'ID',
                 frozenColumns: [[
                     {
@@ -59,10 +59,10 @@
                      { field: 'TargetName', title: '涉案对象', width: 120, sortable: true, align: 'center' },
 
                      {
-                         field: 'CaseFormedDate', title: '立案时间', width: 120, sortable: true, align: 'center',
+                         field: 'FormedDate', title: '立案时间', width: 120, sortable: true, align: 'center',
                          formatter: function (v, r) {
-                             if (r.CaseFormedDate != null) {
-                                 var dateMilliseconds = parseInt(r.CaseFormedDate.replace(/\D/igm, ""));
+                             if (r.FormedDate != null) {
+                                 var dateMilliseconds = parseInt(r.FormedDate.replace(/\D/igm, ""));
                                  var result = new Date(dateMilliseconds);
                                  return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
                              }

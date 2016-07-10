@@ -33,7 +33,7 @@
     function  showData(){
         $('#grid_table').datagrid({
             url: '/Case/GetGiftList',
-            sortName: 'TurnInDate',
+            sortName: 'FormedDate',
             idField: 'ID',
             frozenColumns: [[
                 {
@@ -52,16 +52,16 @@
                 }
             ]],
             columns: [[
-                 { field: 'TurnInCode', title: '上交编号', width: 300, sortable: true, align: 'center' },
+                 { field: 'CaseName', title: '上交编号', width: 300, sortable: true, align: 'center' },
                  { field: 'UnderTakenDept', title: '承办部门', width: 120, sortable: true, align: 'center' },
                  { field: 'UnderTaker', title: '承办人', width: 120, sortable: true, align: 'center' },
                  { field: 'TargetName', title: '上交人', width: 120, sortable: true, align: 'center' },
 
                  {
-                     field: 'TurnInDate', title: '上交时间', width: 120, sortable: true, align: 'center',
+                     field: 'FormedDate', title: '上交时间', width: 120, sortable: true, align: 'center',
                      formatter: function (v, r) {
-                         if (r.TurnInDate != null) {
-                             var dateMilliseconds = parseInt(r.TurnInDate.replace(/\D/igm, ""));
+                         if (r.FormedDate != null) {
+                             var dateMilliseconds = parseInt(r.FormedDate.replace(/\D/igm, ""));
                              var result = new Date(dateMilliseconds);
                              return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
                          }

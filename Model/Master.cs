@@ -22,12 +22,10 @@ namespace Model
         public string UnderTakenDept { get; set; }
         public string UnderTaker { get; set; }
         public string TargetName { get; set; }
-        public Nullable<System.DateTime> CaseFormedDate { get; set; }
+        public Nullable<System.DateTime> FormedDate { get; set; }
         public string Note { get; set; }
         public string Movie { get; set; }
         public Nullable<System.Guid> Affix { get; set; }
-        public string TurnInCode { get; set; }
-        public Nullable<System.DateTime> TurnInDate { get; set; }
         public string TurnInAddr { get; set; }
         public string Content { get; set; }
         public bool IsDeleted { get; set; }

@@ -31,9 +31,9 @@
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">上交编号：</td>
                 <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
-                { @item.TurnInCode}
+                { @item.CaseName}
                 else
-                {@Html.TextBoxFor(i => item.TurnInCode, new { size = 60 })}}</td>
+                {@Html.TextBoxFor(i => item.CaseName, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">承办部门：</td>
@@ -57,9 +57,9 @@
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">上交时间：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @Utils.ConvertDateToString(item.TurnInDate)}
+                { @Utils.ConvertDateToString(item.FormedDate)}
                 else
-                {@Html.TextBoxFor(i => item.TurnInDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" }, { "editable", "false" } })}}</td>
+                {@Html.TextBoxFor(i => item.FormedDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" }, { "editable", "false" } })}}</td>
                 <td class="detail_td1" colspan="1">上交地点：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
                 { @item.TurnInAddr}

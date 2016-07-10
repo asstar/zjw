@@ -95,12 +95,10 @@
           <Property Name="UnderTakenDept" Type="text" />
           <Property Name="UnderTaker" Type="text" />
           <Property Name="TargetName" Type="text" />
-          <Property Name="CaseFormedDate" Type="timestamp" Precision="0" />
+          <Property Name="FormedDate" Type="timestamp" Precision="0" />
           <Property Name="Note" Type="text" />
           <Property Name="Movie" Type="text" />
           <Property Name="Affix" Type="guid" />
-          <Property Name="TurnInCode" Type="text" />
-          <Property Name="TurnInDate" Type="timestamp" Precision="0" />
           <Property Name="TurnInAddr" Type="text" />
           <Property Name="Content" Type="text" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -447,12 +445,10 @@ FROM `PropertyView` AS `PropertyView`</DefiningQuery>
           <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="UnderTaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="TargetName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="CaseFormedDate" Type="DateTime" />
+          <Property Name="FormedDate" Type="DateTime" />
           <Property Name="Note" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Movie" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Affix" Type="Guid" />
-          <Property Name="TurnInCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="TurnInDate" Type="DateTime" />
           <Property Name="TurnInAddr" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
@@ -745,12 +741,10 @@ FROM `PropertyView` AS `PropertyView`</DefiningQuery>
                 <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
                 <ScalarProperty Name="UnderTaker" ColumnName="UnderTaker" />
                 <ScalarProperty Name="TargetName" ColumnName="TargetName" />
-                <ScalarProperty Name="CaseFormedDate" ColumnName="CaseFormedDate" />
+                <ScalarProperty Name="FormedDate" ColumnName="FormedDate" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Movie" ColumnName="Movie" />
                 <ScalarProperty Name="Affix" ColumnName="Affix" />
-                <ScalarProperty Name="TurnInCode" ColumnName="TurnInCode" />
-                <ScalarProperty Name="TurnInDate" ColumnName="TurnInDate" />
                 <ScalarProperty Name="TurnInAddr" ColumnName="TurnInAddr" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
