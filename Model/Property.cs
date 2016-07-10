@@ -17,6 +17,7 @@ namespace Model
         public System.Guid ID { get; set; }
         public string MasterType { get; set; }
         public Nullable<System.Guid> MasterID { get; set; }
+        public string PropertyFlag { get; set; }
         public string CaseName { get; set; }
         public string CaseCode { get; set; }
         public string GoodsCode { get; set; }
@@ -42,6 +43,7 @@ namespace Model
         public string GoodsProperty { get; set; }
         public Nullable<System.DateTime> HandleDate { get; set; }
         public string HandleReveiver { get; set; }
+        public string Note { get; set; }
         public string MoneyCode { get; set; }
         public string MoneyType { get; set; }
         public string Currency { get; set; }

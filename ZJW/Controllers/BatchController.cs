@@ -11,7 +11,7 @@ namespace zjw.Controllers
 {
     public class BatchController : BaseController
     {
-        IGoodsService goodsService = new GoodsService();
+        IPropertyService propertyService = new PropertyService();
         IInfoLinkService infoLinkService = new InfoLinkService();
         //
         // GET: /Batch/
@@ -142,7 +142,7 @@ namespace zjw.Controllers
 
             foreach (var i in split)
             {
-                Goods aData = goodsService.Find(new Guid(i));
+                Property aData = propertyService.Find(new Guid(i));
                 Type itemType = typeof(Goods);
                 PropertyInfo[] pi = itemType.GetProperties();
                 string handleMethod = null;
@@ -165,7 +165,7 @@ namespace zjw.Controllers
                         }
                     }
                 }
-                goodsService.Update(aData);
+                propertyService.Update(aData);
             }
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
         }
@@ -223,9 +223,9 @@ namespace zjw.Controllers
                 }
                 if (item.FormType == "提交审理")
                 {
-                    var data = goodsService.Find((Guid)prevInfoLink.PropertyID);
+                    var data = propertyService.Find((Guid)prevInfoLink.PropertyID);
                     data.IsDelivered = true;
-                    goodsService.Update(data);
+                    propertyService.Update(data);
                 }
 
             }
@@ -237,10 +237,10 @@ namespace zjw.Controllers
             string[] split = IDs.Split(new Char[] { ',' });
 
             int total = 0;
-            List<Goods> result = new List<Goods>();
+            List<Property> result = new List<Property>();
             foreach (var item in split)
             {
-                result.Add(goodsService.Find(new Guid(item)));
+                result.Add(propertyService.Find(new Guid(item)));
             }
             total = result.Count();
 

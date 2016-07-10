@@ -11,11 +11,11 @@ namespace BLL
 {
     public class InfoLinkService : BaseService<InfoLink>, IInfoLinkService
     {
-        ICaseService caseService = new CaseService();
-        IGiftService giftService = new GiftService();
-        IMoneyService moneyService = new MoneyService();
+        IMasterService masterService = new MasterService();
+
         IUserService userService = new UserService();
-        IGoodsService goodsService = new GoodsService();
+        IPropertyService propertyService = new PropertyService();
+
 
 
         public InfoLink MakeLink(InfoLink prevLink, Transfer info)
@@ -120,12 +120,12 @@ namespace BLL
             info.Status = "暂扣";
             if (propertyType == "物品")
             {
-                var item = goodsService.Find(propertyID);
+                var item = propertyService.Find(propertyID);
                 info.UserID = userService.FindByMasterID((Guid)item.MasterID).ID;
             }
             if (propertyType == "款项")
             {
-                var item = moneyService.Find(propertyID);
+                var item = propertyService.Find(propertyID);
                 info.UserID = userService.FindByMasterID((Guid)item.MasterID).ID;
             }
             //info.UserID = ((BaseInfo)HttpContext.Current.Session["User"]).user.ID;

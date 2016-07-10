@@ -8,8 +8,6 @@ namespace IBLL
 {
     public interface IPropertyService : IBaseService<Property>
     {
-        void Add(object item);
-        void Update(object item);
-        void Delete(object item);
+
     }
 }

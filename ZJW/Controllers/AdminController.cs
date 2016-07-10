@@ -19,8 +19,7 @@ namespace zjw.Controllers
         IRoleService roleService = new RoleService();
         IUserDeptService userDeptService = new UserDeptService();
         IRoleMenuService RoleMenuService = new RoleMenuService();
-        ICaseService caseService = new CaseService();
-        IGiftService giftService = new GiftService();
+        IMasterService masterService = new MasterService();
         public ActionResult Index()
         {
             return View();
@@ -118,18 +117,18 @@ namespace zjw.Controllers
                 item.RoleID = item.RoleID;
                 item.IsDeleted = false;
                 userService.Add(item);
-                Case result=caseService.Find((Guid)item.MasterID);
+                Master result = masterService.Find((Guid)item.MasterID);
                 result.UserID = item.ID;
-                caseService.Update(result);
+                masterService.Update(result);
                 return Content("<script type=\"text/javascript\">history.go(-2);</script>");
             }
             if (editType == "Edit")
             {
                 item.IsDeleted = false;
                 userService.Update(item);
-                Case result = caseService.Find((Guid)item.MasterID);
+                Master result = masterService.Find((Guid)item.MasterID);
                 result.UserID = item.ID;
-                caseService.Update(result);
+                masterService.Update(result);
                 return Content("<script type=\"text/javascript\">history.go(-2);</script>");
             }
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");

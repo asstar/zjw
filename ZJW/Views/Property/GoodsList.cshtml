@@ -31,16 +31,19 @@
     });
     function submitSelected(type){
         var rows=$('#grid_table').datagrid('getChecked');
-        var str='';
-        for(var p in rows){
-            str+=rows[p].ID;
-            str+=',';
+        if(rows.length==0){
+            $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+        }else{
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/Create',{ID:str,Type:type})
         }
-        if(rows!=null){
-            str=str.substr(0,str.length-1);
-        }
-        StandardPost('/Batch/Create',{ID:str,Type:type})
-
 
         /*for (var p in rows) {
             alert(rows[p].ID);
@@ -49,16 +52,20 @@
     }
     function batchEdit(type){
         var rows=$('#grid_table').datagrid('getChecked');
-        var str='';
-        for(var p in rows){
-            str+=rows[p].ID;
-            str+=',';
+        if(rows.length==0){
+            $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+        }else{
+            
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/BatchGoodsEdit',{ID:str,Type:type})
         }
-        if(rows!=null){
-            str=str.substr(0,str.length-1);
-        }
-        StandardPost('/Batch/BatchGoodsEdit',{ID:str,Type:type})
-
 
         /*for (var p in rows) {
             alert(rows[p].ID);

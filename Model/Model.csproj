@@ -52,22 +52,10 @@
     <Compile Include="BaseInfo.cs" />
     <Compile Include="Batch.cs" />
     <Compile Include="BtnModel.cs" />
-    <Compile Include="Case.cs">
-      <DependentUpon>zjw.tt</DependentUpon>
-    </Compile>
     <Compile Include="Dept.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
     <Compile Include="Form.cs">
-      <DependentUpon>zjw.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Gift.cs">
-      <DependentUpon>zjw.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Goods.cs">
-      <DependentUpon>zjw.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GoodsView.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
     <Compile Include="InfoLink.cs">
@@ -81,14 +69,11 @@
     <Compile Include="Menu.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
-    <Compile Include="Money.cs">
-      <DependentUpon>zjw.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MoneyView.cs">
-      <DependentUpon>zjw.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyView.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
     <Compile Include="QueryInfo.cs" />

@@ -15,7 +15,7 @@ namespace zjw.Controllers
 {
     public class ExportController : Controller
     {
-        IGoodsService goodsService = new GoodsService();
+        IPropertyService propertyService = new PropertyService();
         IFormService formService = new FormService();
         public ActionResult ExportDoc(Form item,Batch batch)
         {
@@ -35,10 +35,10 @@ namespace zjw.Controllers
             string[] split = IDs.Split(new Char[] { ',' });
 
             int total = 0;
-            List<Goods> result = new List<Goods>();
+            List<Property> result = new List<Property>();
             foreach (var i in split)
             {
-                result.Add(goodsService.Find(new Guid(i)));
+                result.Add(propertyService.Find(new Guid(i)));
             }
             List<Form> forms = new List<Form>();
             forms.Add(item);
@@ -104,10 +104,10 @@ namespace zjw.Controllers
             string[] split = IDs.Split(new Char[] { ',' });
 
             int total = 0;
-            List<Goods> result = new List<Goods>();
+            List<Property> result = new List<Property>();
             foreach (var i in split)
             {
-                result.Add(goodsService.Find(new Guid(i)));
+                result.Add(propertyService.Find(new Guid(i)));
             }
 
             int sum=0;

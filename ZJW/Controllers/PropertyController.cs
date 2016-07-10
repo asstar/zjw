@@ -12,25 +12,23 @@ namespace zjw.Controllers
     {
         //
         // GET: /Property/
-        IMoneyService moneyService = new MoneyService();
-        IGoodsService goodsService = new GoodsService();
-        IMoneyViewService moneyViewService = new MoneyViewService();
-        IGoodsViewService goodsViewService = new GoodsViewService();
-        ICaseService caseService = new CaseService();
-        IGiftService giftService = new GiftService();
+        IMasterService masterService = new MasterService();
+        IPropertyService propertyService = new PropertyService();
+        IPropertyViewService propertyViewService = new PropertyViewService();
+
         IInfoLinkService infoLinkService = new InfoLinkService();
         public JsonResult GetGoodsLastData()
         {
-            string sql = "select * FROM GoodsView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "' and IsDeleted=0 Order by TimeStamp desc limit 1";
-            var result = goodsViewService.SqlQuery(sql);
-            GoodsView max = result.FirstOrDefault();
+            string sql = "select * FROM PropertyView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "' and IsDeleted=0 and PropertyFlag = '物品' Order by TimeStamp desc limit 1";
+            var result = propertyViewService.SqlQuery(sql);
+            PropertyView max = result.FirstOrDefault();
             return Json(max, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetMoneyLastData()
         {
-            string sql = "select * FROM MoneyView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "'and IsDeleted=0  Order by TimeStamp desc limit 1";
-            var result = moneyViewService.SqlQuery(sql);
-            MoneyView max = result.FirstOrDefault();
+            string sql = "select * FROM PropertyView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "'and IsDeleted=0 and PropertyFlag = '款项' Order by TimeStamp desc limit 1";
+            var result = propertyViewService.SqlQuery(sql);
+            PropertyView max = result.FirstOrDefault();
             return Json(max, JsonRequestBehavior.AllowGet);
         }
         public ActionResult FindCase()
@@ -44,24 +42,24 @@ namespace zjw.Controllers
 
             if (((BaseInfo)Session["User"]).role.RoleName == "专案组")
             {
-                if (item.GetType() == typeof(Money))
+                if (item.GetType() == typeof(Property))
                 {
-                    var money = (Money)item;
+                    var money = (Property)item;
                     money.MasterType = "案件";
                     money.MasterID = ((BaseInfo)Session["User"]).user.MasterID;
-                    money.CaseName = caseService.Find((Guid)(money.MasterID)).CaseName;
-                    money.CaseCode = caseService.Find((Guid)(money.MasterID)).CaseCode;
+                    money.CaseName = masterService.Find((Guid)(money.MasterID)).CaseName;
+                    money.CaseCode = masterService.Find((Guid)(money.MasterID)).CaseCode;
 
                     return money;
 
                 }
-                if (item.GetType() == typeof(Goods))
+                if (item.GetType() == typeof(Property))
                 {
-                    var goods = (Goods)item;
+                    var goods = (Property)item;
                     goods.MasterType = "案件";
                     goods.MasterID = ((BaseInfo)Session["User"]).user.MasterID;
-                    goods.CaseName = caseService.Find((Guid)(goods.MasterID)).CaseName;
-                    goods.CaseCode = caseService.Find((Guid)(goods.MasterID)).CaseCode;
+                    goods.CaseName = masterService.Find((Guid)(goods.MasterID)).CaseName;
+                    goods.CaseCode = masterService.Find((Guid)(goods.MasterID)).CaseCode;
                     return goods;
                 }
                 return item;
@@ -74,15 +72,16 @@ namespace zjw.Controllers
         }
         public ActionResult MoneyCreate()
         {
-            Money moneyInfo = new Money();
+            Property moneyInfo = new Property();
             moneyInfo.ID = Guid.NewGuid();
             moneyInfo.IsDeleted = false;
-            ViewBag.Money = setMasterInfo(moneyInfo);
+            moneyInfo.PropertyFlag = "款项";
+            ViewBag.Property = setMasterInfo(moneyInfo);
             Session["Flag"] = "Create";
             return View("MoneyEdit");
         }
         [HttpPost]
-        public ActionResult MoneyCreate(Money item)
+        public ActionResult MoneyCreate(Property item)
         {
             if (item.HandleMethod != null)
             {
@@ -99,7 +98,7 @@ namespace zjw.Controllers
             {
                 item.IsFinished = "未处置";
             }
-            moneyService.Add(item);
+            propertyService.Add(item);
             infoLinkService.Add(item.ID, "款项");
             ModelState.Clear();
             return MoneyCreate();
@@ -107,14 +106,14 @@ namespace zjw.Controllers
         }
         public ActionResult MoneyEdit(Guid ID)
         {
-            var temp = moneyService.Find(ID);
-            ViewBag.Money = temp;
+            var temp = propertyService.Find(ID);
+            ViewBag.Property = temp;
             Session["Flag"] = "Edit";
             Session["UsePrev"] = true;
             return View();
         }
         [HttpPost]
-        public ActionResult MoneyEdit(Money item)
+        public ActionResult MoneyEdit(Property item)
         {
             if (item.HandleMethod != null)
             {
@@ -131,14 +130,14 @@ namespace zjw.Controllers
             {
                 item.IsFinished = "未处置";
             }
-            moneyService.Update(item);
+            propertyService.Update(item);
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
 
         }
         public ActionResult MoneyDetails(Guid ID)
         {
-            Money moneyInfo = moneyService.Find(ID); //db.ClueInfo.Find(ID);
-            ViewBag.Money = moneyInfo;
+            Property moneyInfo = propertyService.Find(ID); //db.ClueInfo.Find(ID);
+            ViewBag.Property = moneyInfo;
             Session["Flag"] = "Detail";
             Session["UsePrev"] = true;
             return View("MoneyEdit");
@@ -146,20 +145,21 @@ namespace zjw.Controllers
         [HttpPost]
         public ActionResult MoneyDelete(Guid ID)
         {
-            moneyService.Delete(ID);
+            propertyService.Delete(ID);
             return Content("success");
         }
         public ActionResult GoodsCreate()
         {
-            Goods goodsInfo = new Goods();
+            Property goodsInfo = new Property();
             goodsInfo.ID = Guid.NewGuid();
             goodsInfo.IsDeleted = false;
-            ViewBag.Goods = setMasterInfo(goodsInfo);
+            goodsInfo.PropertyFlag = "物品";
+            ViewBag.Property = setMasterInfo(goodsInfo);
             Session["Flag"] = "Create";
             return View("GoodsEdit");
         }
         [HttpPost]
-        public ActionResult GoodsCreate(Goods item)
+        public ActionResult GoodsCreate(Property item)
         {
 
             if (item.HandleMethod != null)
@@ -178,7 +178,7 @@ namespace zjw.Controllers
                 item.IsFinished = "未处置";
             }
             //item.ID = Guid.NewGuid();
-            goodsService.Add(item);
+            propertyService.Add(item);
             infoLinkService.Add(item.ID, "物品");
             ModelState.Clear();
             return GoodsCreate();
@@ -186,14 +186,14 @@ namespace zjw.Controllers
         }
         public ActionResult GoodsEdit(Guid ID)
         {
-            var temp = goodsService.Find(ID);
-            ViewBag.Goods = temp;
+            var temp = propertyService.Find(ID);
+            ViewBag.Property = temp;
             Session["Flag"] = "Edit";
             Session["UsePrev"] = true;
             return View();
         }
         [HttpPost]
-        public ActionResult GoodsEdit(Goods item)
+        public ActionResult GoodsEdit(Property item)
         {
             if (item.HandleMethod != null)
             {
@@ -210,14 +210,14 @@ namespace zjw.Controllers
             {
                 item.IsFinished = "未处置";
             }
-            goodsService.Update(item);
+            propertyService.Update(item);
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
 
         }
         public ActionResult GoodsDetails(Guid ID)
         {
-            Goods goodsInfo = goodsService.Find(ID); //db.ClueInfo.Find(ID);
-            ViewBag.Goods = goodsInfo;
+            Property goodsInfo = propertyService.Find(ID); //db.ClueInfo.Find(ID);
+            ViewBag.Property = goodsInfo;
             Session["Flag"] = "Detail";
             Session["UsePrev"] = true;
             return View("GoodsEdit");
@@ -225,7 +225,7 @@ namespace zjw.Controllers
         [HttpPost]
         public ActionResult GoodsDelete(Guid ID)
         {
-            moneyService.Delete(ID);
+            propertyService.Delete(ID);
             return Content("success");
         }
         public ActionResult MoneyList()
@@ -251,7 +251,8 @@ namespace zjw.Controllers
             }
             ListModel info = o.State;
             int total = 0;
-            var result = moneyViewService.List(info, "`MoneyView`", ref total);
+            info.QueryString += " and PropertyFlag = '款项'";
+            var result = propertyViewService.List(info, "`PropertyView`", ref total);
             
 
             var data = new
@@ -321,7 +322,7 @@ namespace zjw.Controllers
 
             BtnModel btnModel = (BtnModel)Session["BtnModel"];
             string type = btnModel.type;
-            List<GoodsView> result = new List<GoodsView>();
+            List<PropertyView> result = new List<PropertyView>();
             if (type != null)
             {
                 switch (type)
@@ -346,17 +347,17 @@ namespace zjw.Controllers
                         break;
                 }
             }
+            info.QueryString += " and PropertyFlag = '物品'";
+            result = propertyViewService.List(info, "`PropertyView`", ref total);
 
-            result = goodsViewService.List(info, "`GoodsView`", ref total);
-
-            Dictionary<Guid, GoodsView> dict = new Dictionary<Guid, GoodsView>();
-            List<GoodsView> process = new List<GoodsView>();
+            Dictionary<Guid, PropertyView> dict = new Dictionary<Guid, PropertyView>();
+            List<PropertyView> process = new List<PropertyView>();
             foreach (var i in result)
             {
-                GoodsView trace = i;
+                PropertyView trace = i;
                 while (trace.Next != null)
                 {
-                    trace = goodsViewService.FindLinkID((Guid)trace.Next);
+                    trace = propertyViewService.FindLinkID((Guid)trace.Next);
                 }
                 if (!dict.ContainsKey(trace.LinkID))
                 {

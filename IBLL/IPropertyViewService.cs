@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using Model;
 namespace IBLL
 {
-    public interface IMoneyService : IBaseService<Money>
+    public interface IPropertyViewService : IBaseService<PropertyView>
     {
-        void Add(Money item);
-        void Update(Money item);
-        void Delete(Money item);
+        PropertyView FindLinkID(Guid id);
     }
 }

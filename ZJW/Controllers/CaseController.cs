@@ -10,10 +10,9 @@ namespace zjw.Controllers
 {
     public class CaseController : BaseController
     {
-        ICaseService caseService = new CaseService();
-        IGiftService giftService = new GiftService();
-        IUserService userService = new UserService();
         IMasterService masterService = new MasterService();
+
+        IUserService userService = new UserService();
         //
         // GET: /Case/
         public ActionResult Movie()
@@ -22,29 +21,29 @@ namespace zjw.Controllers
         }
         public ActionResult CaseCreate()
         {
-            Case caseInfo = new Case();
+            Master caseInfo = new Master();
             caseInfo.ID = Guid.NewGuid();
             caseInfo.UserID = ((BaseInfo)Session["User"]).user.ID;
             caseInfo.UnderTakenDept = ((BaseInfo)Session["User"]).user.RealName;
             caseInfo.IsDeleted = false;
             caseInfo.MasterType = "案件";
-            ViewBag.Case = caseInfo;
+            ViewBag.Master = caseInfo;
             Session["Flag"] = "Create";
             return View("CaseEdit");
         }
         [HttpPost]
-        public ActionResult CaseCreate(Case item)
+        public ActionResult CaseCreate(Master item)
         {
 
 
                 //item.ID = Guid.NewGuid();
-                caseService.Add(item);
+                masterService.Add(item);
                 makeCaseUser(item);
                 ModelState.Clear();
                 return CaseCreate();
 
         }
-        public void makeCaseUser(Case item)
+        public void makeCaseUser(Master item)
         {
             var masterID = item.ID;
             Users find = userService.FindByMasterID(masterID);
@@ -59,13 +58,13 @@ namespace zjw.Controllers
                 user.IsKeyNode = true;
                 user.IsDeleted = false;
                 userService.Add(user);
-                Case result = caseService.Find((Guid)user.MasterID);
+                Master result = masterService.Find((Guid)user.MasterID);
                 result.UserID = user.ID;
-                caseService.Update(result);
+                masterService.Update(result);
                 
             }
         }
-        public void makeGiftUser(Gift item)
+        public void makeGiftUser(Master item)
         {
             var masterID = item.ID;
             Users find = userService.FindByMasterID(masterID);
@@ -80,30 +79,30 @@ namespace zjw.Controllers
                 user.IsKeyNode = true;
                 user.IsDeleted = false;
                 userService.Add(user);
-                Gift result = giftService.Find((Guid)user.MasterID);
+                Master result = masterService.Find((Guid)user.MasterID);
                 result.UserID = user.ID;
-                giftService.Update(result);
+                masterService.Update(result);
             }
         }
         public ActionResult CaseEdit(Guid ID)
         {
-            var temp = caseService.Find(ID);
-            ViewBag.Case = temp;
+            var temp = masterService.Find(ID);
+            ViewBag.Master = temp;
             Session["Flag"] = "Edit";
             Session["UsePrev"] = true;
             return View();
         }
         [HttpPost]
-        public ActionResult CaseEdit(Case item)
+        public ActionResult CaseEdit(Master item)
         {
-            caseService.Update(item);
+            masterService.Update(item);
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
 
         }
         public ActionResult CaseDetails(Guid ID)
         {
-            Case caseInfo = caseService.Find(ID); //db.ClueInfo.Find(ID);
-            ViewBag.Case = caseInfo;
+            Master caseInfo = masterService.Find(ID); //db.ClueInfo.Find(ID);
+            ViewBag.Master = caseInfo;
             Session["Flag"] = "Detail";
             Session["UsePrev"] = true;
             return View("CaseEdit");
@@ -111,27 +110,27 @@ namespace zjw.Controllers
         [HttpPost]
         public ActionResult CaseDelete(Guid ID)
         {
-            caseService.Delete(ID);
+            masterService.Delete(ID);
             return Content("success");
         }
         public ActionResult GiftCreate()
         {
-            Gift giftInfo = new Gift();
+            Master giftInfo = new Master();
             giftInfo.ID = Guid.NewGuid();
             giftInfo.UserID = ((BaseInfo)Session["User"]).user.ID;
             giftInfo.UnderTakenDept = ((BaseInfo)Session["User"]).user.RealName;
             giftInfo.IsDeleted = false;
             giftInfo.MasterType = "上交";
-            ViewBag.Gift = giftInfo;
+            ViewBag.Master = giftInfo;
             Session["Flag"] = "Create";
             return View("GiftEdit");
         }
         [HttpPost]
-        public ActionResult GiftCreate(Gift item)
+        public ActionResult GiftCreate(Master item)
         {
 
                 //item.ID = Guid.NewGuid();
-                giftService.Add(item);
+                masterService.Add(item);
                 makeGiftUser(item);
                 ModelState.Clear();
                 return GiftCreate();
@@ -139,23 +138,23 @@ namespace zjw.Controllers
         }
         public ActionResult GiftEdit(Guid ID)
         {
-            var temp = giftService.Find(ID);
-            ViewBag.Gift = temp;
+            var temp = masterService.Find(ID);
+            ViewBag.Master = temp;
             Session["Flag"] = "Edit";
             Session["UsePrev"] = true;
             return View();
         }
         [HttpPost]
-        public ActionResult GiftEdit(Gift item)
+        public ActionResult GiftEdit(Master item)
         {
-            giftService.Update(item);
+            masterService.Update(item);
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
 
         }
         public ActionResult GiftDetails(Guid ID)
         {
-            Gift giftInfo = giftService.Find(ID); //db.ClueInfo.Find(ID);
-            ViewBag.Gift = giftInfo;
+            Master giftInfo = masterService.Find(ID); //db.ClueInfo.Find(ID);
+            ViewBag.Master = giftInfo;
             Session["Flag"] = "Detail";
             Session["UsePrev"] = true;
             return View("GiftEdit");
@@ -163,7 +162,7 @@ namespace zjw.Controllers
         [HttpPost]
         public ActionResult GiftDelete(Guid ID)
         {
-            giftService.Delete(ID);
+            masterService.Delete(ID);
             return Content("success");
         }
         public ActionResult CaseList()
@@ -188,7 +187,7 @@ namespace zjw.Controllers
             }
             ListModel info = o.State;
             int total = 0;
-            var result = caseService.List(info, "`Case`", ref total);
+            var result = masterService.List(info, "`Master`", ref total);
 
             var data = new
             {
@@ -234,7 +233,7 @@ namespace zjw.Controllers
 
             /*int caseTotal = 0;
             int giftTotal = 0;
-            var caseResult = caseService.List(info, "`Case`", ref caseTotal);
+            var caseResult = caseService.List(info, "`Master`", ref caseTotal);
             ListModel giftInfo = info.deepClone();
             giftInfo.KeyWord = GiftCaseMapping(giftInfo.KeyWord);
             giftInfo.QueryString = GiftCaseMapping(giftInfo.QueryString);
@@ -242,7 +241,7 @@ namespace zjw.Controllers
             var giftResult = giftService.List(giftInfo, "Gift", ref giftTotal);
             foreach (var item in giftResult)
             {
-                Case copy = new Case();
+                Master copy = new Master();
                 copy.ID = item.ID;
 
                 copy.CaseName = item.TurnInCode;
@@ -307,7 +306,7 @@ namespace zjw.Controllers
             }
             ListModel info = o.State;
             int total = 0;
-            var result = giftService.List(info, "`Gift`", ref total);
+            var result = masterService.List(info, "`Master`", ref total);
             
 
             var data = new

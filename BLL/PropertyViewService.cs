@@ -7,11 +7,11 @@ using Model;
 using IBLL;
 namespace BLL
 {
-    public class GoodsViewService : BaseService<GoodsView>, IGoodsViewService
+    public class PropertyViewService : BaseService<PropertyView>, IPropertyViewService
     {
-        public GoodsView FindLinkID(Guid id)
+        public PropertyView FindLinkID(Guid id)
         {
-            var sql = "Select * From GoodsView Where LinkID='" + id.ToString() + "'";
+            var sql = "Select * From PropertyView Where LinkID='" + id.ToString() + "'";
             return SqlQuery(sql).FirstOrDefault();
         }
     }

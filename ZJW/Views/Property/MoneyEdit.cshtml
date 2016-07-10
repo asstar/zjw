@@ -2,7 +2,7 @@
 @{
 
     Layout = null;
-    Money item = ViewBag.Money;
+    Property item = ViewBag.Property;
 }
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,6 +25,7 @@
                     @Html.HiddenFor(i => item.ID)
                     @Html.HiddenFor(i => item.MasterID)
                     @Html.HiddenFor(i => item.MasterType)
+                    @Html.HiddenFor(i => item.PropertyFlag)
                 </td>
             </tr>
             <tr class="detail_tr">

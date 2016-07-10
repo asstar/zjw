@@ -12,11 +12,22 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Goods
+    public partial class PropertyView
     {
+        public System.Guid LinkID { get; set; }
+        public Nullable<System.Guid> Prev { get; set; }
+        public Nullable<System.Guid> Next { get; set; }
+        public string PropertyType { get; set; }
+        public Nullable<System.Guid> PropertyID { get; set; }
+        public Nullable<System.Guid> UserID { get; set; }
+        public bool Active { get; set; }
+        public string Status { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public System.DateTime Timestamp { get; set; }
         public System.Guid ID { get; set; }
         public string MasterType { get; set; }
         public Nullable<System.Guid> MasterID { get; set; }
+        public string PropertyFlag { get; set; }
         public string CaseName { get; set; }
         public string CaseCode { get; set; }
         public string GoodsCode { get; set; }
@@ -42,12 +53,19 @@ namespace Model
         public string GoodsProperty { get; set; }
         public Nullable<System.DateTime> HandleDate { get; set; }
         public string HandleReveiver { get; set; }
-        public string Note { get; set; }
+        public string MoneyCode { get; set; }
+        public string MoneyType { get; set; }
+        public string Currency { get; set; }
+        public string Sum { get; set; }
+        public string OriginAccount { get; set; }
+        public string KeepAccount { get; set; }
+        public string Content { get; set; }
+        public Nullable<System.DateTime> HandOverDate { get; set; }
+        public string Receicer { get; set; }
+        public string MoneyProperty { get; set; }
         public Nullable<System.Guid> Affix { get; set; }
         public bool IsDelivered { get; set; }
         public string IsFinished { get; set; }
         public bool IsEditable { get; set; }
-        public bool IsDeleted { get; set; }
-        public Nullable<System.DateTime> Timestamp { get; set; }
     }
 }
