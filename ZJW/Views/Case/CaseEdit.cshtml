@@ -47,7 +47,7 @@
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">立案时间：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.CaseFormedDate}else{@Html.TextBoxFor(i => item.CaseFormedDate, new { size = 30, @class = "easyui-datebox" })}}</td>
+                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @Utils.ConvertDateToString(item.CaseFormedDate)}else{@Html.TextBoxFor(i => item.CaseFormedDate, , new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" }, { "editable", "false" } })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">备注：</td>
@@ -69,8 +69,12 @@
             else if (Session["Flag"] == "Edit")
             {
                 <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">修改</a>
+                <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
             }
-            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+            else if (Session["Flag"] == "Detail")
+            {
+                 <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+            }
         </p>
 
         @{Html.EndForm();}

@@ -32,7 +32,7 @@
                 <td class="detail_td2" colspan="5">@{if (Session["Flag"] == "Detail")
                 { @item.CaseName}
                 else
-                { @Html.TextBoxFor(i => item.CaseName, new { size = 60 }) <text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件款项信息</a></text>}}
+                { @Html.TextBoxFor(i => item.CaseName, new { size = 60 }) if(((BaseInfo)Session["User"]).role.ID!=new Guid("00000000-0007-0000-0000-000000000000")){ <text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a></text>}<text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件款项信息</a></text>}}
                 </td>
                 <td class="detail_td1" colspan="1">案件代号：</td>
                 <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail")
@@ -103,9 +103,9 @@
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">暂扣时间：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.WithholdDate}
+                { @Utils.ConvertDateToString(item.WithholdDate)}
                 else
-                {@Html.TextBoxFor(i => item.WithholdDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                {@Html.TextBoxFor(i => item.WithholdDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" }, { "editable", "false" } })}}</td>
                 <td class="detail_td1" colspan="1">承办人员：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
                 { @item.Undertaker}
@@ -115,9 +115,9 @@
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">移交时间：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.HandOverDate}
+                { @Utils.ConvertDateToString(item.HandOverDate)}
                 else
-                {@Html.TextBoxFor(i => item.HandOverDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                {@Html.TextBoxFor(i => item.HandOverDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" }, { "editable", "false" } })}}</td>
                 <td class="detail_td1" colspan="1">接收人员：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
                 { @item.Receicer}
@@ -142,9 +142,9 @@
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">处置移交时间：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.HandleDate}
+                { @Utils.ConvertDateToString(item.HandleDate)}
                 else
-                {@Html.TextBoxFor(i => item.HandleDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                {@Html.TextBoxFor(i => item.HandleDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" }, { "editable", "false" } })}}</td>
                 <td class="detail_td1" colspan="1">处置接收人：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
                 { @item.HandleReveiver}
@@ -169,8 +169,13 @@
             else if (Session["Flag"] == "Edit")
             {
                 <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">修改</a>
+                <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
             }
-            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+            else if (Session["Flag"] == "Detail")
+            {
+                <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+            }
+
         </p>
 
         @{Html.EndForm();}

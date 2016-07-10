@@ -13,6 +13,7 @@ namespace zjw.Controllers
         ICaseService caseService = new CaseService();
         IGiftService giftService = new GiftService();
         IUserService userService = new UserService();
+        IMasterService masterService = new MasterService();
         //
         // GET: /Case/
         public ActionResult Movie()
@@ -188,7 +189,6 @@ namespace zjw.Controllers
             ListModel info = o.State;
             int total = 0;
             var result = caseService.List(info, "`Case`", ref total);
-            total = result.Count();
 
             var data = new
             {
@@ -215,7 +215,24 @@ namespace zjw.Controllers
                 o.SetMemento(c.Memento);
             }
             ListModel info = o.State;
-            int caseTotal = 0;
+            int total = 0;
+            var result = masterService.List(info, "`Master`", ref total);
+            foreach (var r in result)
+            {
+                if (r.MasterType == "上交")
+                {
+                    r.CaseName = r.TurnInCode;
+                    r.CaseFormedDate = r.TurnInDate;
+                }
+            }
+
+            var data = new
+            {
+                total = total,
+                rows = result
+            };
+
+            /*int caseTotal = 0;
             int giftTotal = 0;
             var caseResult = caseService.List(info, "`Case`", ref caseTotal);
             ListModel giftInfo = info.deepClone();
@@ -242,7 +259,7 @@ namespace zjw.Controllers
             {
                 total = total,
                 rows = caseResult
-            };
+            };*/
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -291,7 +308,7 @@ namespace zjw.Controllers
             ListModel info = o.State;
             int total = 0;
             var result = giftService.List(info, "`Gift`", ref total);
-            total = result.Count();
+            
 
             var data = new
             {

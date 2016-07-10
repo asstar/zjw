@@ -12,7 +12,6 @@
     <title></title>
     @RenderPage("~/Views/Shared/Include.cshtml")
     <script src="../../Resource/edit.js"></script>
-    <script src="../../Resource/upload.js"></script>
 
 </head>
 <body>
@@ -31,33 +30,57 @@
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">上交编号：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.TurnInCode}else{@Html.TextBoxFor(i => item.TurnInCode, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
+                { @item.TurnInCode}
+                else
+                {@Html.TextBoxFor(i => item.TurnInCode, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">承办部门：</td>
-                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.UnderTakenDept}else{@Html.TextBoxFor(i => item.UnderTakenDept, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.UnderTakenDept}
+                else
+                {@Html.TextBoxFor(i => item.UnderTakenDept, new { size = 60 })}}</td>
                 <td class="detail_td1" colspan="1">承办人：</td>
-                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.UnderTaker}else{@Html.TextBoxFor(i => item.UnderTaker, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.UnderTaker}
+                else
+                {@Html.TextBoxFor(i => item.UnderTaker, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">上交人：</td>
-                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail"){ @item.TargetName}else{@Html.TextBoxFor(i => item.TargetName, new { size = 135 })}}</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
+                { @item.TargetName}
+                else
+                {@Html.TextBoxFor(i => item.TargetName, new { size = 135 })}}</td>
             </tr>
-	    <tr class="detail_tr">
+            <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">上交时间：</td>
-                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail"){ @item.TurnInDate}else{@Html.TextBoxFor(i => item.TurnInDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
-            <td class="detail_td1" colspan="1">上交地点：</td>
-                <td class="detail_td2" colspan="3">@{if(Session["Flag"] == "Detail"){ @item.TurnInAddr}else{@Html.TextBoxFor(i => item.TurnInAddr, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @Utils.ConvertDateToString(item.TurnInDate)}
+                else
+                {@Html.TextBoxFor(i => item.TurnInDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" }, { "editable", "false" } })}}</td>
+                <td class="detail_td1" colspan="1">上交地点：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.TurnInAddr}
+                else
+                {@Html.TextBoxFor(i => item.TurnInAddr, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">详情：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Content}else{@Html.TextAreaFor(i => item.Content, new { cols = "100%", rows = "5" })}}</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
+                { @item.Content}
+                else
+                {@Html.TextAreaFor(i => item.Content, new { cols = "100%", rows = "5" })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">备注：</td>
-                <td class="detail_td2" colspan="7">@{if(Session["Flag"] == "Detail"){ @item.Note}else{@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "5" })}}</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
+                { @item.Note}
+                else
+                {@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "5" })}}</td>
             </tr>
-	        @RenderPage("~/Views/Shared/FileUpload.cshtml")
+            @RenderPage("~/Views/Shared/FileUpload.cshtml")
 
         </table>
         <p align="center">
@@ -68,8 +91,12 @@
             else if (Session["Flag"] == "Edit")
             {
                 <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">修改</a>
+                <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
             }
-            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+            else if (Session["Flag"] == "Detail")
+            {
+                 <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+            }
         </p>
 
         @{Html.EndForm();}
@@ -79,7 +106,7 @@
 </html>
 <script type="text/javascript">
     $(function () {
-        
+
         $('#item_TurnInDate').datebox("setValue", dateParser($('#item_TurnInDate').val()));
     });
 
@@ -93,6 +120,6 @@
     }
 </script>
 
-  
+
 
 

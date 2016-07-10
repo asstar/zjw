@@ -230,6 +230,7 @@ namespace zjw.Controllers
         }
         public ActionResult MoneyList()
         {
+            Session["UsePrev"] = false;
             return View();
         }
         public JsonResult GetMoneyList()
@@ -251,7 +252,7 @@ namespace zjw.Controllers
             ListModel info = o.State;
             int total = 0;
             var result = moneyViewService.List(info, "`MoneyView`", ref total);
-            total = result.Count();
+            
 
             var data = new
             {
@@ -263,6 +264,7 @@ namespace zjw.Controllers
         }
         public ActionResult GoodsList()
         {
+            Session["UsePrev"] = false;
             string type = Request["Type"];
             BtnModel btn = new BtnModel();
             if (type != null)
@@ -363,7 +365,7 @@ namespace zjw.Controllers
                 }
             }
             result = process;
-            total = result.Count();
+           
 
             var data = new
             {

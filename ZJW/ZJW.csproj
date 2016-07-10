@@ -1712,6 +1712,7 @@
     <Compile Include="Code\Home\MenuBar.cs" />
     <Compile Include="Code\Home\MenuBarDB.cs" />
     <Compile Include="Code\Admin\Role\MenuComboTree.cs" />
+    <Compile Include="Code\Utils.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BatchController.cs" />
