@@ -22,76 +22,12 @@
         <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
             <tr class="detail_tr">
                 <td class="table_title" colspan="8">
-                    批量款项信息修改表<br />
+                    批量款项处置表<br />
                     @Html.Hidden("IDs", IDs)
                 </td>
             </tr>
 
 
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">原持有人：</td>
-                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
-                { @item.OriginalHolder}
-                else
-                {@Html.TextBoxFor(i => item.OriginalHolder, new { size = 60 })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">款项种类：</td>
-                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
-                { @item.MoneyType}
-                else
-                {@Html.TextBoxFor(i => item.MoneyType, new { size = 60, @class = "easyui-combobox" })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">币    种：</td>
-                <td class="detail_td2" colspan="8">@{if (Session["Flag"] == "Detail")
-                { @item.Currency}
-                else
-                {@Html.TextBoxFor(i => item.Currency, new { size = 60, @class = "easyui-combobox" })}}</td>
-
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">原 账 号：</td>
-                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.OriginAccount}
-                else
-                {@Html.TextBoxFor(i => item.OriginAccount, new { size = 60 })}}</td>
-                <td class="detail_td1" colspan="1">保管账号：</td>
-                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.KeepAccount}
-                else
-                {@Html.TextBoxFor(i => item.KeepAccount, new { size = 60 })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="8"></td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">暂扣时间：</td>
-                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.WithholdDate}
-                else
-                {@Html.TextBoxFor(i => item.WithholdDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
-                <td class="detail_td1" colspan="1">承办人员：</td>
-                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.Undertaker}
-                else
-                {@Html.TextBoxFor(i => item.Undertaker, new { size = 60 })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">移交时间：</td>
-                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.HandOverDate}
-                else
-                {@Html.TextBoxFor(i => item.HandOverDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
-                <td class="detail_td1" colspan="1">接收人员：</td>
-                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
-                { @item.Receicer}
-                else
-                {@Html.TextBoxFor(i => item.Receicer, new { size = 60 })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="8"></td>
-            </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">处置情况：</td>
                 <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
@@ -117,7 +53,7 @@
                 {@Html.TextBoxFor(i => item.HandleReveiver, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
-                <td class="table_title" colspan="8">待批处理款项清单</td>
+                <td class="table_title" colspan="8">待处置款项清单</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="8">

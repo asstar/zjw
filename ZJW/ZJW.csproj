@@ -1759,6 +1759,8 @@
     <Content Include="Views\Batch\DocEdit.cshtml" />
     <Content Include="Views\Batch\BatchMoneyEdit.cshtml" />
     <Content Include="Views\Batch\BatchGoodsEdit.cshtml" />
+    <Content Include="Views\Batch\BatchMoneyHandle.cshtml" />
+    <Content Include="Views\Batch\BatchGoodsHandle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

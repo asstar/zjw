@@ -199,7 +199,10 @@
         openCaseWindow('mywindow', '选择案件', url, 850, 300);
     }
     function CopyData() {
-        $.getJSON("/Property/GetMoneyLastData",
+        if ($("#item_MasterID").val() == null || $("#item_MasterID").val() == '') {
+            $.messager.alert("操作提示", "请先选择所属案件！", "info");
+        } else {
+            $.getJSON("/Property/GetGoodsLastData?MasterID=" + $("#item_MasterID").val(),
             function (jsonData) {
                 if (jsonData != null) {
                     $("#item_MasterID").val(jsonData.MasterID);
@@ -221,6 +224,7 @@
                 }
             }
 );
+        }
     }
     function openCaseWindow(window, title, url, width, heigth) {
         var s_h = document.body.clientHeight;// 得到屏幕可用区域高度

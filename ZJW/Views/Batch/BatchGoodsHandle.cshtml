@@ -21,111 +21,12 @@
         <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
             <tr class="detail_tr">
                 <td class="table_title" colspan="8">
-                    批量物品信息修改表<br />
+                    批量物品处置表<br />
                     @Html.Hidden("IDs",IDs)
                     <input type="hidden" name="current" id="current" value="" />
                 </td>
             </tr>
 
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">原持有人：</td>
-                <td class="detail_td2" colspan="7">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.OriginalHolder}
-                    else
-                    {@Html.TextBoxFor(i => item.OriginalHolder, new { size = 60 })}}
-                </td>
-            </tr>
-
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">物品类型：</td>
-                <td class="detail_td2" colspan="7">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.Type}
-                    else
-                    {@Html.TextBoxFor(i => item.Type, new { size = 60, @class = "easyui-combobox" })}}
-                </td>
-            </tr>
-
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="8"></td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">暂扣方式：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.WithholdMethod}
-                    else
-                    {@Html.TextBoxFor(i => item.WithholdMethod, new { size = 60, @class = "easyui-combobox" })}}
-                </td>
-                <td class="detail_td1" colspan="1">承 办 人：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.Undertaker}
-                    else
-                    {@Html.TextBoxFor(i => item.Undertaker, new { size = 60 })}}
-                </td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">暂扣时间：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.WithholdDate}
-                    else
-                    {@Html.TextBoxFor(i => item.WithholdDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}
-                </td>
-                <td class="detail_td1" colspan="1">暂扣地点：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.WithholdAddr}
-                    else
-                    {@Html.TextBoxFor(i => item.WithholdAddr, new { size = 60 })}}
-                </td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">保管方式：</td>
-                <td class="detail_td2" colspan="7">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.KeepMethod}
-                    else
-                    {@Html.TextBoxFor(i => item.KeepMethod, new { size = 60, @class = "easyui-combobox" })}}
-                </td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">移交时间：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.TurnInDate}
-                    else
-                    {@Html.TextBoxFor(i => item.TurnInDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}
-                </td>
-                <td class="detail_td1" colspan="1">接 收 人：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.Receiver}
-                    else
-                    {@Html.TextBoxFor(i => item.Receiver, new { size = 60 })}}
-                </td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">保 管 人：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.Keeper}
-                    else
-                    {@Html.TextBoxFor(i => item.Keeper, new { size = 60 })}}
-                </td>
-                <td class="detail_td1" colspan="1">保管地点：</td>
-                <td class="detail_td2" colspan="3">
-                    @{if (Session["Flag"] == "Detail")
-                    { @item.KeepAddr}
-                    else
-                    {@Html.TextBoxFor(i => item.KeepAddr, new { size = 60 })}}
-                </td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="8"></td>
-            </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="1">处置情况：</td>
                 <td class="detail_td2" colspan="3">
@@ -159,7 +60,7 @@
                 </td>
             </tr>
             <tr class="detail_tr">
-                <td class="table_title" colspan="8">待批处理物品清单</td>
+                <td class="table_title" colspan="8">待处置物品清单</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="8">

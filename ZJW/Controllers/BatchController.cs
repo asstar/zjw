@@ -124,18 +124,43 @@ namespace zjw.Controllers
         {
             string IDs = Request["ID"];
             string Type = Request["Type"];
+            Property item = new Property();
+            Session["Flag"] = "Edit";
+            ViewBag.item = item;
+            ViewBag.IDs = IDs;
             return View();
         }
         public ActionResult BatchGoodsEdit()
         {
             string IDs = Request["ID"];
             string Type = Request["Type"];
-            Goods item = new Goods();
+            Property item = new Property();
+            Session["Flag"] = "Edit";
             ViewBag.item = item;
             ViewBag.IDs = IDs;
             return View();
         }
-        public ActionResult BatchGoodsSave(Goods item)
+        public ActionResult BatchMoneyHandle()
+        {
+            string IDs = Request["ID"];
+            string Type = Request["Type"];
+            Property item = new Property();
+            Session["Flag"] = "Edit";
+            ViewBag.item = item;
+            ViewBag.IDs = IDs;
+            return View();
+        }
+        public ActionResult BatchGoodsHandle()
+        {
+            string IDs = Request["ID"];
+            string Type = Request["Type"];
+            Property item = new Property();
+            Session["Flag"] = "Edit";
+            ViewBag.item = item;
+            ViewBag.IDs = IDs;
+            return View();
+        }
+        public ActionResult BatchSave(Property item)
         {
             string IDs = Request["IDs"];
             string[] split = IDs.Split(new Char[] { ',' });
@@ -143,7 +168,7 @@ namespace zjw.Controllers
             foreach (var i in split)
             {
                 Property aData = propertyService.Find(new Guid(i));
-                Type itemType = typeof(Goods);
+                Type itemType = typeof(Property);
                 PropertyInfo[] pi = itemType.GetProperties();
                 string handleMethod = null;
                 foreach (PropertyInfo property in pi)
@@ -162,6 +187,10 @@ namespace zjw.Controllers
                         if (handleMethod != null && handleMethod.IndexOf("拟") == -1)
                         {
                             property.SetValue(aData, "已处置");
+                        }
+                        else
+                        {
+                            property.SetValue(aData, "未处置");
                         }
                     }
                 }
@@ -205,7 +234,7 @@ namespace zjw.Controllers
             string IDs = item.Data;
             string[] split = IDs.Split(new Char[] { ',' });
 
-            List<Goods> result = new List<Goods>();
+            List<Property> result = new List<Property>();
             foreach (var i in split)
             {
                 InfoLink inst = new InfoLink();

@@ -15,18 +15,22 @@ namespace zjw.Controllers
         IMasterService masterService = new MasterService();
         IPropertyService propertyService = new PropertyService();
         IPropertyViewService propertyViewService = new PropertyViewService();
-
+        IUserService userService = new UserService();
         IInfoLinkService infoLinkService = new InfoLinkService();
         public JsonResult GetGoodsLastData()
         {
-            string sql = "select * FROM PropertyView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "' and IsDeleted=0 and PropertyFlag = '物品' Order by TimeStamp desc limit 1";
+            string masterID = (string)Request["MasterID"];
+            Users find = userService.FindByMasterID(new Guid(masterID));
+            string sql = "select * FROM PropertyView where UserID='" + find.ID + "' and IsDeleted=0 and PropertyFlag = '物品' Order by TimeStamp desc limit 1";
             var result = propertyViewService.SqlQuery(sql);
             PropertyView max = result.FirstOrDefault();
             return Json(max, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetMoneyLastData()
         {
-            string sql = "select * FROM PropertyView where UserID='" + ((BaseInfo)Session["User"]).user.ID + "'and IsDeleted=0 and PropertyFlag = '款项' Order by TimeStamp desc limit 1";
+            string masterID = (string)Request["MasterID"];
+            Users find = userService.FindByMasterID(new Guid(masterID));
+            string sql = "select * FROM PropertyView where UserID='" + find.ID + "'and IsDeleted=0 and PropertyFlag = '款项' Order by TimeStamp desc limit 1";
             var result = propertyViewService.SqlQuery(sql);
             PropertyView max = result.FirstOrDefault();
             return Json(max, JsonRequestBehavior.AllowGet);
@@ -230,6 +234,40 @@ namespace zjw.Controllers
         }
         public ActionResult MoneyList()
         {
+            Session["UsePrev"] = false;
+            string type = Request["Type"];
+            BtnModel btn = new BtnModel();
+            if (type != null)
+            {
+                btn.type = type;
+                switch (type)
+                {
+                    case "Transfer":
+                        //btn.setArray(true, true, true, true, true);
+                        btn.isTransferable = true;
+                        break;
+                    case "Out":
+                        btn.isOutable = true;
+                        break;
+                    case "Return":
+                        btn.isReturnable = true;
+                        break;
+                    case "Handle":
+                        btn.isHandleable = true;
+                        break;
+                    case "Deliver":
+                        btn.isDeliverable = true;
+                        break;
+                    case "Borrow":
+                        btn.isBorrowable = true;
+                        break;
+                    case "Edit":
+                        btn.isEditable = true;
+                        break;
+                }
+            }
+            Session["BtnModel"] = btn;
+            ViewBag.Btn = btn;
             Session["UsePrev"] = false;
             return View();
         }

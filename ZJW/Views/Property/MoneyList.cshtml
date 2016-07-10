@@ -1,6 +1,6 @@
 ﻿@using Model;
 @{
-    
+    BtnModel item = ViewBag.Btn;
     Layout = null;
 }
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,7 +29,77 @@
         }
 
     });
+    function submitSelected(type){
+        var rows=$('#grid_table').datagrid('getChecked');
+        if(rows.length==0){
+            $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+        }else{
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/Create',{ID:str,Type:type})
+        }
 
+        /*for (var p in rows) {
+            alert(rows[p].ID);
+
+        }*/
+    }
+    function batchEdit(type){
+        var rows=$('#grid_table').datagrid('getChecked');
+        if(rows.length==0){
+            $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+        }else{
+            
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/BatchMoneyEdit',{ID:str,Type:type})
+        }
+    }
+    function batchHandle(type){
+        var rows=$('#grid_table').datagrid('getChecked');
+        if(rows.length==0){
+            $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+        }else{
+            
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/BatchMoneyHandle',{ID:str,Type:type})
+        }
+    }
+    function StandardPost(url,args){
+        var body = $(document.body),
+            form = $("<form method='post'></form>"),
+            input;
+        form.attr({"action":url});
+        $.each(args,function(key,value){
+            input = $("<input type='hidden'>");
+            input.attr({"name":key});
+            input.val(value);
+            form.append(input);
+        });
+
+        form.appendTo(document.body);
+        form.submit();
+        document.body.removeChild(form[0]);
+    }
     function  showData(){
         $('#grid_table').datagrid({
             url: '/Property/GetMoneyList',
@@ -73,13 +143,7 @@
                  { field: 'HandleMethod', title: '处置方式', width: 120, sortable: true, align: 'center' },
                  { field: 'IsFinished', title: '处置状态', width: 120, sortable: true, align: 'center' },
             ]],
-            toolbar: [{
-                text: '刷新',
-                iconCls: 'icon-reload',
-                handler: function () {
-                    refeshGrid();
-                }
-            }]
+            toolbar: [@Html.Raw(item.getBtnString())]
         });
         $("#queryType").combobox({
             url: '/json/moneyQuery.json',

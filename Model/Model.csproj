@@ -55,6 +55,7 @@
     <Compile Include="Dept.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExportForm.cs" />
     <Compile Include="Form.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>

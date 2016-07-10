@@ -11,22 +11,17 @@ namespace Model
 
     [Serializable]
     public partial class Affix { }
-    [Serializable]
-    public partial class Case { }
+
+
     [Serializable]
     public partial class Dept { }
-    [Serializable]
-    public partial class Gift { }
-    [Serializable]
-    public partial class Goods { }
+
     [Serializable]
     public partial class InfoLink {
 
     }
     [Serializable]
     public partial class Menu { }
-    [Serializable]
-    public partial class Money { }
     [Serializable]
     public partial class Role { }
     [Serializable]

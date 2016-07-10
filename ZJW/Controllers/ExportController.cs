@@ -40,8 +40,10 @@ namespace zjw.Controllers
             {
                 result.Add(propertyService.Find(new Guid(i)));
             }
-            List<Form> forms = new List<Form>();
-            forms.Add(item);
+            ExportForm destForm = new ExportForm();
+            destForm=ObjectCopy(item, destForm);
+            List<ExportForm> forms = new List<ExportForm>();
+            forms.Add(destForm);
             List<Batch> batchs = new List<Batch>();
             batchs.Add(batch);
             var dt = ListToDataTable(result);
@@ -55,6 +57,33 @@ namespace zjw.Controllers
             string filename = DateTime.Now.ToString("yyyyMMddhhmmss") + ".doc";
             doc.Save(Server.MapPath("/doc/") + filename);
             return File(Server.MapPath("/doc/" + filename), "application/msword", Url.Encode(filename));
+        }
+
+        ExportForm ObjectCopy(Form src, ExportForm dest)
+        {
+
+            Type srcType = src.GetType();
+            PropertyInfo[] pi = srcType.GetProperties();
+            foreach (PropertyInfo srcProperty in pi)
+            {
+                Type destType = dest.GetType();
+                PropertyInfo[] dt = destType.GetProperties();
+                foreach (PropertyInfo d in dt)
+                {
+                    if (d.Name == srcProperty.Name)
+                    {
+                        
+                            var tmp=srcProperty.GetValue(src);
+                            if (tmp != null&&tmp.GetType() == typeof(System.DateTime))
+                            {
+                                    d.SetValue(dest, ((DateTime)tmp).ToString("yyyy年MM月dd日"));
+                            }
+                            else { d.SetValue(dest, tmp); }
+                            
+                    }
+                }
+            }
+            return dest;
         }
         //
         // GET: /Export/

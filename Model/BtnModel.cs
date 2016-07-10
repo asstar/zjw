@@ -69,7 +69,7 @@ namespace Model
                 {
                     result += ", \"-\", ";
                 }
-                result += "{ text: \"处置\", iconCls: \"icon-add\", handler: function () { submitSelected(\"处置\"); }  }";
+                result += "{ text: \"处置\", iconCls: \"icon-add\", handler: function () { batchHandle(\"处置\"); }  }";
             }
             if (isDeliverable)
             {
