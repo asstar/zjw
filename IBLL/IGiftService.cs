@@ -8,6 +8,8 @@ namespace IBLL
 {
     public interface IGiftService : IBaseService<Gift>
     {
-
+        void Add(Gift item);
+        void Update(Gift item);
+        void Delete(Gift item);
     }
 }

@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MasterService.cs" />
     <Compile Include="FormService.cs" />
+    <Compile Include="PropertyService.cs" />
     <Compile Include="GoodsViewService.cs" />
     <Compile Include="InfoLinkService.cs" />
     <Compile Include="BaseService.cs" />

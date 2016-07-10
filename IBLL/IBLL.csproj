@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPropertyService.cs" />
+    <Compile Include="IMasterService.cs" />
     <Compile Include="IFormService.cs" />
     <Compile Include="IGoodsViewService.cs" />
     <Compile Include="IInfoLinkService.cs" />

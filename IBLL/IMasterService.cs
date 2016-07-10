@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Model;
 namespace IBLL
 {
-    public interface IMoneyService : IBaseService<Money>
+    public interface IMasterService : IBaseService<Master>
     {
-        void Add(Money item);
-        void Update(Money item);
-        void Delete(Money item);
+        void Add(object item);
+        void Update(object item);
+        void Delete(object item);
     }
 }

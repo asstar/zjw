@@ -8,5 +8,8 @@ namespace IBLL
 {
     public interface ICaseService : IBaseService<Case>
     {
+        void Add(Case item);
+        void Update(Case item);
+        void Delete(Case item);
     }
 }

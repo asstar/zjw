@@ -8,6 +8,8 @@ namespace IBLL
 {
     public interface IGoodsService : IBaseService<Goods>
     {
-
+        void Add(Goods item);
+        void Update(Goods item);
+        void Delete(Goods item);
     }
 }

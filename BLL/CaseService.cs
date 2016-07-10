@@ -10,7 +10,21 @@ namespace BLL
 {
     public class CaseService: BaseService<Case>, ICaseService
     {
-
-
+        IMasterService masterService = new MasterService();
+        public void Add(Case item)
+        {
+            masterService.Add(item);
+            base.Add(item);
+        }
+        public void Update(Case item)
+        {
+            masterService.Update(item);
+            base.Update(item);
+        }
+        public void Delete(Case item)
+        {
+            masterService.Delete(item);
+            base.Delete(item);
+        }
     }
 }
