@@ -25,6 +25,8 @@
                     @Html.HiddenFor(i => item.ID)
                     @Html.HiddenFor(i => item.MasterType)
                     @Html.HiddenFor(i => item.MasterID)
+                    @Html.HiddenFor(i => item.IsDeleted)
+
                     <input type="hidden" name="current" id="current" value="" />
                 </td>
             </tr>
@@ -313,6 +315,11 @@
 </body>
 </html>
 <script type="text/javascript">
+    $(function () {
+        $('#item_WithholdDate').datebox("setValue", dateParser($('#item_WithholdDate').val()));
+        $('#item_TurnInDate').datebox("setValue", dateParser($('#item_TurnInDate').val()));
+        $('#item_HandleDate').datebox("setValue", dateParser($('#item_HandleDate').val()));
+    });
     function SelectCase() {
 
         var url = '/Property/FindCase';

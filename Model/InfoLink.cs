@@ -21,6 +21,7 @@ namespace Model
         public Nullable<System.Guid> PropertyID { get; set; }
         public Nullable<System.Guid> UserID { get; set; }
         public bool Active { get; set; }
+        public string Status { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public System.DateTime Timestamp { get; set; }
     }

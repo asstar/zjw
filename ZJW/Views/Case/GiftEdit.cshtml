@@ -78,6 +78,10 @@
 </body>
 </html>
 <script type="text/javascript">
+    $(function () {
+        
+        $('#item_TurnInDate').datebox("setValue", dateParser($('#item_TurnInDate').val()));
+    });
 
     function SubmitData() {
         if ($("#frm_edit").form('validate')) {

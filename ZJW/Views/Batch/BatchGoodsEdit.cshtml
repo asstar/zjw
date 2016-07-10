@@ -1,0 +1,235 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Goods item = ViewBag.Goods;
+    string IDs = ViewBag.IDs;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/edit.js"></script>
+
+</head>
+<body>
+    <div class="easyui-panel" style="padding: 20px 20px;">
+        @RenderPage("~/Views/Shared/upload.cshtml")
+        @{Html.BeginForm("BatchGoodsSave", "Batch", FormMethod.Post, new { name = "frm_edit", id = "frm_edit" });}
+        <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">
+                    批量物品信息修改表<br />
+                    @Html.Hidden("IDs",IDs)
+                    <input type="hidden" name="current" id="current" value="" />
+                </td>
+            </tr>
+
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">原持有人：</td>
+                <td class="detail_td2" colspan="7">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.OriginalHolder}
+                    else
+                    {@Html.TextBoxFor(i => item.OriginalHolder, new { size = 60 })}}
+                </td>
+            </tr>
+
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">物品类型：</td>
+                <td class="detail_td2" colspan="7">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.Type}
+                    else
+                    {@Html.TextBoxFor(i => item.Type, new { size = 60, @class = "easyui-combobox" })}}
+                </td>
+            </tr>
+
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"></td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">暂扣方式：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.WithholdMethod}
+                    else
+                    {@Html.TextBoxFor(i => item.WithholdMethod, new { size = 60, @class = "easyui-combobox" })}}
+                </td>
+                <td class="detail_td1" colspan="1">承 办 人：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.Undertaker}
+                    else
+                    {@Html.TextBoxFor(i => item.Undertaker, new { size = 60 })}}
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">暂扣时间：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.WithholdDate}
+                    else
+                    {@Html.TextBoxFor(i => item.WithholdDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}
+                </td>
+                <td class="detail_td1" colspan="1">暂扣地点：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.WithholdAddr}
+                    else
+                    {@Html.TextBoxFor(i => item.WithholdAddr, new { size = 60 })}}
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">保管方式：</td>
+                <td class="detail_td2" colspan="7">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.KeepMethod}
+                    else
+                    {@Html.TextBoxFor(i => item.KeepMethod, new { size = 60, @class = "easyui-combobox" })}}
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">移交时间：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.TurnInDate}
+                    else
+                    {@Html.TextBoxFor(i => item.TurnInDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}
+                </td>
+                <td class="detail_td1" colspan="1">接 收 人：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.Receiver}
+                    else
+                    {@Html.TextBoxFor(i => item.Receiver, new { size = 60 })}}
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">保 管 人：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.Keeper}
+                    else
+                    {@Html.TextBoxFor(i => item.Keeper, new { size = 60 })}}
+                </td>
+                <td class="detail_td1" colspan="1">保管地点：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.KeepAddr}
+                    else
+                    {@Html.TextBoxFor(i => item.KeepAddr, new { size = 60 })}}
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"></td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">处置情况：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.HandleMethod}
+                    else
+                    {@Html.TextBoxFor(i => item.HandleMethod, new { size = 60, @class = "easyui-combobox" })}}
+                </td>
+                <td class="detail_td1" colspan="1">物品性质：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.GoodsProperty}
+                    else
+                    {@Html.TextBoxFor(i => item.GoodsProperty, new { size = 60, @class = "easyui-combobox" })}}
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">处置移交时间：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.HandleDate}
+                    else
+                    {@Html.TextBoxFor(i => item.HandleDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}
+                </td>
+                <td class="detail_td1" colspan="1">处置接收人：</td>
+                <td class="detail_td2" colspan="3">
+                    @{if (Session["Flag"] == "Detail")
+                    { @item.HandleReveiver}
+                    else
+                    {@Html.TextBoxFor(i => item.HandleReveiver, new { size = 60 })}}
+                </td>
+            </tr>
+
+
+        </table>
+        <p align="center">
+
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">批量修改</a>
+
+            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+        @{Html.EndForm();}
+    </div>
+    <div id="mywindow" class="easyui-window" closed="true" cache="false" icon="icon-save" style="width:500px;height:200px;padding:5px;background: #fafafa;">
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        $('#item_WithholdDate').datebox("setValue", dateParser($('#item_WithholdDate').val()));
+        $('#item_TurnInDate').datebox("setValue", dateParser($('#item_TurnInDate').val()));
+        $('#item_HandleDate').datebox("setValue", dateParser($('#item_HandleDate').val()));
+    });
+
+    $(document).ready(function () {
+        $("#ImageBlock").hide();
+        $("#item_Type").combobox({
+            url: '/json/Type.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+        $("#item_WithholdMethod").combobox({
+            url: '/json/WithholdMethod.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+        $("#item_KeepMethod").combobox({
+            url: '/json/KeepMethod.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+        $("#item_HandleMethod").combobox({
+            url: '/json/HandleMethod.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+        $("#item_GoodsProperty").combobox({
+            url: '/json/Property.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+
+    });
+
+
+    function SubmitData() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () { $('#frm_edit').submit() }, 0);
+            });
+        }
+    }
+
+</script>

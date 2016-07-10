@@ -20,7 +20,9 @@ namespace Model
     [Serializable]
     public partial class Goods { }
     [Serializable]
-    public partial class InfoLink { }
+    public partial class InfoLink {
+
+    }
     [Serializable]
     public partial class Menu { }
     [Serializable]

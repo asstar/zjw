@@ -114,6 +114,7 @@ namespace BLL
             using (var db = new DBEntities())
             {
                 string sql = "select * FROM " + TableName + " where isDeleted=false " + listModel.StatusString + listModel.QueryString + listModel.AuthString + " order by " + listModel.Sort + " " + listModel.Direction;
+                Debug.WriteLine(sql);
                 IEnumerable<T> temp = SqlQuery(sql);
                 total = temp.Count();
                 var users = temp.Skip<T>((listModel.PageIndex - 1) * listModel.PageSize).Take<T>(listModel.PageSize);

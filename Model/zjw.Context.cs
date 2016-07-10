@@ -28,6 +28,7 @@ namespace Model
         public DbSet<Affix> Affix { get; set; }
         public DbSet<Case> Case { get; set; }
         public DbSet<Dept> Dept { get; set; }
+        public DbSet<Form> Form { get; set; }
         public DbSet<Gift> Gift { get; set; }
         public DbSet<Goods> Goods { get; set; }
         public DbSet<InfoLink> InfoLink { get; set; }
@@ -38,6 +39,5 @@ namespace Model
         public DbSet<UserDept> UserDept { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<GoodsView> GoodsView { get; set; }
-        public DbSet<MoneyView> MoneyView { get; set; }
     }
 }

@@ -181,6 +181,11 @@
 </body>
 </html>
 <script type="text/javascript">
+    $(function () {
+        $('#item_WithholdDate').datebox("setValue", dateParser($('#item_WithholdDate').val()));
+        $('#item_HandOverDate').datebox("setValue", dateParser($('#item_HandOverDate').val()));
+        $('#item_HandleDate').datebox("setValue", dateParser($('#item_HandleDate').val()));
+    });
     function SelectCase() {
 
         var url = '/Property/FindCase';

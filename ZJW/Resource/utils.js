@@ -22,6 +22,18 @@ function cnDateParse(s) {
         }
     } return new Date();
 }
+function dateParser(s) {
+        if (s != null && s != '') {
+            s = s.substring(0, s.indexOf(' '));
+            var ss = (s.split('/'));
+            //alert(s);
+            var y = parseInt(ss[0], 10);
+            var m = parseInt(ss[1], 10);
+            var d = parseInt(ss[2], 10);
+            return y + '年' + m + '月' + d + '日' ;
+        }
+        return s;
+}
 function parseDate(s) {
     if (s!=null&&s != '') {
         var dateMilliseconds = parseInt(s.replace(/\D/igm, ""));

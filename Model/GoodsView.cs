@@ -21,6 +21,7 @@ namespace Model
         public Nullable<System.Guid> PropertyID { get; set; }
         public Nullable<System.Guid> UserID { get; set; }
         public bool Active { get; set; }
+        public string Status { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public System.DateTime Timestamp { get; set; }
         public System.Guid ID { get; set; }
@@ -49,10 +50,12 @@ namespace Model
         public string KeepAddr { get; set; }
         public string HandleMethod { get; set; }
         public string GoodsProperty { get; set; }
-        public string HandleDate { get; set; }
-        public Nullable<System.DateTime> HandleReveiver { get; set; }
+        public Nullable<System.DateTime> HandleDate { get; set; }
+        public string HandleReveiver { get; set; }
         public string Note { get; set; }
         public Nullable<System.Guid> Affix { get; set; }
+        public bool IsDelivered { get; set; }
+        public string IsFinished { get; set; }
         public bool IsEditable { get; set; }
     }
 }

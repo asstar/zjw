@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Model
 {
+    [Serializable]
     public class QueryInfo
     {
         public int PageIndex{get;set;}

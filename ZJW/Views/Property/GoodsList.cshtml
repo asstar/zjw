@@ -1,6 +1,6 @@
 ﻿@using Model;
 @{
-    
+    BtnModel item=ViewBag.Btn;
     Layout = null;
 }
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,7 +29,58 @@
             }
 
         });
+        function submitSelected(type){
+            var rows=$('#grid_table').datagrid('getChecked');
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/Create',{ID:str,Type:type})
 
+
+            /*for (var p in rows) {
+                alert(rows[p].ID);
+
+            }*/
+        }
+        function batchEdit(type){
+            var rows=$('#grid_table').datagrid('getChecked');
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/BatchGoodsEdit',{ID:str,Type:type})
+
+
+            /*for (var p in rows) {
+                alert(rows[p].ID);
+
+            }*/
+        }
+        function StandardPost(url,args){
+            var body = $(document.body),
+                form = $("<form method='post'></form>"),
+                input;
+            form.attr({"action":url});
+            $.each(args,function(key,value){
+                input = $("<input type='hidden'>");
+                input.attr({"name":key});
+                input.val(value);
+                form.append(input);
+            });
+
+            form.appendTo(document.body);
+            form.submit();
+            document.body.removeChild(form[0]);
+        }
         function  showData(){
             $('#grid_table').datagrid({
                 url: '/Property/GetGoodsList',
@@ -41,7 +92,7 @@
                         field: 'opt', title: '操作', width: 260, align: 'center',
                         formatter: function (v, r) {
                             var optBtn = "";
-                                                         @if((((BaseInfo)Session["User"]).user.IsKeyNode==true ))
+                            @if((((BaseInfo)Session["User"]).user.IsKeyNode==true ))
                             {<text>
                             optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Property/GoodsEdit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
                             optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteByID(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
@@ -69,17 +120,13 @@
                              }
                          }
                      },
+                     { field: 'Status', title: '状态', width: 120, sortable: true, align: 'center' },
                      { field: 'KeepMethod', title: '保管方式', width: 120, sortable: true, align: 'center' },
-                     { field: 'HandleMethod', title: '处置情况', width: 120, sortable: true, align: 'center' },
+                     { field: 'HandleMethod', title: '处置方式', width: 120, sortable: true, align: 'center' },
+                     { field: 'IsFinished', title: '处置状态', width: 120, sortable: true, align: 'center' },
 
                 ]],
-                toolbar: [{
-                    text: '刷新',
-                    iconCls: 'icon-reload',
-                    handler: function () {
-                        refeshGrid();
-                    }
-                }]
+                toolbar: [@Html.Raw(item.getBtnString())]
             });
             $("#queryType").combobox({
                 url: '/json/goodsQuery.json',

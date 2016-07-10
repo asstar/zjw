@@ -27,7 +27,7 @@
                     @Html.HiddenFor(i => item.MasterType)
                     @Html.HiddenFor(i => item.IsKeyNode)
                     @Html.HiddenFor(i => item.IsDeleted)
-
+                    <input name="old_login_name" id="old_login_name" type="hidden" value="@item.UserName" />
                 </td>
             </tr>
             <tr class="detail_tr">
@@ -67,7 +67,7 @@
         </table>
         <p align="center">
 
-                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">确认</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="beforeSubmit()">确认</a>
             
             <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
         </p>
@@ -81,6 +81,10 @@
 </html>
 
 <script type="text/javascript">
+    $.extend($.fn.validatebox.defaults.rules, {
+        /*必须和某个字段相等*/
+        equalTo: { validator: function (value, param) { return $(param[0]).val() == value; }, message: '两次输入的密码不一样' }
+    });
     $(document).ready(function () {
 
 
@@ -105,17 +109,17 @@
         });
 
     });
-    function SubmitData() {
+    /*function SubmitData() {
         if ($("#frm_edit").form('validate')) {
             $("#btnLogin").linkbutton("disable");
             $.messager.alert("操作提示", "操作成功！", "info", function (r) {
                 setTimeout(function () { $('#frm_edit').submit() }, 0);
             });
         }
-    }
+    }*/
 
     function beforeSubmit() {
-        if ($("#frm_win_add").form('validate')) {
+        if ($("#frm_edit").form('validate')) {
             $.ajax({
                 type: "POST",
                 url: '/Admin/CheckName',
@@ -127,13 +131,17 @@
                             $.messager.alert('提示信息', '该登录名已存在！', 'info');
                         } else {
                             if ($("#item_UserName").val() == old_login_name) {
-                                saveOrUploadForm("frm_win_add", '/Admin/SaveOrUpdate', 'funAfterSubmit');
+                                $.messager.alert("提示", "修改成功！", "info", function (r) {
+                                    setTimeout(function () { $('#frm_edit').submit() }, 0);
+                                });
                             } else {
                                 $.messager.alert('提示信息', '该登录名已存在！', 'info');
                             }
                         }
                     } else {
-                        saveOrUploadForm("frm_win_add", '/Admin/SaveOrUpdate', 'funAfterSubmit');
+                        $.messager.alert("提示", "修改成功！", "info", function (r) {
+                            setTimeout(function () { $('#frm_edit').submit() }, 0);
+                        });
                     }
                 }
             });

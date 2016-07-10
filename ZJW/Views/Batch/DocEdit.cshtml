@@ -1,0 +1,185 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Form item = ViewBag.Form;
+    Batch batch = ViewBag.Batch;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/edit.js"></script>
+
+
+</head>
+<body>
+    <div class="easyui-panel" style="padding: 20px 20px;">
+        @RenderPage("~/Views/Shared/upload.cshtml")
+        @{Html.BeginForm("Transfer", "Batch", FormMethod.Post, new { name = "frm_edit", id = "frm_edit" });}
+        <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">
+                    @batch.Title（一式二份）<br />
+                    @Html.HiddenFor(i => item.ID)
+                    @Html.HiddenFor(i => item.UserID)
+                    @Html.HiddenFor(i => item.FormType)
+                    @Html.HiddenFor(i => item.Template)
+                    @Html.HiddenFor(i => item.Data)
+                    @Html.HiddenFor(i => item.IsDeleted)
+                    @Html.HiddenFor(i => batch.Title)
+                    @Html.HiddenFor(i => batch.ReasonTitle)
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td2" colspan="4"></td>
+                <td class="detail_td1" colspan="2">日期</td>
+                <td class="detail_td2" colspan="2">@{if(Session["ProcessFlag"] == "Detail"){ @item.FormedDate}else{@Html.TextBoxFor(i => item.FormedDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+            </tr>
+
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">原物品持有人</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.OriginHolder}else{@Html.TextBoxFor(i => item.OriginHolder, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="2">承办人</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.UnderTaker}else{@Html.TextBoxFor(i => item.UnderTaker, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">保管人</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.Keeper}else{@Html.TextBoxFor(i => item.Keeper, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="2">涉案物品件数</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.Amount}else{@Html.TextBoxFor(i => item.Amount, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">办案部门（调查组）</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.UndertakenDept}else{@Html.TextBoxFor(i => item.UndertakenDept, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">@batch.ReasonTitle 理由</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.Reason}else{@Html.TextAreaFor(i => item.Reason, new { cols = "100%", rows = "2" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">办案部门领导意见
+								</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.UndertakenDeptOpinion}else{@Html.TextAreaFor(i => item.UndertakenDeptOpinion, new { cols = "100%", rows = "2" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td2" colspan="6"></td>
+                <td class="detail_td1" colspan="1">日期：</td>
+                <td class="detail_td2" colspan="1">@{if(Session["ProcessFlag"] == "Detail"){ @item.UndertakenDeptOpinionDate}else{@Html.TextBoxFor(i => item.UndertakenDeptOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">分管委部领导意见</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.LeaderOpinion}else{@Html.TextAreaFor(i => item.LeaderOpinion, new { cols = "100%", rows = "2" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td2" colspan="6"></td>
+                <td class="detail_td1" colspan="1">日期：</td>
+                <td class="detail_td2" colspan="1">@{if(Session["ProcessFlag"] == "Detail"){ @item.LeaderOpinionDate}else{@Html.TextBoxFor(i => item.LeaderOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">保管部门领导意见</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.KeeperOpinion}else{@Html.TextAreaFor(i => item.KeeperOpinion, new { cols = "100%", rows = "2" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td2" colspan="6"></td>
+                <td class="detail_td1" colspan="1">日期：</td>
+                <td class="detail_td2" colspan="1">@{if(Session["ProcessFlag"] == "Detail"){ @item.KeeperOpinionDate}else{@Html.TextBoxFor(i => item.KeeperOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="2">备注</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.Note}else{@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "2" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">中央纪委暂予扣留涉案物品 @batch.ReasonTitle 清单</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"><div region="center" id="table_div" style="overflow:hidden;">
+                    <table id="grid_table" align="center" style="height: auto; width: auto"></table>
+                </div></td>
+                
+            </tr>
+
+        </table>
+        <p align="center">
+
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Print()">打印</a>
+                
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Transfer()">@batch.BtnTitle</a>
+
+                <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+        @{Html.EndForm();}
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        $('#item_FormedDate').datebox("setValue", dateParser($('#item_FormedDate').val()));
+        $('#item_UndertakenDeptOpinionDate').datebox("setValue", dateParser($('#item_UndertakenDeptOpinionDate').val()));
+        $('#item_LeaderOpinionDate').datebox("setValue", dateParser($('#item_LeaderOpinionDate').val()));
+        $('#item_KeeperOpinionDate').datebox("setValue", dateParser($('#item_KeeperOpinionDate').val()));
+    });
+    function Transfer() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () { $('#frm_edit').submit() }, 0);
+            });
+        }
+    }
+    function Print() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            //$.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () {
+                    $('#frm_edit').attr({"action":'@batch.Action'});
+                    $('#frm_edit').submit();
+                    $('#frm_edit').attr({ "action": "/Batch/Transfer" });
+                    $("#btnLogin").linkbutton("enable");
+                }, 0);
+           // });
+        }
+    }
+    $(function () {
+
+        $('#grid_table').datagrid({
+            url: '/Batch/GetList?IDs=@item.Data',
+            sortName: 'ID',
+            idField: 'ID',
+            rownumbers: true,
+            fit: false,
+            fitColumns: true,
+            frozenColumns: [[
+            { field: 'ck', checkbox: false},
+            ]],
+            columns: [[
+            { field: 'Name', title: '物品名称', width: 120, sortable: true, align: 'center' },
+            { field: 'Measure', title: '计量单位', width: 120, sortable: true, align: 'center' },
+            { field: 'Amount', title: '单位数', width: 120, sortable: true, align: 'center' },
+            { field: 'PackageNumber', title: '件数', width: 120, sortable: true, align: 'center' },
+            { field: 'Description', title: '物品特征、型号、规格等', width: 200, sortable: true, align: 'center' },
+            { field: 'CaseName', title: '所属案件', width: 120, sortable: true, align: 'center' },
+            { field: 'GoodsProperty', title: '物品性质', width: 120, sortable: true, align: 'center' },
+            { field: 'Price', title: '鉴定价格', width: 120, sortable: true, align: 'center' },
+            { field: 'HandleMethod', title: '处置意见', width: 120, sortable: true, align: 'center' },
+            { field: 'Note', title: '备注', width: 200, sortable: true, align: 'center' },
+
+            ]]
+        });
+    });
+
+</script>
+
+
+
+
+
+  
+
+

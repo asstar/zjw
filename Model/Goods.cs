@@ -40,10 +40,12 @@ namespace Model
         public string KeepAddr { get; set; }
         public string HandleMethod { get; set; }
         public string GoodsProperty { get; set; }
-        public string HandleDate { get; set; }
-        public Nullable<System.DateTime> HandleReveiver { get; set; }
+        public Nullable<System.DateTime> HandleDate { get; set; }
+        public string HandleReveiver { get; set; }
         public string Note { get; set; }
         public Nullable<System.Guid> Affix { get; set; }
+        public bool IsDelivered { get; set; }
+        public string IsFinished { get; set; }
         public bool IsEditable { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<System.DateTime> Timestamp { get; set; }

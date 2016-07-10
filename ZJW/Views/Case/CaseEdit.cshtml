@@ -80,7 +80,10 @@
 </html>
 
 <script type="text/javascript">
-
+    $(function () {
+        
+        $('#item_CaseFormedDate').datebox("setValue", dateParser($('#item_CaseFormedDate').val()));
+    });
     function SubmitData() {
         if ($("#frm_edit").form('validate')) {
             $("#btnLogin").linkbutton("disable");

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    [Serializable]
     public class UsersMore
     {
         public System.Guid ID { get; set; }

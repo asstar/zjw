@@ -70,7 +70,7 @@ namespace zjw.Controllers
             {
                 return item;
             }
-            
+
         }
         public ActionResult MoneyCreate()
         {
@@ -84,13 +84,25 @@ namespace zjw.Controllers
         [HttpPost]
         public ActionResult MoneyCreate(Money item)
         {
-
-
-                //item.ID = Guid.NewGuid();
-                moneyService.Add(item);
-                infoLinkService.Add(item.ID, "款项");
-                ModelState.Clear();
-                return MoneyCreate();
+            if (item.HandleMethod != null)
+            {
+                if (item.HandleMethod.IndexOf("拟") == -1)
+                {
+                    item.IsFinished = "已处置";
+                }
+                else
+                {
+                    item.IsFinished = "未处置";
+                }
+            }
+            else
+            {
+                item.IsFinished = "未处置";
+            }
+            moneyService.Add(item);
+            infoLinkService.Add(item.ID, "款项");
+            ModelState.Clear();
+            return MoneyCreate();
 
         }
         public ActionResult MoneyEdit(Guid ID)
@@ -104,6 +116,21 @@ namespace zjw.Controllers
         [HttpPost]
         public ActionResult MoneyEdit(Money item)
         {
+            if (item.HandleMethod != null)
+            {
+                if (item.HandleMethod.IndexOf("拟") == -1)
+                {
+                    item.IsFinished = "已处置";
+                }
+                else
+                {
+                    item.IsFinished = "未处置";
+                }
+            }
+            else
+            {
+                item.IsFinished = "未处置";
+            }
             moneyService.Update(item);
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
 
@@ -135,12 +162,26 @@ namespace zjw.Controllers
         public ActionResult GoodsCreate(Goods item)
         {
 
-
-                //item.ID = Guid.NewGuid();
-                goodsService.Add(item);
-                infoLinkService.Add(item.ID, "物品");
-                ModelState.Clear();
-                return GoodsCreate();
+            if (item.HandleMethod != null)
+            {
+                if (item.HandleMethod.IndexOf("拟") == -1)
+                {
+                    item.IsFinished = "已处置";
+                }
+                else
+                {
+                    item.IsFinished = "未处置";
+                }
+            }
+            else
+            {
+                item.IsFinished = "未处置";
+            }
+            //item.ID = Guid.NewGuid();
+            goodsService.Add(item);
+            infoLinkService.Add(item.ID, "物品");
+            ModelState.Clear();
+            return GoodsCreate();
 
         }
         public ActionResult GoodsEdit(Guid ID)
@@ -154,6 +195,21 @@ namespace zjw.Controllers
         [HttpPost]
         public ActionResult GoodsEdit(Goods item)
         {
+            if (item.HandleMethod != null)
+            {
+                if (item.HandleMethod.IndexOf("拟") == -1)
+                {
+                    item.IsFinished = "已处置";
+                }
+                else
+                {
+                    item.IsFinished = "未处置";
+                }
+            }
+            else
+            {
+                item.IsFinished = "未处置";
+            }
             goodsService.Update(item);
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
 
@@ -207,6 +263,39 @@ namespace zjw.Controllers
         }
         public ActionResult GoodsList()
         {
+            string type = Request["Type"];
+            BtnModel btn = new BtnModel();
+            if (type != null)
+            {
+                btn.type = type;
+                switch (type)
+                {
+                    case "Transfer":
+                        //btn.setArray(true, true, true, true, true);
+                        btn.isTransferable = true;
+                        break;
+                    case "Out":
+                        btn.isOutable = true;
+                        break;
+                    case "Return":
+                        btn.isReturnable = true;
+                        break;
+                    case "Handle":
+                        btn.isHandleable = true;
+                        break;
+                    case "Deliver":
+                        btn.isDeliverable = true;
+                        break;
+                    case "Borrow":
+                        btn.isBorrowable = true;
+                        break;
+                    case "Edit":
+                        btn.isEditable = true;
+                        break;
+                }
+            }
+            Session["BtnModel"] = btn;
+            ViewBag.Btn = btn;
             return View();
         }
         public JsonResult GetGoodsList()
@@ -227,7 +316,53 @@ namespace zjw.Controllers
             }
             ListModel info = o.State;
             int total = 0;
-            var result = goodsViewService.List(info, "`GoodsView`", ref total);
+
+            BtnModel btnModel = (BtnModel)Session["BtnModel"];
+            string type = btnModel.type;
+            List<GoodsView> result = new List<GoodsView>();
+            if (type != null)
+            {
+                switch (type)
+                {
+                    case "Transfer":
+                        info.QueryString += " and Status='暂扣' and Active=1";
+                        break;
+                    case "Out":
+                        info.QueryString += " and Status='待出库' and Active=1";
+                        break;
+                    case "Return":
+                        info.QueryString += " and Status='出库' and Active=1 ";
+                        break;
+                    case "Handle":
+                        info.QueryString += " and IsFinished<>'已处置' and Active=1";
+                        break;
+                    case "Deliver":
+                        info.QueryString += " and IsFinished<>'已处置' and IsDelivered<>1 and Active=1";
+                        break;
+                    case "Borrow":
+                        info.QueryString += " and (Status='移交管理局' OR Status='返库') and Active=1";
+                        break;
+                }
+            }
+
+            result = goodsViewService.List(info, "`GoodsView`", ref total);
+
+            Dictionary<Guid, GoodsView> dict = new Dictionary<Guid, GoodsView>();
+            List<GoodsView> process = new List<GoodsView>();
+            foreach (var i in result)
+            {
+                GoodsView trace = i;
+                while (trace.Next != null)
+                {
+                    trace = goodsViewService.FindLinkID((Guid)trace.Next);
+                }
+                if (!dict.ContainsKey(trace.LinkID))
+                {
+                    dict.Add(trace.LinkID, trace);
+                    process.Add(trace);
+                }
+            }
+            result = process;
             total = result.Count();
 
             var data = new
@@ -263,5 +398,5 @@ namespace zjw.Controllers
             info.AuthString = new PermissionService().getPermission();
             return info;
         }
-	}
+    }
 }

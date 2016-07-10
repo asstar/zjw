@@ -1,0 +1,261 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Money item = ViewBag.Money;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/edit.js"></script>
+
+</head>
+<body>
+    <div class="easyui-panel" style="padding: 20px 20px;">
+        @RenderPage("~/Views/Shared/upload.cshtml")
+        @{Html.BeginForm(Session["Flag"] == "Create" ? "MoneyCreate" : "MoneyEdit", "Property", FormMethod.Post, new { name = "frm_edit", id = "frm_edit" });}
+        <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">
+                    批量款项信息修改表<br />
+                </td>
+            </tr>
+
+
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">原持有人：</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
+                { @item.OriginalHolder}
+                else
+                {@Html.TextBoxFor(i => item.OriginalHolder, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">款项种类：</td>
+                <td class="detail_td2" colspan="7">@{if (Session["Flag"] == "Detail")
+                { @item.MoneyType}
+                else
+                {@Html.TextBoxFor(i => item.MoneyType, new { size = 60, @class = "easyui-combobox" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">币    种：</td>
+                <td class="detail_td2" colspan="8">@{if (Session["Flag"] == "Detail")
+                { @item.Currency}
+                else
+                {@Html.TextBoxFor(i => item.Currency, new { size = 60, @class = "easyui-combobox" })}}</td>
+
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">原 账 号：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.OriginAccount}
+                else
+                {@Html.TextBoxFor(i => item.OriginAccount, new { size = 60 })}}</td>
+                <td class="detail_td1" colspan="1">保管账号：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.KeepAccount}
+                else
+                {@Html.TextBoxFor(i => item.KeepAccount, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"></td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">暂扣时间：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.WithholdDate}
+                else
+                {@Html.TextBoxFor(i => item.WithholdDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                <td class="detail_td1" colspan="1">承办人员：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.Undertaker}
+                else
+                {@Html.TextBoxFor(i => item.Undertaker, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">移交时间：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.HandOverDate}
+                else
+                {@Html.TextBoxFor(i => item.HandOverDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                <td class="detail_td1" colspan="1">接收人员：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.Receicer}
+                else
+                {@Html.TextBoxFor(i => item.Receicer, new { size = 60 })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="8"></td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">处置情况：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.HandleMethod}
+                else
+                {@Html.TextBoxFor(i => item.HandleMethod, new { size = 60, @class = "easyui-combobox" })}}</td>
+                <td class="detail_td1" colspan="1">款项性质：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.MoneyProperty}
+                else
+                {@Html.TextBoxFor(i => item.MoneyProperty, new { size = 60, @class = "easyui-combobox" })}}</td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="1">处置移交时间：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.HandleDate}
+                else
+                {@Html.TextBoxFor(i => item.HandleDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                <td class="detail_td1" colspan="1">处置接收人：</td>
+                <td class="detail_td2" colspan="3">@{if (Session["Flag"] == "Detail")
+                { @item.HandleReveiver}
+                else
+                {@Html.TextBoxFor(i => item.HandleReveiver, new { size = 60 })}}</td>
+            </tr>
+            @RenderPage("~/Views/Shared/FileUpload.cshtml")
+
+        </table>
+        <p align="center">
+            @if (Session["Flag"] == "Create")
+            {
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">保存</a>
+            }
+            else if (Session["Flag"] == "Edit")
+            {
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SubmitData()">修改</a>
+            }
+            <a href=“javascript:void(0);“ class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+        @{Html.EndForm();}
+    </div>
+    <div id="mywindow" class="easyui-window" closed="true" cache="false" icon="icon-save" style="width:500px;height:200px;padding:5px;background: #fafafa;">
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        $('#item_WithholdDate').datebox("setValue", dateParser($('#item_WithholdDate').val()));
+        $('#item_HandOverDate').datebox("setValue", dateParser($('#item_HandOverDate').val()));
+        $('#item_HandleDate').datebox("setValue", dateParser($('#item_HandleDate').val()));
+    });
+    function SelectCase() {
+
+        var url = '/Property/FindCase';
+
+        openCaseWindow('mywindow', '选择案件', url, 850, 300);
+    }
+    function CopyData() {
+        $.getJSON("/Property/GetMoneyLastData",
+            function (jsonData) {
+                if (jsonData != null) {
+                    $("#item_MasterID").val(jsonData.MasterID);
+                    $("#item_MasterType").val(jsonData.MasterType);
+                    $("#item_CaseName").val(jsonData.CaseName);
+                    $("#item_CaseCode").val(jsonData.CaseCode);
+                    $("#item_OriginalHolder").val(jsonData.OriginalHolder);
+                    $("#item_MoneyType").combobox('setValue', jsonData.MoneyType);
+                    $("#item_Currency").combobox('setValue', jsonData.Currency);
+                    $("#item_KeepAccount").val(jsonData.KeepAccount);
+                    $("#item_WithholdDate").datebox("setValue", parseDate(jsonData.WithholdDate));//.val(jsonData.WithholdDate);
+                    $("#item_Undertaker").val(jsonData.Undertaker);
+                    $("#item_HandOverDate").datebox("setValue", parseDate(jsonData.HandOverDate));//.val(jsonData.HandOverDate);
+                    $("#item_Receicer").val(jsonData.Receicer);
+                    $("#item_HandleMethod").combobox('setValue', jsonData.HandleMethod);
+                    $("#item_MoneyProperty").combobox('setValue', jsonData.MoneyProperty);
+                    $("#item_HandleDate").datebox("setValue", parseDate(jsonData.HandleDate));//.val(jsonData.HandleDate);
+                    $("#item_HandleReveiver").val(jsonData.HandleReveiver);
+                }
+            }
+);
+    }
+    function openCaseWindow(window, title, url, width, heigth) {
+        var s_h = document.body.clientHeight;// 得到屏幕可用区域高度
+        var s_i = document.body.clientWidth; // 得到屏幕可用区域宽度
+        var d_h = 1;						 // 弹出传弹出后屏幕剩余的高度
+        var d_i = 1;						 // 弹出传弹出后屏幕剩余的宽度
+
+        url = encodeURI(url, "utf-8");
+        if (url.indexOf("?") > -1) {
+            url += "&fresh=" + Math.random();
+        } else {
+            url += "?fresh=" + Math.random();
+        }
+        //有自定义宽度且小于屏幕可用宽度时：弹出窗宽度等于自定义宽度，否则等于屏幕可用宽度-50
+        width = (width != null && width != "" && width < s_i) ? width : (s_i - d_i);
+        //有自定义高度且小于屏幕可用高度时：弹出窗高度等于自定义高度，否则等于屏幕可用高度-50
+        heigth = (heigth != null && heigth != "" && heigth < s_h) ? heigth : (s_h - d_h);
+        $('#' + window).window({
+            title: title,
+            left: 0,
+            top: 0,
+            width: width,
+            height: heigth,
+            modal: true,
+            cache: false,
+            shadow: true,
+            minimizable: false,
+            maximizable: true,
+            closable: true,
+            collapsible: true,
+            closed: false,
+            draggable: false,
+            resizable: true,
+            href: url,
+            onOpen: function () {
+                $('select').addClass("tntmng_undisplay");
+            },
+            onClose: function () {
+                $('select').removeClass("tntmng_undisplay");
+            }
+        });
+    }
+    function SubmitData() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () { $('#frm_edit').submit() }, 0);
+            });
+        }
+    }
+    $(document).ready(function () {
+
+        $("#item_MoneyType").combobox({
+            url: '/json/MoneyType.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+        $("#item_Currency").combobox({
+            url: '/json/Currency.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+        $("#item_HandleMethod").combobox({
+            url: '/json/HandleMethod.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+        $("#item_MoneyProperty").combobox({
+            url: '/json/Property.json',
+            valueField: 'id',
+            textField: 'text',
+            method: 'get',
+            required: false
+        });
+
+    });
+</script>
+
+
+
+
+

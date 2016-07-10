@@ -8,6 +8,6 @@ namespace IBLL
 {
     public interface IGoodsViewService : IBaseService<GoodsView>
     {
-
+        GoodsView FindLinkID(Guid id);
     }
 }
