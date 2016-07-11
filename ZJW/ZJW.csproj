@@ -91,8 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Json\caseQuery.json" />
-    <Content Include="Json\queryFH.json" />
+    <Content Include="Json\caseQuery.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\queryFH.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resource\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Resource\bootstrap\css\bootstrap.css.map" />
     <Content Include="Resource\bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -123,18 +127,39 @@
     <Content Include="Resource\EasyUI\themes\default\images\Thumbs.db" />
     <Content Include="Resource\EasyUI\themes\gray\images\Thumbs.db" />
     <Content Include="Resource\EasyUI\themes\metro\images\Thumbs.db" />
-    <Content Include="Json\giftQuery.json" />
-    <Content Include="Json\moneyQuery.json" />
-    <Content Include="Json\goodsQuery.json" />
-    <Content Include="Json\MoneyType.json" />
-    <Content Include="Json\Currency.json" />
+    <Content Include="Json\giftQuery.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\moneyQuery.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\goodsQuery.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\MoneyType.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\Currency.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Json\HandleMethod.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Json\Property.json" />
-    <Content Include="Json\Type.json" />
-    <Content Include="Json\WithholdMethod.json" />
-    <Content Include="Json\KeepMethod.json" />
+    <Content Include="Json\Property.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\Type.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\WithholdMethod.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Json\KeepMethod.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Doc\Word.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\zjw.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Resource\admin.css" />
@@ -1693,6 +1718,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="xls\Sheet.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -1761,6 +1789,8 @@
     <Content Include="Views\Batch\BatchGoodsEdit.cshtml" />
     <Content Include="Views\Batch\BatchMoneyHandle.cshtml" />
     <Content Include="Views\Batch\BatchGoodsHandle.cshtml" />
+    <Content Include="Views\Batch\BatchList.cshtml" />
+    <Content Include="Views\Batch\DeliverEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1770,11 +1800,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Doc\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Export\" />
     <Folder Include="Views\File\" />
-    <Folder Include="xls\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

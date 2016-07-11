@@ -69,6 +69,7 @@ namespace zjw.Controllers
             if (type == "Create")
             {
                 Users user = new Users();
+                user.ID = Guid.NewGuid();
                 ViewBag.user = user;
                 return View();
             }

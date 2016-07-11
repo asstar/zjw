@@ -17,6 +17,8 @@ namespace Model
             isHandleable = false;
             isDeliverable = false;
             isBorrowable = false;
+            isReceiveable = false;
+            isHandlePrintable = false;
         }
         public string type { get; set; }
         public bool isTransferable { get; set; }
@@ -26,8 +28,9 @@ namespace Model
         public bool isEditable { get; set; }
         public bool isDeliverable { get; set; }
         public bool isBorrowable { get; set; }
+        public bool isReceiveable { get; set; }
 
-
+        public bool isHandlePrintable { get; set; }
         public string getBtnString()
         {
             string result = null;
@@ -46,6 +49,14 @@ namespace Model
                     result += ", \"-\", ";
                 }
                 result += "{ text: \"移交\", iconCls: \"icon-add\", handler: function () { submitSelected(\"移交\"); }  }";
+            }
+            if (isReceiveable)
+            {
+                if (result != null)
+                {
+                    result += ", \"-\", ";
+                }
+                result += "{ text: \"接收\", iconCls: \"icon-add\", handler: function () { submitSelected(\"接收\"); }  }";
             }
             if (isOutable)
             {
@@ -71,13 +82,21 @@ namespace Model
                 }
                 result += "{ text: \"处置\", iconCls: \"icon-add\", handler: function () { batchHandle(\"处置\"); }  }";
             }
+            if (isHandlePrintable)
+            {
+                if (result != null)
+                {
+                    result += ", \"-\", ";
+                }
+                result += "{ text: \"打印处置文书\", iconCls: \"icon-add\", handler: function () { submitSelected(\"打印处置文书\"); }  }";
+            }
             if (isDeliverable)
             {
                 if (result != null)
                 {
                     result += ", \"-\", ";
                 }
-                result += "{ text: \"提交审理\", iconCls: \"icon-add\", handler: function () { submitSelected(\"提交审理\"); }  }";
+                result += "{ text: \"移送审理\", iconCls: \"icon-add\", handler: function () { submitSelected(\"移送审理\"); }  }";
 
             }
             if (isBorrowable)

@@ -1,6 +1,6 @@
 ﻿@using Model;
 @{
-    
+    BtnModel item=ViewBag.Btn;
     Layout = null;
 }
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,55 +29,126 @@
         }
 
     });
+    function submitSelected(type){
+        var rows=$('#grid_table').datagrid('getChecked');
+        if(rows.length==0){
+            $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+        }else{
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/Create',{ID:str,Type:type})
+        }
 
+        /*for (var p in rows) {
+            alert(rows[p].ID);
+
+        }*/
+    }
+    function batchEdit(type){
+        var rows=$('#grid_table').datagrid('getChecked');
+        if(rows.length==0){
+            $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+        }else{
+            
+            var str='';
+            for(var p in rows){
+                str+=rows[p].ID;
+                str+=',';
+            }
+            if(rows!=null){
+                str=str.substr(0,str.length-1);
+            }
+            StandardPost('/Batch/BatchGoodsEdit',{ID:str,Type:type})
+        }
+    }
+        function batchHandle(type){
+            var rows=$('#grid_table').datagrid('getChecked');
+            if(rows.length==0){
+                $.messager.alert("操作提示", "请在需要处理的项目前打勾", "info");
+            }else{
+            
+                var str='';
+                for(var p in rows){
+                    str+=rows[p].ID;
+                    str+=',';
+                }
+                if(rows!=null){
+                    str=str.substr(0,str.length-1);
+                }
+                StandardPost('/Batch/BatchGoodsHandle',{ID:str,Type:type})
+            }
+    }
+    function StandardPost(url,args){
+        var body = $(document.body),
+            form = $("<form method='post'></form>"),
+            input;
+        form.attr({"action":url});
+        $.each(args,function(key,value){
+            input = $("<input type='hidden'>");
+            input.attr({"name":key});
+            input.val(value);
+            form.append(input);
+        });
+
+        form.appendTo(document.body);
+        form.submit();
+        document.body.removeChild(form[0]);
+    }
     function  showData(){
         $('#grid_table').datagrid({
-            url: '/Case/GetGiftList',
-            sortName: 'FormedDate',
+            url: '/Property/GetGoodsList',
+            sortName: 'WithholdDate',
             idField: 'ID',
             frozenColumns: [[
+                { field: 'ck', checkbox: true },
                 {
                     field: 'opt', title: '操作', width: 260, align: 'center',
                     formatter: function (v, r) {
                         var optBtn = "";
                         @if((((BaseInfo)Session["User"]).user.IsKeyNode==true ))
                             {<text>
-                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Case/GiftEdit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
+                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Property/GoodsEdit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
                         //optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteByID(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
                         </text>
                         }
-                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Case/GiftDetails?ID=' + r.ID + '" title=\"查看\">查看</a> ';
+                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Property/GoodsDetails?ID=' + r.ID + '" title=\"查看\">查看</a> ';
                         return optBtn;
                     }
                 }
             ]],
             columns: [[
-                 { field: 'CaseName', title: '上交编号', width: 300, sortable: true, align: 'center' },
-                 { field: 'UnderTakenDept', title: '承办部门', width: 120, sortable: true, align: 'center' },
-                 { field: 'UnderTaker', title: '承办人', width: 120, sortable: true, align: 'center' },
-                 { field: 'TargetName', title: '上交人', width: 120, sortable: true, align: 'center' },
-
+                 { field: 'FormType', title: '报表类型', width: 300, sortable: true, align: 'center' },
+                 { field: 'GoodsCode', title: '物品编号', width: 120, sortable: true, align: 'center' },
+                 { field: 'Name', title: '物品名称', width: 120, sortable: true, align: 'center' },
+                 { field: 'OriginalHolder', title: '原持有人', width: 120, sortable: true, align: 'center' },
+                 { field: 'Amount', title: '单 位 数', width: 120, sortable: true, align: 'center' },
+                 { field: 'Undertaker', title: '承 办 人', width: 120, sortable: true, align: 'center' },
                  {
-                     field: 'FormedDate', title: '上交时间', width: 120, sortable: true, align: 'center',
+                     field: 'Timestamp', title: '修改时间', width: 120, sortable: true, align: 'center',
                      formatter: function (v, r) {
-                         if (r.FormedDate != null) {
-                             var dateMilliseconds = parseInt(r.FormedDate.replace(/\D/igm, ""));
+                         if (r.WithholdDate != null) {
+                             var dateMilliseconds = parseInt(r.WithholdDate.replace(/\D/igm, ""));
                              var result = new Date(dateMilliseconds);
                              return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
                          }
                      }
-                 }
+                 },
+                 { field: 'Status', title: '状态', width: 120, sortable: true, align: 'center' },
+                 { field: 'KeepMethod', title: '保管方式', width: 120, sortable: true, align: 'center' },
+                 { field: 'HandleMethod', title: '处置方式', width: 120, sortable: true, align: 'center' },
+                 { field: 'IsFinished', title: '处置状态', width: 120, sortable: true, align: 'center' },
+
             ]],
-            toolbar: [{
-                text: '刷新',
-                iconCls: 'icon-reload',
-                handler: function () {
-                    refeshGrid();
-                }
-            }]
+            toolbar: [@Html.Raw(item.getBtnString())]
         });
         $("#queryType").combobox({
-            url: '/json/giftQuery.json',
+            url: '/json/goodsQuery.json',
             valueField: 'id',
             textField: 'text', method: "get",
             width: 150
@@ -133,7 +204,7 @@
     }
 
     function deleteByID(ID) {
-        removeObjWithConfirm(ID, "ID", '/Case/GiftDelete', "funAfterDel");
+        removeObjWithConfirm(ID, "ID", '/Property/GoodsDelete', "funAfterDel");
     }
     function queryDataGrid() {
         var queryType = $("#queryType").combobox('getValue');

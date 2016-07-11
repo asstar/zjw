@@ -237,33 +237,43 @@ namespace zjw.Controllers
             Session["UsePrev"] = false;
             string type = Request["Type"];
             BtnModel btn = new BtnModel();
-            if (type != null)
+            if (((BaseInfo)Session["User"]).user.IsKeyNode)
             {
-                btn.type = type;
-                switch (type)
+                if (type != null)
                 {
-                    case "Transfer":
-                        //btn.setArray(true, true, true, true, true);
-                        btn.isTransferable = true;
-                        break;
-                    case "Out":
-                        btn.isOutable = true;
-                        break;
-                    case "Return":
-                        btn.isReturnable = true;
-                        break;
-                    case "Handle":
-                        btn.isHandleable = true;
-                        break;
-                    case "Deliver":
-                        btn.isDeliverable = true;
-                        break;
-                    case "Borrow":
-                        btn.isBorrowable = true;
-                        break;
-                    case "Edit":
-                        btn.isEditable = true;
-                        break;
+                    btn.type = type;
+                    switch (type)
+                    {
+                        case "Transfer":
+                            //btn.setArray(true, true, true, true, true);
+                            btn.isTransferable = true;
+                            break;
+                        case "Receive":
+                            btn.isReceiveable = true;
+                            break;
+                        case "Out":
+                            btn.isOutable = true;
+                            break;
+                        case "Return":
+                            btn.isReturnable = true;
+                            break;
+                        case "Handle":
+                            btn.isHandleable = true;
+                            break;
+                        case "Deliver":
+                            btn.isDeliverable = true;
+                            break;
+                        case "Borrow":
+                            btn.isBorrowable = true;
+                            break;
+                        case "Edit":
+                            btn.isEditable = true;
+                            break;
+
+                        case "HandlePrint":
+                            btn.isHandlePrintable = true;
+                            break;
+                    }
                 }
             }
             Session["BtnModel"] = btn;
@@ -306,33 +316,42 @@ namespace zjw.Controllers
             Session["UsePrev"] = false;
             string type = Request["Type"];
             BtnModel btn = new BtnModel();
-            if (type != null)
+            if (((BaseInfo)Session["User"]).user.IsKeyNode)
             {
-                btn.type = type;
-                switch (type)
+                if (type != null)
                 {
-                    case "Transfer":
-                        //btn.setArray(true, true, true, true, true);
-                        btn.isTransferable = true;
-                        break;
-                    case "Out":
-                        btn.isOutable = true;
-                        break;
-                    case "Return":
-                        btn.isReturnable = true;
-                        break;
-                    case "Handle":
-                        btn.isHandleable = true;
-                        break;
-                    case "Deliver":
-                        btn.isDeliverable = true;
-                        break;
-                    case "Borrow":
-                        btn.isBorrowable = true;
-                        break;
-                    case "Edit":
-                        btn.isEditable = true;
-                        break;
+                    btn.type = type;
+                    switch (type)
+                    {
+                        case "Transfer":
+                            //btn.setArray(true, true, true, true, true);
+                            btn.isTransferable = true;
+                            break;
+                        case "Receive":
+                            btn.isReceiveable = true;
+                            break;
+                        case "Out":
+                            btn.isOutable = true;
+                            break;
+                        case "Return":
+                            btn.isReturnable = true;
+                            break;
+                        case "Handle":
+                            btn.isHandleable = true;
+                            break;
+                        case "Deliver":
+                            btn.isDeliverable = true;
+                            break;
+                        case "Borrow":
+                            btn.isBorrowable = true;
+                            break;
+                        case "Edit":
+                            btn.isEditable = true;
+                            break;
+                        case "HandlePrint":
+                            btn.isHandlePrintable = true;
+                            break;
+                    }
                 }
             }
             Session["BtnModel"] = btn;
@@ -368,6 +387,9 @@ namespace zjw.Controllers
                     case "Transfer":
                         info.QueryString += " and Status='暂扣' and Active=1";
                         break;
+                    case "Receive":
+                        info.QueryString += " and Status='接收' and Active=1";
+                        break;
                     case "Out":
                         info.QueryString += " and Status='待出库' and Active=1";
                         break;
@@ -381,7 +403,7 @@ namespace zjw.Controllers
                         info.QueryString += " and IsFinished<>'已处置' and IsDelivered<>1 and Active=1";
                         break;
                     case "Borrow":
-                        info.QueryString += " and (Status='移交管理局' OR Status='返库') and Active=1";
+                        info.QueryString += " and Status='移交' and Active=1";
                         break;
                 }
             }

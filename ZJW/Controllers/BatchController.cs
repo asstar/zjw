@@ -24,12 +24,12 @@ namespace zjw.Controllers
             Form formInfo = new Form();
             Batch batchInfo = new Batch();
             Transfer transfer = new Transfer();
-            
+
             formInfo.ID = Guid.NewGuid();
             formInfo.UserID = ((BaseInfo)Session["User"]).user.ID;
             formInfo.FormType = Type;
             formInfo.Data = IDs;
-            
+
 
             formInfo.IsDeleted = false;
             Session["Flag"] = "Create";
@@ -42,16 +42,22 @@ namespace zjw.Controllers
                     batchInfo.Title = "委部机关自办案件涉案物品移交清单";
                     batchInfo.BtnTitle = "移交";
                     batchInfo.Action = "/Export/ExportSheet";
-                    transfer.CurrentStatus = "管理局保管";
-                    transfer.PrevStatus = "移交管理局";
-                    transfer.UserID = new Guid("00000000-0003-0000-0000-000000000000");
-                    Session["Transfer"] = transfer;
-                    ViewBag.Form= formInfo;
+                    ViewBag.Form = formInfo;
                     ViewBag.Batch = batchInfo;
-
+                    return View("DeliverEdit");
+                    break;
+                case "接收":
+                    formInfo.Template = "Sheet.xls";
+                    formInfo.SendDept = ((BaseInfo)Session["User"]).dept.DeptName;
+                    formInfo.ReceiveDept = "机关事务管理局";
+                    batchInfo.Title = "委部机关自办案件涉案物品移交清单";
+                    batchInfo.BtnTitle = "接收";
+                    batchInfo.Action = "/Export/ExportSheet";
+                    ViewBag.Form = formInfo;
+                    ViewBag.Batch = batchInfo;
                     return View("SheetEdit");
                     break;
-                case "调取": 
+                case "调取":
                     formInfo.Template = "Doc.doc";
                     formInfo.SendDept = ((BaseInfo)Session["User"]).dept.DeptName;
                     formInfo.ReceiveDept = "机关事务管理局";
@@ -59,61 +65,54 @@ namespace zjw.Controllers
                     batchInfo.BtnTitle = "调取";
                     batchInfo.Action = "/Export/ExportDoc";
                     batchInfo.ReasonTitle = "调取";
-
-                    transfer.CurrentStatus = "待调取";
-                    transfer.PrevStatus = "待出库";
-                    transfer.UserID = ((BaseInfo)Session["User"]).user.ID;
-                    Session["Transfer"] = transfer;
-                    ViewBag.Form= formInfo;
+                    ViewBag.Form = formInfo;
                     ViewBag.Batch = batchInfo;
                     return View("DocEdit");
                     break;
 
-                case "出库": 
+                case "出库":
                     formInfo.Template = "Sheet.xls";
-                    formInfo.SendDept ="机关事务管理局";
+                    formInfo.SendDept = "机关事务管理局";
                     batchInfo.Title = "中央纪委暂予扣留涉案物品调取出库清单";
                     batchInfo.BtnTitle = "出库";
                     batchInfo.Action = "/Export/ExportSheet";
-
-                    transfer.CurrentStatus = "调取";
-                    transfer.PrevStatus = "出库";
-                    Session["Transfer"] = transfer;
-                    ViewBag.Form= formInfo;
+                    ViewBag.Form = formInfo;
                     ViewBag.Batch = batchInfo;
                     return View("SheetEdit");
                     break;
-                case "返库": 
+                case "返库":
                     formInfo.Template = "Sheet.xls";
-                    formInfo.SendDept =((BaseInfo)Session["User"]).dept.DeptName;
+                    formInfo.SendDept = ((BaseInfo)Session["User"]).dept.DeptName;
                     formInfo.ReceiveDept = "机关事务管理局";
                     batchInfo.Title = "中央纪委暂予扣留涉案物品调取入库清单";
                     batchInfo.BtnTitle = "返库";
                     batchInfo.Action = "/Export/ExportSheet";
-
-                    transfer.CurrentStatus = "管理局保管";
-                    transfer.PrevStatus = "返库";
-                    transfer.UserID = ((BaseInfo)Session["User"]).user.ID;
-                    Session["Transfer"] = transfer;
-                    ViewBag.Form= formInfo;
+                    ViewBag.Form = formInfo;
                     ViewBag.Batch = batchInfo;
                     return View("SheetEdit");
                     break;
                     break;
-                case "提交审理": 
+                case "移送审理":
                     formInfo.Template = "Doc.doc";
                     formInfo.SendDept = ((BaseInfo)Session["User"]).dept.DeptName;
                     formInfo.ReceiveDept = "机关事务管理局";
                     batchInfo.Title = "中央纪委暂予扣留涉案款物处置呈批表";
-                    batchInfo.BtnTitle="处置";
+                    batchInfo.BtnTitle = "移送";
                     batchInfo.Action = "/Export/ExportDoc";
                     batchInfo.ReasonTitle = "处置";
-
-                    transfer.CurrentStatus = "提交审理";
-                    transfer.PrevStatus = null;
-                    transfer.UserID = new Guid("00000000-0005-0000-0000-000000000000");
-                    Session["Transfer"] = transfer;
-                    ViewBag.Form= formInfo;
+                    ViewBag.Form = formInfo;
+                    ViewBag.Batch = batchInfo;
+                    return View("DeliverEdit");
+                    break;
+                case "打印处置文书":
+                    formInfo.Template = "Doc.doc";
+                    formInfo.SendDept = ((BaseInfo)Session["User"]).dept.DeptName;
+                    formInfo.ReceiveDept = "机关事务管理局";
+                    batchInfo.Title = "中央纪委暂予扣留涉案款物处置呈批表";
+                    batchInfo.BtnTitle = "打印处置文书";
+                    batchInfo.Action = "/Export/ExportDoc";
+                    batchInfo.ReasonTitle = "处置";
+                    ViewBag.Form = formInfo;
                     ViewBag.Batch = batchInfo;
                     return View("DocEdit");
                     break;
@@ -173,12 +172,13 @@ namespace zjw.Controllers
                 string handleMethod = null;
                 foreach (PropertyInfo property in pi)
                 {
-                    
-                    if (property.GetValue(item) != null&&property.Name!="ID")
+
+                    if (property.GetValue(item) != null && property.Name != "ID")
                     {
 
                         property.SetValue(aData, property.GetValue(item));
-                        if(property.Name=="HandleMethod"){
+                        if (property.Name == "HandleMethod")
+                        {
                             handleMethod = (string)property.GetValue(item);
                         }
                     }
@@ -217,7 +217,7 @@ namespace zjw.Controllers
             {
                 formService.Update(item);
             }
-            
+
             return Content("<script type=\"text/javascript\">history.go(-1);</script>");
         }
         public ActionResult Transfer(Form item)
@@ -238,24 +238,55 @@ namespace zjw.Controllers
             foreach (var i in split)
             {
                 InfoLink inst = new InfoLink();
-                var prevInfoLink = infoLinkService.FindLastTransferLink(new Guid(i));
-                Transfer check=(Transfer)Session["Transfer"];
-                if (item.FormType == "出库")
+                var prevInfoLink = infoLinkService.FindLastLink(new Guid(i));
+
+                Transfer transfer = new Transfer();
+                switch (item.FormType)
                 {
-                    infoLinkService.MakeOutLink(prevInfoLink, (Transfer)Session["Transfer"]);
+                    case "移交":
+                        transfer.UserID = ((BaseInfo)Session["User"]).user.ID;
+                        transfer.CurrentStatus = "移交";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        transfer.UserID = new Guid("00000000-0003-0000-0000-000000000000");
+                        transfer.CurrentStatus = "接收";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        break;
+                    case "接收":
+                        transfer.UserID = ((BaseInfo)Session["User"]).user.ID;
+                        transfer.CurrentStatus = "保管";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        break;
+                    case "调取":
+                        transfer.UserID = ((BaseInfo)Session["User"]).user.ID;
+                        transfer.CurrentStatus = "调取";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        transfer.UserID = new Guid("00000000-0003-0000-0000-000000000000");
+                        transfer.CurrentStatus = "待出库";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        break;
+                    case "出库":
+                        transfer.UserID = ((BaseInfo)Session["User"]).user.ID;
+                        transfer.CurrentStatus = "出库";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        break;
+                    case "返库":
+                        transfer.UserID = (Guid)infoLinkService.FindLastNodeByStatus(prevInfoLink,"调取").UserID;
+                        transfer.CurrentStatus = "归还";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        transfer.UserID = ((BaseInfo)Session["User"]).user.ID;
+                        transfer.CurrentStatus = "保管";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                        break;
+                    case "移送审理":
+                        transfer.UserID = new Guid("00000000-0005-0000-0000-000000000000");
+                        transfer.CurrentStatus = "移送审理";
+                        infoLinkService.MakeNextNode(prevInfoLink, transfer);
+                         var data = propertyService.Find((Guid)prevInfoLink.PropertyID);
+                        data.IsDelivered = true;
+                        propertyService.Update(data);
+                        break;
                 }
-                else
-                {
-                    inst = infoLinkService.MakeLink(prevInfoLink, (Transfer)Session["Transfer"]);
-                    //inst = prevInfoLink.MakeLink(inst, (Transfer)Session["Transfer"]);
-                    infoLinkService.SetActive(inst.ID);
-                }
-                if (item.FormType == "提交审理")
-                {
-                    var data = propertyService.Find((Guid)prevInfoLink.PropertyID);
-                    data.IsDelivered = true;
-                    propertyService.Update(data);
-                }
+                infoLinkService.SetActive(prevInfoLink.ID);
 
             }
             return Content("<script type=\"text/javascript\">history.go(-2);</script>");
@@ -281,5 +312,5 @@ namespace zjw.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-	}
+    }
 }

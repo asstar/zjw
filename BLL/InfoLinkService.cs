@@ -20,53 +20,51 @@ namespace BLL
 
         public InfoLink MakeLink(InfoLink prevLink, Transfer info)
         {
-            InfoLink last = prevLink;
-            if (prevLink.Next != null)
-            {
-                last = FindLastNodeByPropertyID((Guid)prevLink.PropertyID);
-            }
-
             InfoLink current = new InfoLink();
             current.ID = Guid.NewGuid();
             current.UserID = info.UserID;
             current.Status = info.CurrentStatus;
-            current.Prev = last.ID;
+            current.Prev = prevLink.ID;
             current.PropertyID = prevLink.PropertyID;
             current.PropertyType = prevLink.PropertyType;
             current.IsDeleted = false;
-            //dest.Active = true;
-            last.Next = current.ID;
-            if (info.PrevStatus != null)
-            {
-                prevLink.Status = info.PrevStatus;
-            }
+            prevLink.Next = current.ID;
             Update(prevLink);
-            Update(last);
             Add(current);
             return current;
         }
 
-        public void MakeOutLink(InfoLink current,Transfer info)
+        public InfoLink MakeNextNode(InfoLink prevLink, Transfer info)
         {
-            if (current.Prev != null)
+            if (prevLink.Next != null)
             {
-
-                var prevNode = Find((Guid)current.Prev);
-                while (prevNode.Status == "提交审理")
-                {
-                    prevNode = Find((Guid)prevNode.Prev);
-                }
-                current.Status = info.CurrentStatus;
-
-                    prevNode.Status = info.PrevStatus;
-                    Update(prevNode);
-                
-                
-                Update(current);
-                
+                prevLink = FindLastNodeByPropertyID((Guid)prevLink.PropertyID);
             }
+            InfoLink current = new InfoLink();
+            current.ID = Guid.NewGuid();
+            current.UserID = info.UserID;
+            current.Status = info.CurrentStatus;
+            current.Prev = prevLink.ID;
+            current.PropertyID = prevLink.PropertyID;
+            current.PropertyType = prevLink.PropertyType;
+            current.IsDeleted = false;
+            prevLink.Next = current.ID;
+            Update(prevLink);
+            Add(current);
+            return current;
         }
-
+        public InfoLink FindLastNodeByStatus(InfoLink Link,string status)
+        {
+            if (Link.Next != null)
+            {
+                Link = FindLastNodeByPropertyID((Guid)Link.PropertyID);
+            }
+            while (Link.Status != status)
+            {
+                Link = Find((Guid)Link.Prev);
+            }
+            return Link;
+        }
         public void SetActive(Guid LinkID)
         {
             InfoLink current = Find(LinkID);
@@ -102,13 +100,10 @@ namespace BLL
             return result;
         }
 
-        public InfoLink FindLastTransferLink(Guid PropertyID)
+        public InfoLink FindLastLink(Guid PropertyID)
         {
             var sql = "Select * from InfoLink Where PropertyID='" + PropertyID + "' and Next is null";
             var result = SqlQuery(sql).FirstOrDefault();
-            while(result.Status=="提交审理"){
-                result = Find((Guid)result.Prev);
-            }
             return result;
         }
 

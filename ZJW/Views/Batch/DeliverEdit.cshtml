@@ -23,7 +23,7 @@
         <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
             <tr class="detail_tr">
                 <td class="table_title" colspan="8">
-                    @batch.Title（一式二份）<br/>
+                    款物移送清单<br/>
                     @Html.HiddenFor(i => item.ID)
                     @Html.HiddenFor(i => item.UserID)
                     @Html.HiddenFor(i => item.FormType)
@@ -35,51 +35,15 @@
                 </td>
             </tr>
             <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">制表单位：</td>
-                <td class="detail_td2" colspan="7">管理局</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="8"><div region="center" id="table_div" style="overflow:hidden;">
-                    <table id="grid_table" align="center" style="height: auto; width: auto"></table>
-                </div></td>
-                
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">移  交  单  位：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.SendDept}else{@Html.TextBoxFor(i => item.SendDept, new { size = 60 })}}</td>
-                <td class="detail_td1" colspan="4"></td>
-                <td class="detail_td1" colspan="1">接  管  单  位：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.ReceiveDept}else{@Html.TextBoxFor(i => item.ReceiveDept, new { size = 60 })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">室（组）负责人：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.SendLeader}else{@Html.TextBoxFor(i => item.SendLeader, new { size = 60 })}}</td>
-                <td class="detail_td1" colspan="4"></td>
-                <td class="detail_td1" colspan="1">接管单位负责人：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.ReceiveLeader}else{@Html.TextBoxFor(i => item.ReceiveLeader, new { size = 60 })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">经    办    人：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.Sender}else{@Html.TextBoxFor(i => item.Sender, new { size = 60 })}}</td>
-                <td class="detail_td1" colspan="4"></td>
-                <td class="detail_td1" colspan="1">经    办    人：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.Receiver}else{@Html.TextBoxFor(i => item.Receiver, new { size = 60 })}}</td>
-            </tr>
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="1">移  交  时  间：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.SendDate}else{@Html.TextBoxFor(i => item.SendDate, new Dictionary<string, object>() { { "size", "60" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
-                <td class="detail_td1" colspan="4"></td>
-                <td class="detail_td1" colspan="1">接  管  时  间：</td>
-                <td class="detail_td2" colspan="1">@{if (Session["Flag"] == "Detail"){ @item.ReceiveDate}else{@Html.TextBoxFor(i => item.ReceiveDate, new Dictionary<string, object>() { { "size", "60" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
-            </tr>
+                <td class="detail_td1" colspan="8">
+                    <div region="center" id="table_div" style="overflow:hidden;">
+                        <table id="grid_table" align="center" style="height: auto; width: auto"></table>
+                    </div>
+                </td>
 
-            
-
+            </tr>
         </table>
         <p align="center">
-
-                
-                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Print()">打印</a>
                 
                 <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Transfer()">@batch.BtnTitle</a>
 
@@ -93,10 +57,7 @@
 </html>
 
 <script type="text/javascript">
-    $(function () {
-        $('#item_SendDate').datebox("setValue", dateParser($('#item_SendDate').val()));
-        $('#item_ReceiveDate').datebox("setValue", dateParser($('#item_ReceiveDate').val()));
-    });
+
     function Transfer() {
         if ($("#frm_edit").form('validate')) {
             $("#btnLogin").linkbutton("disable");

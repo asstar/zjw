@@ -10,7 +10,7 @@ namespace Model
     public class Transfer
     {
         public Guid UserID { get; set; }
-        public string PrevStatus{get;set;}
+        //public string PrevStatus{get;set;}
         public string CurrentStatus{get;set;}
 
     }

@@ -28,7 +28,15 @@ namespace zjw.Controllers
             {
                 formService.Update(item);
             }*/
-            Aspose.Words.Document doc = new Aspose.Words.Document(Server.MapPath("/") + "Template/Word.doc");
+            Aspose.Words.Document doc = null;
+            if (item.FormType == "打印处置文书")
+            {
+                doc = new Aspose.Words.Document(Server.MapPath("/") + "Template/Handle.doc");
+            }
+            else
+            {
+                doc = new Aspose.Words.Document(Server.MapPath("/") + "Template/Word.doc");
+            }
             Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
 
             string IDs = item.Data;
@@ -49,7 +57,7 @@ namespace zjw.Controllers
             var dt = ListToDataTable(result);
             var formDT = ListToDataTable(forms);
             var batchDT = ListToDataTable(batchs);
-            dt.TableName = "Goods";
+            dt.TableName = "Property";
             formDT.TableName = "Form";
             doc.MailMerge.Execute(batchDT);
             doc.MailMerge.Execute(formDT);

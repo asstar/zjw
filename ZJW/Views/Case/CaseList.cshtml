@@ -43,7 +43,7 @@
                             @if((((BaseInfo)Session["User"]).user.IsKeyNode==true ))
                             {<text>
                             optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Case/CaseEdit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
-                            optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteByID(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
+                            //optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteByID(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
                             </text>
                             }
                             optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Case/CaseDetails?ID=' + r.ID + '" title=\"查看\">查看</a> ';
