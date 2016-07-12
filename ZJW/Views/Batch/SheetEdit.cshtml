@@ -77,12 +77,18 @@
 
         </table>
         <p align="center">
-
-                
+                @if (Session["Flag"] != "Detail") { 
                 <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Print()">打印</a>
-                
-                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Transfer()">@batch.BtnTitle</a>
+                }
+                @if (Session["Flag"] == "Edit")
+                {
+                    <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Save()">保存</a>
 
+                }
+                @if (Session["Flag"] == "Create")
+                { 
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Transfer()">@batch.BtnTitle</a>
+            }
                 <a href="javascript:void(0);" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
         </p>
 
@@ -116,6 +122,18 @@
                     $("#btnLogin").linkbutton("enable");
                 }, 0);
             //});
+        }
+    }
+    function Save() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () {
+                    $('#frm_edit').attr({ "action": '/Batch/Save' });
+                    $('#frm_edit').submit();
+
+                }, 0);
+            });
         }
     }
     $(function () {

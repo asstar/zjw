@@ -41,6 +41,8 @@
           <Property Name="ID" Type="guid" Nullable="false" />
           <Property Name="UserID" Type="guid" />
           <Property Name="FormType" Type="text" />
+          <Property Name="FormName" Type="text" />
+          <Property Name="MasterID" Type="guid" />
           <Property Name="Template" Type="text" />
           <Property Name="FormedDate" Type="timestamp" Precision="0" />
           <Property Name="OriginHolder" Type="text" />
@@ -215,7 +217,30 @@
           <Property Name="Timestamp" Type="timestamp" Precision="0" />
         </EntityType>
         <!--生成过程中发现错误:
-警告 6002: 表/视图”def.zjw.PropertyView”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+警告 6002: 表/视图“def.zjw.FormView”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="FormView">
+          <Key>
+            <PropertyRef Name="MasterType" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="MasterType" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CaseName" Type="text" />
+          <Property Name="CaseCode" Type="text" />
+          <Property Name="TargetName" Type="text" />
+          <Property Name="UnderTakenDept" Type="text" />
+          <Property Name="UnderTaker" Type="text" />
+          <Property Name="ID" Type="guid" Nullable="false" />
+          <Property Name="MasterID" Type="guid" />
+          <Property Name="FormName" Type="text" />
+          <Property Name="FormType" Type="text" />
+          <Property Name="Data" Type="text" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Timestamp" Type="timestamp" Precision="0" />
+          <Property Name="UserID" Type="guid" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“def.zjw.PropertyView”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="PropertyView">
           <Key>
             <PropertyRef Name="LinkID" />
@@ -292,6 +317,24 @@
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="UserDept" EntityType="Self.UserDept" Schema="zjw" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="zjw" store:Type="Tables" />
+          <EntitySet Name="FormView" EntityType="Self.FormView" store:Type="Views" store:Schema="zjw">
+            <DefiningQuery>SELECT
+`FormView`.`MasterType`, 
+`FormView`.`CaseName`, 
+`FormView`.`CaseCode`, 
+`FormView`.`TargetName`, 
+`FormView`.`UnderTakenDept`, 
+`FormView`.`UnderTaker`, 
+`FormView`.`ID`, 
+`FormView`.`MasterID`, 
+`FormView`.`FormName`, 
+`FormView`.`FormType`, 
+`FormView`.`Data`, 
+`FormView`.`IsDeleted`, 
+`FormView`.`Timestamp`, 
+`FormView`.`UserID`
+FROM `FormView` AS `FormView`</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="PropertyView" EntityType="Self.PropertyView" store:Type="Views" store:Schema="zjw">
             <DefiningQuery>SELECT
 `PropertyView`.`LinkID`, 
@@ -391,6 +434,8 @@ FROM `PropertyView` AS `PropertyView`</DefiningQuery>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="UserID" Type="Guid" />
           <Property Name="FormType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="FormName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="MasterID" Type="Guid" />
           <Property Name="Template" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="FormedDate" Type="DateTime" />
           <Property Name="OriginHolder" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
@@ -564,6 +609,27 @@ FROM `PropertyView` AS `PropertyView`</DefiningQuery>
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" />
         </EntityType>
+        <EntityType Name="FormView">
+          <Key>
+            <PropertyRef Name="MasterType" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="MasterType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CaseName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CaseCode" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="TargetName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="UnderTakenDept" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="UnderTaker" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="MasterID" Type="Guid" />
+          <Property Name="FormName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="FormType" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" />
+          <Property Name="UserID" Type="Guid" />
+        </EntityType>
         <EntityType Name="PropertyView">
           <Key>
             <PropertyRef Name="LinkID" />
@@ -640,6 +706,7 @@ FROM `PropertyView` AS `PropertyView`</DefiningQuery>
           <EntitySet Name="RoleMenu" EntityType="Self.RoleMenu" />
           <EntitySet Name="UserDept" EntityType="Self.UserDept" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="FormView" EntityType="Self.FormView" />
           <EntitySet Name="PropertyView" EntityType="Self.PropertyView" />
         </EntityContainer>
       </Schema>
@@ -685,6 +752,8 @@ FROM `PropertyView` AS `PropertyView`</DefiningQuery>
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FormType" ColumnName="FormType" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="Template" ColumnName="Template" />
                 <ScalarProperty Name="FormedDate" ColumnName="FormedDate" />
                 <ScalarProperty Name="OriginHolder" ColumnName="OriginHolder" />
@@ -865,6 +934,26 @@ FROM `PropertyView` AS `PropertyView`</DefiningQuery>
                 <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormView">
+            <EntityTypeMapping TypeName="Model.FormView">
+              <MappingFragment StoreEntitySet="FormView">
+                <ScalarProperty Name="MasterType" ColumnName="MasterType" />
+                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
+                <ScalarProperty Name="CaseCode" ColumnName="CaseCode" />
+                <ScalarProperty Name="TargetName" ColumnName="TargetName" />
+                <ScalarProperty Name="UnderTakenDept" ColumnName="UnderTakenDept" />
+                <ScalarProperty Name="UnderTaker" ColumnName="UnderTaker" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="FormType" ColumnName="FormType" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

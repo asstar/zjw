@@ -348,6 +348,7 @@ namespace zjw.Controllers
                     process.Add(trace);
                 }
             }
+            total = result.Count;
             result = process;
 
             
@@ -475,7 +476,7 @@ namespace zjw.Controllers
                 }
             }
             result = process;
-           
+            total = result.Count;
 
             var data = new
             {

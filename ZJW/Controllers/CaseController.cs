@@ -186,6 +186,7 @@ namespace zjw.Controllers
                 o.SetMemento(c.Memento);
             }
             ListModel info = o.State;
+            info.QueryString += " and MasterType = '案件'";
             int total = 0;
             var result = masterService.List(info, "`Master`", ref total);
 
@@ -248,6 +249,7 @@ namespace zjw.Controllers
                 o.SetMemento(c.Memento);
             }
             ListModel info = o.State;
+            info.QueryString += " and MasterType = '上交'";
             int total = 0;
             var result = masterService.List(info, "`Master`", ref total);
             

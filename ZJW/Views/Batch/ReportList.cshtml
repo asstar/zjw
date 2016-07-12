@@ -32,8 +32,8 @@
 
     function  showData(){
         $('#grid_table').datagrid({
-            url: '/Property/GetReportList',
-            sortName: 'WithholdDate',
+            url: '/Batch/GetReportList',
+            sortName: 'Timestamp',
             idField: 'ID',
             frozenColumns: [[
                 { field: 'ck', checkbox: true },
@@ -43,39 +43,35 @@
                         var optBtn = "";
                         @if((((BaseInfo)Session["User"]).user.IsKeyNode==true ))
                             {<text>
-                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Property/GoodsEdit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
+                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Batch/Edit?ID=' + r.ID + '" title=\"修改\">修改</a> ';
                         //optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="javascript:deleteByID(\'' + r.ID + '\')" title=\"删除\">删除</a> ';
                         </text>
                         }
-                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Property/GoodsDetails?ID=' + r.ID + '" title=\"查看\">查看</a> ';
+                        optBtn += ' <a class="button blue small" style="color: white;text-decoration: none;" href="/Batch/Detail?ID=' + r.ID + '" title=\"查看\">查看</a> ';
                         return optBtn;
                     }
                 }
             ]],
             columns: [[
-                 { field: 'FormType', title: '报表类型', width: 300, sortable: true, align: 'center' },
-                 { field: 'GoodsCode', title: '物品编号', width: 120, sortable: true, align: 'center' },
-                 { field: 'Name', title: '物品名称', width: 120, sortable: true, align: 'center' },
-                 { field: 'OriginalHolder', title: '原持有人', width: 120, sortable: true, align: 'center' },
-                 { field: 'Amount', title: '单 位 数', width: 120, sortable: true, align: 'center' },
-                 { field: 'Undertaker', title: '承 办 人', width: 120, sortable: true, align: 'center' },
+                 { field: 'FormType', title: '报表类型', width: 120, sortable: true, align: 'center' },
+                 { field: 'FormName', title: '报表名称', width: 300, sortable: true, align: 'center' },
+                 { field: 'CaseName', title: '案件名称', width: 120, sortable: true, align: 'center' },
+                 { field: 'TargetName', title: '案件对象', width: 120, sortable: true, align: 'center' },
+                 { field: 'UnderTakenDept', title: '承办部门', width: 120, sortable: true, align: 'center' },
+                 { field: 'UnderTaker', title: '承 办 人', width: 120, sortable: true, align: 'center' },
                  {
                      field: 'Timestamp', title: '修改时间', width: 120, sortable: true, align: 'center',
                      formatter: function (v, r) {
-                         if (r.WithholdDate != null) {
-                             var dateMilliseconds = parseInt(r.WithholdDate.replace(/\D/igm, ""));
+                         if (r.Timestamp != null) {
+                             var dateMilliseconds = parseInt(r.Timestamp.replace(/\D/igm, ""));
                              var result = new Date(dateMilliseconds);
                              return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
                          }
                      }
                  },
-                 { field: 'Status', title: '状态', width: 120, sortable: true, align: 'center' },
-                 { field: 'KeepMethod', title: '保管方式', width: 120, sortable: true, align: 'center' },
-                 { field: 'HandleMethod', title: '处置方式', width: 120, sortable: true, align: 'center' },
-                 { field: 'IsFinished', title: '处置状态', width: 120, sortable: true, align: 'center' },
 
             ]],
-            toolbar: [@Html.Raw(item.getBtnString())]
+            
         });
         $("#queryType").combobox({
             url: '/json/goodsQuery.json',
@@ -102,7 +98,7 @@
                     ListModel info = o.State;
                     <text>$("#queryType").combobox('select', '@info.QueryType');  //.setValue('select','info.QueryType');
 
-        $("#queryFH").combobox('select', ''@Html.Raw(info.Opt)');
+        $("#queryFH").combobox('select', '@Html.Raw(info.Opt)');
         $("#keyword").val('@info.KeyWord');
         var queryType = $("#queryType").combobox('getValue');
         var queryFH = $("#queryFH").combobox('getValue');

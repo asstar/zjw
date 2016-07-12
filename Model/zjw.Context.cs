@@ -36,6 +36,7 @@ namespace Model
         public DbSet<RoleMenu> RoleMenu { get; set; }
         public DbSet<UserDept> UserDept { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<FormView> FormView { get; set; }
         public DbSet<PropertyView> PropertyView { get; set; }
     }
 }

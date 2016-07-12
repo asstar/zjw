@@ -171,7 +171,7 @@
                     ListModel info = o.State;
                     <text>$("#queryType").combobox('select', '@info.QueryType');  //.setValue('select','info.QueryType');
 
-        $("#queryFH").combobox('select', ''@Html.Raw(info.Opt)');
+        $("#queryFH").combobox('select', '@Html.Raw(info.Opt)');
         $("#keyword").val('@info.KeyWord');
         var queryType = $("#queryType").combobox('getValue');
         var queryFH = $("#queryFH").combobox('getValue');

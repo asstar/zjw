@@ -59,6 +59,9 @@
     <Compile Include="Form.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>
+    <Compile Include="FormView.cs">
+      <DependentUpon>zjw.tt</DependentUpon>
+    </Compile>
     <Compile Include="InfoLink.cs">
       <DependentUpon>zjw.tt</DependentUpon>
     </Compile>

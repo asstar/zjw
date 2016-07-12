@@ -17,6 +17,8 @@ namespace Model
         public System.Guid ID { get; set; }
         public Nullable<System.Guid> UserID { get; set; }
         public string FormType { get; set; }
+        public string FormName { get; set; }
+        public Nullable<System.Guid> MasterID { get; set; }
         public string Template { get; set; }
         public Nullable<System.DateTime> FormedDate { get; set; }
         public string OriginHolder { get; set; }

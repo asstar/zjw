@@ -37,92 +37,147 @@
             <tr class="detail_tr">
                 <td class="detail_td2" colspan="4"></td>
                 <td class="detail_td1" colspan="2">日期</td>
-                <td class="detail_td2" colspan="2">@{if(Session["ProcessFlag"] == "Detail"){ @item.FormedDate}else{@Html.TextBoxFor(i => item.FormedDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                <td class="detail_td2" colspan="2">@{if (Session["ProcessFlag"] == "Detail")
+                { @item.FormedDate}
+                else
+                {@Html.TextBoxFor(i => item.FormedDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
             </tr>
 
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="2">原物品持有人</td>
-                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.OriginHolder}else{@Html.TextBoxFor(i => item.OriginHolder, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail")
+                { @item.OriginHolder}
+                else
+                {@Html.TextBoxFor(i => item.OriginHolder, new { size = 60 })}}</td>
                 <td class="detail_td1" colspan="2">承办人</td>
-                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.UnderTaker}else{@Html.TextBoxFor(i => item.UnderTaker, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail")
+                { @item.UnderTaker}
+                else
+                {@Html.TextBoxFor(i => item.UnderTaker, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="2">保管人</td>
-                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.Keeper}else{@Html.TextBoxFor(i => item.Keeper, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail")
+                { @item.Keeper}
+                else
+                {@Html.TextBoxFor(i => item.Keeper, new { size = 60 })}}</td>
                 <td class="detail_td1" colspan="2">涉案物品件数</td>
-                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail"){ @item.Amount}else{@Html.TextBoxFor(i => item.Amount, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="2">@{if (Session["Flag"] == "Detail")
+                { @item.Amount}
+                else
+                {@Html.TextBoxFor(i => item.Amount, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="2">办案部门（调查组）</td>
-                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.UndertakenDept}else{@Html.TextBoxFor(i => item.UndertakenDept, new { size = 60 })}}</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail")
+                { @item.UndertakenDept}
+                else
+                {@Html.TextBoxFor(i => item.UndertakenDept, new { size = 60 })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="2">@batch.ReasonTitle 理由</td>
-                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.Reason}else{@Html.TextAreaFor(i => item.Reason, new { cols = "100%", rows = "2" })}}</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail")
+                { @item.Reason}
+                else
+                {@Html.TextAreaFor(i => item.Reason, new { cols = "100%", rows = "2" })}}</td>
             </tr>
             <tr class="detail_tr">
-                <td class="detail_td1" colspan="2">办案部门领导意见
-								</td>
-                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.UndertakenDeptOpinion}else{@Html.TextAreaFor(i => item.UndertakenDeptOpinion, new { cols = "100%", rows = "2" })}}</td>
+                <td class="detail_td1" colspan="2">
+                    办案部门领导意见
+                </td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail")
+                { @item.UndertakenDeptOpinion}
+                else
+                {@Html.TextAreaFor(i => item.UndertakenDeptOpinion, new { cols = "100%", rows = "2" })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td2" colspan="6"></td>
                 <td class="detail_td1" colspan="1">日期：</td>
-                <td class="detail_td2" colspan="1">@{if(Session["ProcessFlag"] == "Detail"){ @item.UndertakenDeptOpinionDate}else{@Html.TextBoxFor(i => item.UndertakenDeptOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                <td class="detail_td2" colspan="1">@{if (Session["ProcessFlag"] == "Detail")
+                { @item.UndertakenDeptOpinionDate}
+                else
+                {@Html.TextBoxFor(i => item.UndertakenDeptOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="2">分管委部领导意见</td>
-                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.LeaderOpinion}else{@Html.TextAreaFor(i => item.LeaderOpinion, new { cols = "100%", rows = "2" })}}</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail")
+                { @item.LeaderOpinion}
+                else
+                {@Html.TextAreaFor(i => item.LeaderOpinion, new { cols = "100%", rows = "2" })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="detail_td2" colspan="6"></td>
                 <td class="detail_td1" colspan="1">日期：</td>
-                <td class="detail_td2" colspan="1">@{if(Session["ProcessFlag"] == "Detail"){ @item.LeaderOpinionDate}else{@Html.TextBoxFor(i => item.LeaderOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                <td class="detail_td2" colspan="1">@{if (Session["ProcessFlag"] == "Detail")
+                { @item.LeaderOpinionDate}
+                else
+                {@Html.TextBoxFor(i => item.LeaderOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
             </tr>
-            @if (item.FormType != "打印处置文书") { 
-            <tr class="detail_tr">
-                <td class="detail_td1" colspan="2">保管部门领导意见</td>
-                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.KeeperOpinion}else{@Html.TextAreaFor(i => item.KeeperOpinion, new { cols = "100%", rows = "2" })}}</td>
-            </tr>
-            
-            <tr class="detail_tr">
-                <td class="detail_td2" colspan="6"></td>
-                <td class="detail_td1" colspan="1">日期：</td>
-                <td class="detail_td2" colspan="1">@{if(Session["ProcessFlag"] == "Detail"){ @item.KeeperOpinionDate}else{@Html.TextBoxFor(i => item.KeeperOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
-            </tr>
+            @if (item.FormType != "打印处置文书")
+            {
+                <tr class="detail_tr">
+                    <td class="detail_td1" colspan="2">保管部门领导意见</td>
+                    <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail")
+                    { @item.KeeperOpinion}
+                    else
+                    {@Html.TextAreaFor(i => item.KeeperOpinion, new { cols = "100%", rows = "2" })}}</td>
+                </tr>
+
+                <tr class="detail_tr">
+                    <td class="detail_td2" colspan="6"></td>
+                    <td class="detail_td1" colspan="1">日期：</td>
+                    <td class="detail_td2" colspan="1">@{if (Session["ProcessFlag"] == "Detail")
+                    { @item.KeeperOpinionDate}
+                    else
+                    {@Html.TextBoxFor(i => item.KeeperOpinionDate, new Dictionary<string, object>() { { "size", "20" }, { "class", "easyui-datebox" }, { "data-options", "formatter:cnDateFormat,parser:cnDateParse" } })}}</td>
+                </tr>
             }
             <tr class="detail_tr">
                 <td class="detail_td1" colspan="2">备注</td>
-                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail"){ @item.Note}else{@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "2" })}}</td>
+                <td class="detail_td2" colspan="6">@{if (Session["Flag"] == "Detail")
+                { @item.Note}
+                else
+                {@Html.TextAreaFor(i => item.Note, new { cols = "100%", rows = "2" })}}</td>
             </tr>
             <tr class="detail_tr">
                 <td class="table_title" colspan="8">中央纪委暂予扣留涉案物品 @batch.ReasonTitle 清单</td>
             </tr>
             <tr class="detail_tr">
-                <td class="detail_td1" colspan="8"><div region="center" id="table_div" style="overflow:hidden;">
-                    <table id="grid_table" align="center" style="height: auto; width: auto"></table>
-                </div></td>
-                
+                <td class="detail_td1" colspan="8">
+                    <div region="center" id="table_div" style="overflow:hidden;">
+                        <table id="grid_table" align="center" style="height: auto; width: auto"></table>
+                    </div>
+                </td>
+
             </tr>
 
         </table>
         <p align="center">
 
+            @if (Session["Flag"] != "Detail")
+            {
                 <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Print()">打印</a>
-@if (item.FormType != "打印处置文书") {
+            }
+            @if (Session["Flag"] != "Detail")
+            {
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Save()">保存</a>
+
+            }
+            @if (item.FormType != "打印处置文书" && Session["Flag"] == "Create")
+            {
 
                 <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Transfer()">@batch.BtnTitle</a>
-}
+            }
                 <a href="javascript:void(0);" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
-        </p>
+            </p>
 
-        @{Html.EndForm();}
-    </div>
+                @{Html.EndForm();}
+            </div>
 
-</body>
-</html>
+        </body>
+    </html>
 
-<script type="text/javascript">
+    <script type="text/javascript">
     $(function () {
         $('#item_FormedDate').datebox("setValue", dateParser($('#item_FormedDate').val()));
         $('#item_UndertakenDeptOpinionDate').datebox("setValue", dateParser($('#item_UndertakenDeptOpinionDate').val()));
@@ -135,6 +190,18 @@
             $.messager.alert("操作提示", "操作成功！", "info", function (r) {
                 setTimeout(function () { $('#frm_edit').submit() }, 0);
             });
+        }
+    }
+    function Save() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () {
+                    $('#frm_edit').attr({ "action": '/Batch/Save' });
+                    $('#frm_edit').submit();
+
+                }, 0);
+             });
         }
     }
     function Print() {
@@ -178,12 +245,12 @@
         });
     });
 
-</script>
+    </script>
 
 
 
 
 
-  
+
 
 
