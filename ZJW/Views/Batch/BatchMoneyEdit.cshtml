@@ -202,16 +202,25 @@
             { field: 'ck', checkbox: false },
             ]],
             columns: [[
-            { field: 'Name', title: '物品名称', width: 120, sortable: true, align: 'center' },
-            { field: 'Measure', title: '计量单位', width: 120, sortable: true, align: 'center' },
-            { field: 'Amount', title: '单位数', width: 120, sortable: true, align: 'center' },
-            { field: 'PackageNumber', title: '件数', width: 120, sortable: true, align: 'center' },
-            { field: 'Description', title: '物品特征、型号、规格等', width: 200, sortable: true, align: 'center' },
-            { field: 'CaseName', title: '所属案件', width: 120, sortable: true, align: 'center' },
-            { field: 'GoodsProperty', title: '物品性质', width: 120, sortable: true, align: 'center' },
-            { field: 'Price', title: '鉴定价格', width: 120, sortable: true, align: 'center' },
-            { field: 'HandleMethod', title: '处置意见', width: 120, sortable: true, align: 'center' },
-            { field: 'Note', title: '备注', width: 200, sortable: true, align: 'center' },
+                 { field: 'CaseName', title: '案件名称', width: 300, sortable: true, align: 'center' },
+                 { field: 'MoneyCode', title: '款项编号', width: 120, sortable: true, align: 'center' },
+                 { field: 'OriginalHolder', title: '原持有人', width: 120, sortable: true, align: 'center' },
+                 { field: 'Sum', title: '金额', width: 120, sortable: true, align: 'center' },
+                 { field: 'Currency', title: '币 种', width: 120, sortable: true, align: 'center' },
+
+
+                 {
+                     field: 'WithholdDate', title: '暂扣时间', width: 120, sortable: true, align: 'center',
+                     formatter: function (v, r) {
+                         if (r.WithholdDate != null) {
+                             var dateMilliseconds = parseInt(r.WithholdDate.replace(/\D/igm, ""));
+                             var result = new Date(dateMilliseconds);
+                             return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
+                         }
+                     }
+                 },
+                 { field: 'HandleMethod', title: '处置方式', width: 120, sortable: true, align: 'center' },
+                 { field: 'IsFinished', title: '处置状态', width: 120, sortable: true, align: 'center' },
 
             ]]
         });

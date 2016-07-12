@@ -42,7 +42,7 @@
             if(rows!=null){
                 str=str.substr(0,str.length-1);
             }
-            StandardPost('/Batch/Create',{ID:str,Type:type})
+            StandardPost('/Batch/Create',{ID:str,Type:type,PropertyName:"款项"})
         }
 
         /*for (var p in rows) {
@@ -64,7 +64,7 @@
             if(rows!=null){
                 str=str.substr(0,str.length-1);
             }
-            StandardPost('/Batch/BatchMoneyEdit',{ID:str,Type:type})
+            StandardPost('/Batch/BatchMoneyEdit',{ID:str,Type:type,PropertyName:"款项"})
         }
     }
     function batchHandle(type){
@@ -81,7 +81,7 @@
             if(rows!=null){
                 str=str.substr(0,str.length-1);
             }
-            StandardPost('/Batch/BatchMoneyHandle',{ID:str,Type:type})
+            StandardPost('/Batch/BatchMoneyHandle',{ID:str,Type:type,PropertyName:"款项"})
         }
     }
     function StandardPost(url,args){
@@ -140,6 +140,7 @@
                          }
                      }
                  },
+                 { field: 'Status', title: '状态', width: 120, sortable: true, align: 'center' },
                  { field: 'HandleMethod', title: '处置方式', width: 120, sortable: true, align: 'center' },
                  { field: 'IsFinished', title: '处置状态', width: 120, sortable: true, align: 'center' },
             ]],

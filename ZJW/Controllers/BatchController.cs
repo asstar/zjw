@@ -21,6 +21,7 @@ namespace zjw.Controllers
         {
             string IDs = Request["ID"];
             string Type = Request["Type"];
+            string propertyName = Request["PropertyName"];
             Form formInfo = new Form();
             Batch batchInfo = new Batch();
             Transfer transfer = new Transfer();
@@ -44,7 +45,14 @@ namespace zjw.Controllers
                     batchInfo.Action = "/Export/ExportSheet";
                     ViewBag.Form = formInfo;
                     ViewBag.Batch = batchInfo;
-                    return View("DeliverEdit");
+                    if (propertyName == "款项")
+                    {
+                        return View("DeliverMoneyEdit");
+                    }
+                    else
+                    {
+                        return View("DeliverGoodsEdit");
+                    }
                     break;
                 case "接收":
                     formInfo.Template = "Sheet.xls";
@@ -102,7 +110,14 @@ namespace zjw.Controllers
                     batchInfo.ReasonTitle = "处置";
                     ViewBag.Form = formInfo;
                     ViewBag.Batch = batchInfo;
-                    return View("DeliverEdit");
+                    if (propertyName == "款项")
+                    {
+                        return View("DeliverMoneyEdit");
+                    }
+                    else
+                    {
+                        return View("DeliverGoodsEdit");
+                    }
                     break;
                 case "打印处置文书":
                     formInfo.Template = "Doc.doc";

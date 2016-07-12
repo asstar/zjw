@@ -122,11 +122,6 @@
     <Content Include="Resource\EasyUI\demo\treegrid\treegrid_data3.json" />
     <Content Include="Resource\EasyUI\demo\tree\tree_data1.json" />
     <Content Include="Resource\EasyUI\demo\tree\tree_data2.json" />
-    <Content Include="Resource\EasyUI\themes\black\images\Thumbs.db" />
-    <Content Include="Resource\EasyUI\themes\bootstrap\images\Thumbs.db" />
-    <Content Include="Resource\EasyUI\themes\default\images\Thumbs.db" />
-    <Content Include="Resource\EasyUI\themes\gray\images\Thumbs.db" />
-    <Content Include="Resource\EasyUI\themes\metro\images\Thumbs.db" />
     <Content Include="Json\giftQuery.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -157,7 +152,7 @@
     <Content Include="Json\KeepMethod.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Doc\Word.doc">
+    <Content Include="doc\Word.doc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\zjw.pubxml" />
@@ -1789,8 +1784,18 @@
     <Content Include="Views\Batch\BatchGoodsEdit.cshtml" />
     <Content Include="Views\Batch\BatchMoneyHandle.cshtml" />
     <Content Include="Views\Batch\BatchGoodsHandle.cshtml" />
-    <Content Include="Views\Batch\BatchList.cshtml" />
-    <Content Include="Views\Batch\DeliverEdit.cshtml" />
+    <Content Include="Views\Batch\ReportList.cshtml" />
+    <Content Include="Views\Batch\DeliverGoodsEdit.cshtml" />
+    <Content Include="Views\Batch\DeliverMoneyEdit.cshtml" />
+    <Content Include="Template\Handle.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\Sheet.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\Word.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

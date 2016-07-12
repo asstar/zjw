@@ -1,0 +1,127 @@
+﻿@using Model;
+@{
+
+    Layout = null;
+    Form item = ViewBag.Form;
+    Batch batch = ViewBag.Batch;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    @RenderPage("~/Views/Shared/Include.cshtml")
+    <script src="../../Resource/edit.js"></script>
+
+
+</head>
+<body>
+    <div class="easyui-panel" style="padding: 20px 20px;">
+        @RenderPage("~/Views/Shared/upload.cshtml")
+        @{Html.BeginForm("Transfer", "Batch", FormMethod.Post, new { name = "frm_edit", id = "frm_edit" });}
+        <table class="detail_table" border="0" cellspacing="1" cellpadding="0" align="center" width="100%">
+            <tr class="detail_tr">
+                <td class="table_title" colspan="8">
+                    款物移送清单<br />
+                    @Html.HiddenFor(i => item.ID)
+                    @Html.HiddenFor(i => item.UserID)
+                    @Html.HiddenFor(i => item.FormType)
+                    @Html.HiddenFor(i => item.Template)
+                    @Html.HiddenFor(i => item.Data)
+                    @Html.HiddenFor(i => item.IsDeleted)
+                    @Html.HiddenFor(i => batch.Title)
+                    @Html.HiddenFor(i => batch.ReasonTitle)
+                </td>
+            </tr>
+            <tr class="detail_tr">
+                <td class="detail_td1" colspan="8">
+                    <div region="center" id="table_div" style="overflow:hidden;">
+                        <table id="grid_table" align="center" style="height: auto; width: auto"></table>
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+        <p align="center">
+
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="Transfer()">@batch.BtnTitle</a>
+
+            <a href="javascript:void(0);" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="history.back(-1); return false;">返回</a>
+        </p>
+
+        @{Html.EndForm();}
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+    function Transfer() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            $.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () { $('#frm_edit').submit() }, 0);
+            });
+        }
+    }
+    function Print() {
+        if ($("#frm_edit").form('validate')) {
+            $("#btnLogin").linkbutton("disable");
+            //$.messager.alert("操作提示", "操作成功！", "info", function (r) {
+                setTimeout(function () {
+                    $('#frm_edit').attr({"action": '@batch.Action' });
+                    $('#frm_edit').submit();
+                    $('#frm_edit').attr({ "action": "/Batch/Transfer" });
+                    $("#btnLogin").linkbutton("enable");
+                }, 0);
+            //});
+        }
+    }
+    $(function () {
+
+        $('#grid_table').datagrid({
+            url: '/Batch/GetList?IDs=@item.Data',
+            sortName: 'ID',
+            idField: 'ID',
+            rownumbers: true,
+            fit: false,
+            fitColumns: true,
+            frozenColumns: [[
+            { field: 'ck', checkbox: false},
+            ]],
+            columns: [[
+                 { field: 'CaseName', title: '案件名称', width: 300, sortable: true, align: 'center' },
+                 { field: 'MoneyCode', title: '款项编号', width: 120, sortable: true, align: 'center' },
+                 { field: 'OriginalHolder', title: '原持有人', width: 120, sortable: true, align: 'center' },
+                 { field: 'Sum', title: '金额', width: 120, sortable: true, align: 'center' },
+                 { field: 'Currency', title: '币 种', width: 120, sortable: true, align: 'center' },
+
+
+                 {
+                     field: 'WithholdDate', title: '暂扣时间', width: 120, sortable: true, align: 'center',
+                     formatter: function (v, r) {
+                         if (r.WithholdDate != null) {
+                             var dateMilliseconds = parseInt(r.WithholdDate.replace(/\D/igm, ""));
+                             var result = new Date(dateMilliseconds);
+                             return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
+                         }
+                     }
+                 },
+                 { field: 'HandleMethod', title: '处置方式', width: 120, sortable: true, align: 'center' },
+                 { field: 'IsFinished', title: '处置状态', width: 120, sortable: true, align: 'center' },
+
+            ]]
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+

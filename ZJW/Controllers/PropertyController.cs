@@ -237,7 +237,7 @@ namespace zjw.Controllers
             Session["UsePrev"] = false;
             string type = Request["Type"];
             BtnModel btn = new BtnModel();
-            if (((BaseInfo)Session["User"]).user.IsKeyNode)
+            if (((BaseInfo)Session["User"]).user.IsKeyNode || ((BaseInfo)Session["User"]).user.RoleID == new Guid("00000000-0007-0000-0000-000000000000"))
             {
                 if (type != null)
                 {
@@ -299,8 +299,57 @@ namespace zjw.Controllers
             }
             ListModel info = o.State;
             int total = 0;
+
+            BtnModel btnModel = (BtnModel)Session["BtnModel"];
+            string type = btnModel.type;
+            List<PropertyView> result = new List<PropertyView>();
+            if (type != null)
+            {
+                switch (type)
+                {
+                    case "Transfer":
+                        info.QueryString += " and Status='暂扣' and Active=1";
+                        break;
+                    case "Receive":
+                        info.QueryString += " and Status='接收' and Active=1";
+                        break;
+                    case "Out":
+                        info.QueryString += " and Status='待出库' and Active=1";
+                        break;
+                    case "Return":
+                        info.QueryString += " and Status='出库' and Active=1 ";
+                        break;
+                    case "Handle":
+                        info.QueryString += " and IsFinished<>'已处置' and Active=1";
+                        break;
+                    case "Deliver":
+                        info.QueryString += " and IsFinished<>'已处置' and IsDelivered<>1 and Active=1";
+                        break;
+                    case "Borrow":
+                        info.QueryString += " and (Status='移交'||Status='归还') and Active=1";
+                        break;
+                }
+            }
             info.QueryString += " and PropertyFlag = '款项'";
-            var result = propertyViewService.List(info, "`PropertyView`", ref total);
+            result = propertyViewService.List(info, "`PropertyView`", ref total);
+
+            Dictionary<Guid, PropertyView> dict = new Dictionary<Guid, PropertyView>();
+            List<PropertyView> process = new List<PropertyView>();
+            foreach (var i in result)
+            {
+                PropertyView trace = i;
+                while (trace.Next != null)
+                {
+                    trace = propertyViewService.FindLinkID((Guid)trace.Next);
+                }
+                if (!dict.ContainsKey(trace.LinkID))
+                {
+                    dict.Add(trace.LinkID, trace);
+                    process.Add(trace);
+                }
+            }
+            result = process;
+
             
 
             var data = new
@@ -316,7 +365,7 @@ namespace zjw.Controllers
             Session["UsePrev"] = false;
             string type = Request["Type"];
             BtnModel btn = new BtnModel();
-            if (((BaseInfo)Session["User"]).user.IsKeyNode)
+            if (((BaseInfo)Session["User"]).user.IsKeyNode||((BaseInfo)Session["User"]).user.RoleID==new Guid("00000000-0007-0000-0000-000000000000"))
             {
                 if (type != null)
                 {
@@ -403,7 +452,7 @@ namespace zjw.Controllers
                         info.QueryString += " and IsFinished<>'已处置' and IsDelivered<>1 and Active=1";
                         break;
                     case "Borrow":
-                        info.QueryString += " and Status='移交' and Active=1";
+                        info.QueryString += " and (Status='移交'||Status='归还') and Active=1";
                         break;
                 }
             }

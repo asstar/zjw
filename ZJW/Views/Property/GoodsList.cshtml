@@ -42,7 +42,7 @@
             if(rows!=null){
                 str=str.substr(0,str.length-1);
             }
-            StandardPost('/Batch/Create',{ID:str,Type:type})
+            StandardPost('/Batch/Create',{ID:str,Type:type,PropertyName:"物品"})
         }
 
         /*for (var p in rows) {
@@ -64,7 +64,7 @@
             if(rows!=null){
                 str=str.substr(0,str.length-1);
             }
-            StandardPost('/Batch/BatchGoodsEdit',{ID:str,Type:type})
+            StandardPost('/Batch/BatchGoodsEdit',{ID:str,Type:type,PropertyName:"物品"})
         }
     }
         function batchHandle(type){
@@ -81,7 +81,7 @@
                 if(rows!=null){
                     str=str.substr(0,str.length-1);
                 }
-                StandardPost('/Batch/BatchGoodsHandle',{ID:str,Type:type})
+                StandardPost('/Batch/BatchGoodsHandle',{ID:str,Type:type,PropertyName:"物品"})
             }
     }
     function StandardPost(url,args){
