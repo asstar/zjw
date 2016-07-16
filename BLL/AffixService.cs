@@ -12,7 +12,7 @@ namespace BLL
     {
         public void AddMore(Affix affix)
         {
-            String sql = "select * from affix where MasterID='" + affix.MasterID + "' and next is null and Type='"+affix.Type+"'";
+            String sql = "select * from affix where MasterID='" + affix.MasterID + "' and next is null and IsDeleted=0 and Type='"+affix.Type+"'";
             var result = SqlQuery(sql).FirstOrDefault();
             if (result != null)
             {

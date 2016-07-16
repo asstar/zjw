@@ -11,5 +11,6 @@ namespace BLL
 {
     public class PropertyService: BaseService<Property>, IPropertyService
     {
+
     }
 }

@@ -278,7 +278,7 @@ namespace zjw.Controllers
             }
             Session["BtnModel"] = btn;
             ViewBag.Btn = btn;
-            Session["UsePrev"] = false;
+
             return View();
         }
         public JsonResult GetMoneyList()
@@ -363,7 +363,7 @@ namespace zjw.Controllers
         }
         public ActionResult GoodsList()
         {
-            Session["UsePrev"] = false;
+            
             string type = Request["Type"];
             BtnModel btn = new BtnModel();
             if (((BaseInfo)Session["User"]).user.IsKeyNode||((BaseInfo)Session["User"]).user.RoleID==new Guid("00000000-0007-0000-0000-000000000000"))

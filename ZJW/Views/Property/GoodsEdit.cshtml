@@ -38,7 +38,7 @@
                     { @item.CaseName}
                     else
                     {@Html.TextBoxFor(i => item.CaseName, new { size = 60 })  if (((BaseInfo)Session["User"]).role.ID != new Guid("00000000-0007-0000-0000-000000000000"))
-                                                                              { <text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a></text>}<text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件款项信息</a></text>}}
+                                                                              { <text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="SelectCase()">选择案件</a></text>}<text><a href="javascript:void(0)" class="easyui-linkbutton" id="btnLogin" iconcls="icon-ok" onclick="CopyData()">复制上件物品信息</a></text>}}
                 </td>
                 <td class="detail_td1" colspan="1">案件代号：</td>
                 <td class="detail_td2" colspan="1">
@@ -407,6 +407,8 @@
     }
     $(document).ready(function () {
         $("#ImageBlock").hide();
+        $('#item_CaseName').attr('readonly', true);
+        $('#item_CaseCode').attr('readonly', true);
         $("#item_Type").combobox({
             url: '/json/Type.json',
             valueField: 'id',
@@ -503,6 +505,7 @@
     }
     function funAfterPicDel() {
         refeshPicGrid();
+        getImage('first');
     }
     function refeshPicGrid() {
         $('#pic_grid_table').datagrid({});
@@ -525,6 +528,8 @@
             success: function (data) {
                 if (data.rows != 0) {
                     $("#ImageBlock").show();
+                } else {
+                    $("#ImageBlock").hide();
                 }
                 for (var p in data.rows) {
                     $("#showImage").attr("src", "/File/Download?ID=" + data.rows[p]);

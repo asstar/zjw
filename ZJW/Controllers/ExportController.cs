@@ -150,7 +150,15 @@ namespace zjw.Controllers
             int sum=0;
             foreach (var j in result)
             {
-                sum += int.Parse(j.PackageNumber);
+                int sub = 1;
+                if (int.TryParse(j.PackageNumber, out sub))
+                {
+                    sum += int.Parse(j.PackageNumber);
+                }
+                else
+                {
+                    sum += 1;
+                }
             }
             designer.SetDataSource("Sum", sum+"件");
             var dt = ListToDataTable(result);

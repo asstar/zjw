@@ -184,8 +184,16 @@ namespace zjw.Controllers
             Guid guid = new Guid(ID);
 
             var affix = affixService.Find(guid);
+            if (!affix.IsDeleted)
+            {
 
-            return File(affix.Content, " ",/*affix.ContentType*/ affix.FileName);
+                return File(affix.Content, " ",/*affix.ContentType*/ affix.FileName);
+            }
+            else
+            {
+                return null;
+            }
+
         }
         public ActionResult Delete(string ID)
         {
@@ -197,7 +205,38 @@ namespace zjw.Controllers
             affix = affixService.Find(guid);
 
             affix.IsDeleted = true;
-
+            Affix prev=null, next=null;
+            if (affix.Prev != null)
+            {
+                prev = affixService.Find((Guid)affix.Prev);
+            }
+            if (affix.Next != null)
+            {
+                next = affixService.Find((Guid)affix.Next);
+            }
+            if (prev != null && next != null)
+            {
+                prev.Next = next.ID;
+                next.Prev = prev.ID;
+                affixService.Update(prev);
+                affixService.Update(next);
+            }
+            else
+            {
+                if (prev != null)
+                {
+                    prev.Next = null;
+                    affixService.Update(prev);
+                }
+                else
+                {
+                    if (next != null)
+                    {
+                        next.Prev = null;
+                        affixService.Update(next);
+                    }
+                }
+            }
             affixService.Update(affix);
 
             return Content("true");

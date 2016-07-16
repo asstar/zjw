@@ -276,7 +276,8 @@
         }
     }
     $(document).ready(function () {
-
+        $('#item_CaseName').attr('readonly', true);
+        $('#item_CaseCode').attr('readonly', true);
         $("#item_MoneyType").combobox({
             url: '/json/MoneyType.json',
             valueField: 'id',
